@@ -1,0 +1,28 @@
+{
+  // Enable quick suggestions in JSX/TSX strings
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+
+  // Let Tailwind CSS IntelliSense know how to parse JSX/TSX classNames
+  "tailwindCSS.experimental.classRegex": [
+    ["className\\s*=\\s*\"([^\"]*)", 1],
+    ["className\\s*=\\s*'([^']*)", 1],
+    ["className\\s*=\\s*`([^`]*)", 1],
+    ["clsx\\(([^)]*)\\)", 1],
+    ["classnames\\(([^)]*)\\)", 1]
+  ],
+
+  // Prevent warnings for Tailwind's custom @rules like @apply, @theme
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+
+  // Point Tailwind IntelliSense to your config file
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html",
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "tailwindCSS.tailwindConfig": "./tailwind.config.js"
+}
