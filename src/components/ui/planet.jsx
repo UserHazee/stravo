@@ -4,14 +4,14 @@ import { useRef, useEffect, useState } from "react";
 export function PlanetHero() {
     return (
         <section 
-            className="relative w-full overflow-visible pt-32  small:pb-20 next:pb-30 pb-10"
+            className="relative w-full pt-32 pb-0 overflow-visible"
             style={{
                 background: "linear-gradient(to bottom, #ffffff 0%, transparent 100%)"
             }}
         >
             {/* Static Crimson Dome - no animation */}
             <div 
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] small:h-[190vh] h-[140vh] next:h-[140vh]   max-w-[2000px]"
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-[150vh] small:h-[110vh] next:h-[160vh] max-w-[200%]"
             >
                 {/* Main dome gradient */}
                 <div 
@@ -54,7 +54,7 @@ export function PlanetHero() {
                     }}
                     className="absolute top-[20%] left-[15%] w-2 h-2 bg-white/60 rounded-full blur-[1px]"
                 />
-                  <motion.div
+                <motion.div
                     animate={{
                         opacity: [0.9, 0.6, 0.9],
                     }}
@@ -89,7 +89,7 @@ export function PlanetHero() {
                     }}
                     className="absolute top-[15%] left-[70%] w-1 h-1 bg-white/40 rounded-full blur-[1px]"
                 />
-                  <motion.div
+                <motion.div
                     animate={{
                         opacity: [0.9, 0.5, 0.9],
                     }}
@@ -101,7 +101,7 @@ export function PlanetHero() {
                     }}
                     className="absolute top-[45%] left-[76%] w-1 h-1 bg-white/40 rounded-full blur-[1px]"
                 />
-                   <motion.div
+                <motion.div
                     animate={{
                         opacity: [0.9, 0.5, 0.9],
                     }}
@@ -120,16 +120,16 @@ export function PlanetHero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="relative z-20 text-center text-white px-4 py-10 min-h-[60vh] flex flex-col justify-center"
+                className="relative z-20 text-center text-white px-4 py-10 min-h-[55vh] small:min-h-[60vh] next:min-h-[65vh] flex flex-col justify-center"
             >
-                <p className="text-sm uppercase tracking-widest text-red-300/80 mb-6 font-medium">
+                <p className="mb-6 text-sm font-medium tracking-widest uppercase text-red-300/80">
                     [ Why Work With Us ]
                 </p>
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-light font-outfit mb-8 tracking-tighter leading-tight">
+                <h1 className="mb-8 text-4xl font-light leading-tight tracking-tighter small:text-5xl next:text-6xl lg:text-7xl font-outfit">
                     "Smart cost-efficient scaling"
                 </h1>
-                <p className="max-w-2xl font-outfit font-light mx-auto text-lg text-gray-200/90 leading-relaxed mb-16">
-                    We help businesses scale their development teams with ease and deliver faster, more affordable, and reliable software solutions without recruitment risks.
+                <p className="max-w-2xl mx-auto mb-16 text-lg font-light leading-relaxed font-outfit text-gray-200/90">
+                    We help businesses scale their development with ease and deliver faster, more affordable, and reliable software solutions.
                 </p>
             </motion.div>
 
@@ -169,7 +169,6 @@ export function TestimonialSection() {
     const [canPrev, setCanPrev] = useState(false);
     const [canNext, setCanNext] = useState(true);
 
-    // Scroll by one "page"
     const scrollByPage = (dir = 1) => {
         const el = carouselRef.current;
         if (!el) return;
@@ -181,24 +180,20 @@ export function TestimonialSection() {
         el.scrollTo({ left: target, behavior: "smooth" });
     };
 
-    // Start auto-play
     const startAutoPlay = () => {
         stopAutoPlay();
         intervalRef.current = setInterval(() => scrollByPage(1), 5000);
     };
 
-    // Stop auto-play
     const stopAutoPlay = () => {
         if (intervalRef.current) clearInterval(intervalRef.current);
     };
 
-    // Setup autoplay once on mount
     useEffect(() => {
         startAutoPlay();
         return stopAutoPlay;
     }, []);
 
-    // Track scroll position to enable/disable buttons
     useEffect(() => {
         const el = carouselRef.current;
         if (!el) return;
@@ -219,9 +214,8 @@ export function TestimonialSection() {
     }, []);
 
     return (
-        <section id="testimonials" className=" relative z-20">
-            <div className="container mx-auto px-4 relative">
-
+        <section id="testimonials" className="relative z-20 pb-0">
+            <div className="container relative px-4 mx-auto">
                 <div
                     className="relative max-w-5xl mx-auto overflow-hidden group"
                     onMouseEnter={stopAutoPlay}
@@ -230,25 +224,25 @@ export function TestimonialSection() {
                     {/* Carousel */}
                     <div
                         ref={carouselRef}
-                        className="testimonial-carousel flex overflow-x-auto scroll-smooth snap-x snap-mandatory"
+                        className="flex overflow-x-auto testimonial-carousel scroll-smooth snap-x snap-mandatory"
                     >
                         {TESTIMONIALS.map((t, i) => (
                             <div
                                 key={i}
-                                className="testimonial-item flex-shrink-0 w-full flex flex-col items-center text-center planet:p-8 p-0 snap-start"
+                                className="flex flex-col items-center flex-shrink-0 w-full p-4 text-center small:p-8 next:p-12 testimonial-item snap-start"
                             >
                                 <div 
-                                    className="relative max-w-2xl mx-auto transition-transform duration-300 bg-gradient-to-br from-[#000000] to-[#090f24] p-[48px]"
+                                    className="relative max-w-2xl mx-auto transition-transform duration-300 bg-gradient-to-br from-[#000000] to-[#090f24] p-8 small:p-10 next:p-12"
                                 >
                                     {/* Quote icon */}
-                                    <div className="small:mb-6 mb-1">
-                                        <span className="material-symbols-outlined text-5xl text-red-400/60">
+                                    <div className="mb-2 small:mb-6">
+                                        <span className="text-4xl small:text-5xl material-symbols-outlined text-red-400/60">
                                             format_quote
                                         </span>
                                     </div>
 
                                     {/* Quote text */}
-                                    <blockquote className="small:text-xl text-sm font-light italic text-white/90 leading-relaxed mb-8">
+                                    <blockquote className="mb-8 text-sm italic font-light leading-relaxed small:text-xl text-white/90">
                                         "{t.quote}"
                                     </blockquote>
 
@@ -257,11 +251,11 @@ export function TestimonialSection() {
                                         <img
                                             alt={t.name}
                                             src={t.img}
-                                            className="w-14 h-14 rounded-full object-cover ring-2 ring-white/20"
+                                            className="object-cover rounded-full w-14 h-14 ring-2 ring-white/20"
                                         />
                                         <div className="text-left">
-                                            <p className="small:text-lg text-sm font-medium text-white">{t.name}</p>
-                                            <p className="small:text-sm text-xs text-gray-300/70">{t.role}</p>
+                                            <p className="text-sm font-medium text-white small:text-lg">{t.name}</p>
+                                            <p className="text-xs small:text-sm text-gray-300/70">{t.role}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -270,11 +264,11 @@ export function TestimonialSection() {
                     </div>
 
                     {/* Prev Button */}
-                    <div className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute z-10 transition-opacity duration-300 transform -translate-y-1/2 opacity-0 left-2 top-1/2 group-hover:opacity-100">
                         <button
                             onClick={() => scrollByPage(-1)}
                             disabled={!canPrev}
-                            className={` p-3 text-white shadow-lg  transition-all duration-300 ${
+                            className={`p-3 text-white shadow-lg transition-all duration-300 ${
                                 !canPrev ? "opacity-40 pointer-events-none" : "hover:scale-110"
                             }`}
                         >
@@ -283,11 +277,11 @@ export function TestimonialSection() {
                     </div>
 
                     {/* Next Button */}
-                    <div className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute z-10 transition-opacity duration-300 transform -translate-y-1/2 opacity-0 right-2 top-1/2 group-hover:opacity-100">
                         <button
                             onClick={() => scrollByPage(1)}
                             disabled={!canNext}
-                            className={` p-3 text-white shadow-lg  transition-all duration-300 ${
+                            className={`p-3 text-white shadow-lg transition-all duration-300 ${
                                 !canNext ? "opacity-40 pointer-events-none" : "hover:scale-110"
                             }`}
                         >
