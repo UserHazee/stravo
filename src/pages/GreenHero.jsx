@@ -28,71 +28,77 @@ export default function GreenHero() {
   ];
 
   return (
-    <section className="sm:py-20 py-10 bg-white text-center font-outfit">
-      {/* Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-        className="mb-12"
-      >
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
-          Our Hosting Services
-        </h2>
-        <p className="text-gray-500 max-w-xl mx-auto">
-          We provide comprehensive web hosting solutions to ensure your website is fast, secure, and always available for your customers.
-        </p>
-      </motion.div>
-
-      {/* Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 max-w-6xl mx-auto">
-        {/* Big Left Card */}
+    <>
+      <section className="py-10 text-center bg-white sm:py-20 font-outfit">
+        {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="md:col-span-2 bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-left text-white rounded-2xl p-8 flex items-center justify-center"
-        >
-          <h3 className="text-3xl md:text-4xl font-medium leading-snug">
-            Reliable Hosting With 99.9% Uptime Guarantee For Your Business.
-          </h3>
-        </motion.div>
-
-        {/* Cloud Hosting */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="bg-gray-50 rounded-2xl p-6 text-left shadow-sm hover:shadow-md transition"
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="mb-12"
         >
-          {services[0].icon}
-          <h4 className="text-lg font-semibold mt-3 mb-2 text-gray-900">
-            {services[0].title}
-          </h4>
-          <p className="text-gray-500 text-sm leading-relaxed">
-            {services[0].desc}
+          <h2 className="mb-3 text-4xl font-extrabold text-gray-900">
+            Our Hosting Services
+          </h2>
+          <p className="max-w-xl mx-auto text-gray-500">
+            We provide comprehensive web hosting solutions to ensure your website is fast, secure, and always available for your customers.
           </p>
         </motion.div>
 
-        {/* Bottom 3 Small Cards */}
-        {services.slice(1).map((service, index) => (
+        {/* Cards Grid */}
+        <div className="grid max-w-6xl grid-cols-1 gap-6 px-6 mx-auto md:grid-cols-2 lg:grid-cols-3">
+          {/* Big Left Card */}
           <motion.div
-            key={index}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="md:col-span-2 bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-left text-white rounded-2xl p-8 flex items-center justify-center"
+          >
+            <h3 className="text-3xl font-medium leading-snug md:text-4xl">
+              Reliable Hosting With 99.9% Uptime Guarantee For Your Business.
+            </h3>
+          </motion.div>
+
+          {/* Cloud Hosting */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut", delay: 0.1 * index }}
-            className="bg-gray-50 rounded-2xl p-6 text-left shadow-sm hover:shadow-md transition"
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="p-6 text-left transition shadow-sm bg-gray-50 rounded-2xl hover:shadow-md"
           >
-            {service.icon}
-            <h4 className="text-lg font-semibold mt-3 mb-2 text-gray-900">
-              {service.title}
+            {services[0].icon}
+            <h4 className="mt-3 mb-2 text-lg font-semibold text-gray-900">
+              {services[0].title}
             </h4>
-            <p className="text-gray-500 text-sm leading-relaxed">
-              {service.desc}
+            <p className="text-sm leading-relaxed text-gray-500">
+              {services[0].desc}
             </p>
           </motion.div>
-        ))}
-      </div>
-    </section>
+
+          {/* Bottom 3 Small Cards */}
+          {services.slice(1).map((service, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut", delay: 0.1 * index }}
+              className="p-6 text-left transition shadow-sm bg-gray-50 rounded-2xl hover:shadow-md"
+            >
+              {service.icon}
+              <h4 className="mt-3 mb-2 text-lg font-semibold text-gray-900">
+                {service.title}
+              </h4>
+              <p className="text-sm leading-relaxed text-gray-500">
+                {service.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+       
+      </section>
+    </>
+
+
   );
 };

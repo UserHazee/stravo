@@ -16,7 +16,7 @@ const navItems = [
                 items: [
                     { label: "Web Development", href: "/webdev" },
                     { label: "Web Hosting & Maintenance", href: "/hosting" },
-                    { label: "Mobile Responsiveness", href: "/greenhero" },
+                    { label: "Mobile Responsiveness", href: "/mobile" },
                 ],
             },
             {
@@ -134,7 +134,7 @@ export default function Navbar() {
                                                                             {link.label}
                                                                             <span className="absolute left-0 -bottom-0.5 h-[2px] w-0 bg-[#E2001A] transition-all duration-300 ease-out group-hover/item:w-full"></span>
                                                                         </span>
-                                                                        <span className="text-black text-xl transition-all duration-300 ease-out -translate-x-2 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0">
+                                                                        <span className="text-xl text-black transition-all duration-300 ease-out -translate-x-2 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0">
                                                                             →
                                                                         </span>
                                                                     </Link>
@@ -205,7 +205,7 @@ export default function Navbar() {
                             <Logo className="h-8" />
                             <button
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+                                className="p-2 transition-colors rounded-lg hover:bg-gray-800"
                                 aria-label="Close menu"
                             >
                                 <X className="w-6 h-6 text-white" />
@@ -220,7 +220,7 @@ export default function Navbar() {
                                         <>
                                             <button
                                                 onClick={() => setMobileAccordion(mobileAccordion === idx ? null : idx)}
-                                                className="flex items-center justify-between w-full px-6 py-4 text-left text-sm font-semibold uppercase tracking-wider hover:bg-gray-800 transition-colors"
+                                                className="flex items-center justify-between w-full px-6 py-4 text-sm font-semibold tracking-wider text-left uppercase transition-colors hover:bg-gray-800"
                                             >
                                                 {item.label}
                                                 <ChevronDown 
@@ -243,7 +243,7 @@ export default function Navbar() {
                                                                         <Link
                                                                             key={cIdx}
                                                                             to={child.href}
-                                                                            className="block py-2 text-sm text-gray-300 hover:text-white transition-colors"
+                                                                            className="block py-2 text-sm text-gray-300 transition-colors hover:text-white"
                                                                             onClick={() => {
                                                                                 setMobileMenuOpen(false);
                                                                                 setMobileAccordion(null);
@@ -262,7 +262,7 @@ export default function Navbar() {
                                     ) : (
                                         <Link
                                             to={item.href}
-                                            className="block px-6 py-4 text-sm font-semibold uppercase tracking-wider hover:bg-gray-800 transition-colors"
+                                            className="block px-6 py-4 text-sm font-semibold tracking-wider uppercase transition-colors hover:bg-gray-800"
                                             onClick={() => setMobileMenuOpen(false)}
                                         >
                                             {item.label}

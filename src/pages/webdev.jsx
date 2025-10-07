@@ -203,7 +203,7 @@ const WebDev = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative px-4 pt-32 pb-20 overflow-hidden bg-white sm:px-6 lg:px-20 font-outfit">
+      <section className="relative px-4 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 font-outfit">
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             {/* Left Column - Content */}
@@ -265,7 +265,7 @@ const WebDev = () => {
 
         {/* Background Decorations */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#E2001A]/5 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-gray-200/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 rounded-full w-96 h-96 bg-gradient-to-tr from-gray-200/20 to-transparent blur-3xl" />
       </section>
 
       {/* Services Grid Section */}
@@ -450,7 +450,7 @@ const WebDev = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="p-8 bg-white backdrop-blur-sm border border-gray-700 rounded-xl"
+                className="p-8 bg-white border border-gray-700 backdrop-blur-sm rounded-xl"
               >
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
@@ -473,7 +473,7 @@ const WebDev = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="p-10 text-center bg-white backdrop-blur-sm border border-gray-700 rounded-2xl"
+            className="p-10 text-center bg-white border border-gray-700 backdrop-blur-sm rounded-2xl"
           >
             <h3 className="mb-6 text-3xl font-bold text-black">Join 200+ satisfied clients</h3>
             <p className="mb-8 text-lg text-black">
@@ -535,7 +535,7 @@ const WebDev = () => {
 
       {/* FAQ Section */}
       <section className="px-4 py-20 bg-white sm:px-6 lg:px-20 font-outfit">
-        <div className="mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
