@@ -198,7 +198,7 @@ const WebHosting = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative px-4 pt-32 pb-0 overflow-hidden bg-white sm:px-6 lg:px-20 font-outfit">
+      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white  sm:px-6 lg:px-20 font-outfit">
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="grid items-center gap-8 lg:grid-cols-2">
             {/* Left Column - Content */}
@@ -237,8 +237,8 @@ const WebHosting = () => {
               className=""
             >
                 <picture 
-                className='w-full md:min-w-lg sm:min-w-md min-w-xs mx-auto'>
-                    <img src="../src/assets/Vps.png" alt="" className='w-full h-auto object-contain'/>
+                className='w-full mx-auto md:min-w-lg sm:min-w-md min-w-xs'>
+                    <img src="../src/assets/Vps.png" alt="" className='object-contain w-full h-auto'/>
                 </picture>
                 
             </motion.div>
@@ -247,7 +247,7 @@ const WebHosting = () => {
 
         {/* Background Decorations */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#E2001A]/5 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-gray-200/20 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 rounded-full w-96 h-96 bg-gradient-to-tr from-gray-200/20 to-transparent blur-3xl" />
       </section>
       <GreenHero />
 
@@ -416,7 +416,7 @@ const WebHosting = () => {
 
       {/* FAQ Section */}
       <section className="px-4 py-20 bg-white sm:px-6 lg:px-20 font-outfit">
-        <div className="mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

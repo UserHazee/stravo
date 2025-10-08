@@ -22,16 +22,14 @@ const navItems = [
             {
                 title: "Landing Page Websites",
                 items: [
-                    { label: "Single Page Website", href: "/single-page" },
+                    { label: "Single Page Website", href: "/" },
                     { label: "Business Portfolios", href: "/portfolios" },
                 ],
             },
             {
                 title: "SEO Optimization",
                 items: [
-                    { label: "On-Page SEO", href: "/seo-onpage" },
-                    { label: "Keyword Research", href: "/seo-keywords" },
-                    { label: "Technical SEO", href: "/seo-technical" },
+                    { label: "On-Page SEO", href: "/onpageseo" }
                 ],
             },
         ],

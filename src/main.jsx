@@ -5,7 +5,7 @@ import './icons/fontawesome.js';
 import App from './App.jsx'
 import WebDev from './pages/webdev.jsx'
 import WebHosting from './pages/webhosting.jsx'
-import GreenHero from './pages/GreenHero.jsx'
+import OnPageSEO from './pages/Onpage-Seo.jsx'
 import DigitalMarketingSection from './pages/NewSection.jsx'
 import ResponsiveDesign from './pages/MoblieResponsiveSection.jsx'
 import { BrowserRouter,Routes, Route } from "react-router-dom";
@@ -21,7 +21,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/webdev" element={<WebDev />} />
         {/* Add more routes as needed */}
         <Route path="/hosting" element={<WebHosting />} />
-        <Route path="/greenhero" element={<GreenHero />} />
+        <Route path="/onpageseo" element={<OnPageSEO />} />
         <Route path="/digitalmarketing" element={<DigitalMarketingSection />} />
         <Route path="/mobile" element={<ResponsiveDesign />} />
       </Routes>
