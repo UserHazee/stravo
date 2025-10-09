@@ -20,18 +20,15 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <section className="bg-black text-white py-20 planet:mt-0 mt-10 px-6 md:px-12 z-96">
-      <div className="max-w-6xl mx-auto grid next:grid-cols-2 gap-12">
+    <section className="px-6 py-16 text-white bg-black md:py-20 lg:py-24 md:px-12 ">
+      <div className="relative grid max-w-6xl gap-12 mx-auto next:grid-cols-2">
         {/* Left Side */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
         >
           <h3 className="text-sm uppercase text-[#E2001A] tracking-wide">
             What are the next steps
           </h3>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4">
+          <h2 className="mt-4 text-3xl font-bold md:text-4xl">
             Expect the first pull request in 10 days from today.
           </h2>
           <p className="mt-4 text-gray-300">
@@ -53,16 +50,16 @@ export function ProcessSection() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              className="mb-20 relative"
+              className="relative mb-20"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
             >
               {/* Step Label */}
-              <span className="absolute -left-16 bg-gray-800 text-white px-4 py-5 text-sm font-normal font-outfit">
+              <span className="absolute px-4 py-5 text-sm font-normal text-white bg-gray-800 -left-16 font-outfit">
                 {step.day}
               </span>
-              <h3 className="text-lg font-medium ps-7  font-outfit tracking-normal ">{step.title}</h3>
+              <h3 className="text-lg font-medium tracking-normal ps-7 font-outfit ">{step.title}</h3>
               <p className="text-gray-400 mt-2 text-sm ps-7 h-[70px] font-outfit tracking-tight ">{step.desc}</p>
             </motion.div>
           ))}
