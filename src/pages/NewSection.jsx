@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button'
 
 // --- Placeholder Images (replace with your actual assets) ---
-import hostingImg1 from '../assets/Server.png';
-import hostingImg2 from '../assets/maintenance.png';
+import hostingImg1 from '../assets/HOsitng.png';
+import hostingImg2 from '../assets/H&M.png';
 import teamMember1 from '../assets/1000483230 (1).png';
 import teamMember2 from '../assets/1000483218.png';
 import teamMember3 from '../assets/Gemini_Mullet.png';
@@ -14,7 +14,7 @@ const myHandler = () => {
 
 export default function WebHostingSection() {
   return (
-    <section className="font-outfit mx-auto bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <section className="font-outfit mx-auto bg-gradient-to-br from-[#000000] to-[#090f24] text-white py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       {/* Why You Need Web Hosting Section */}
       <div className="grid items-center max-w-6xl grid-cols-1 gap-12 mx-auto mb-20 lg:grid-cols-2 lg:gap-16 md:mb-32">
         {/* Left: Hosting Images */}
@@ -32,12 +32,12 @@ export default function WebHostingSection() {
             <img
               src={hostingImg1}
               alt="Server management and setup"
-              className="rounded-lg shadow-lg w-full h-auto object-cover  bg-gradient-to-tl from-[#4A000F] to-[#E2001A] aspect-square"
+              className=" shadow-lg w-full h-auto object-cover   aspect-square"
             />
             <img
               src={hostingImg2}
               alt="Team discussing web hosting solutions"
-              className="rounded-lg shadow-lg mt-8 w-full h-auto bg-gradient-to-tl from-[#4A000F] to-[#E2001A] object-cover aspect-square"
+              className=" shadow-lg mt-8 w-full h-auto bg-white object-cover aspect-square"
             />
           </div>
         </motion.div>
@@ -50,8 +50,8 @@ export default function WebHostingSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-center lg:text-left"
         >
-          <p className="mb-2 text-sm font-semibold tracking-wider text-green-400 uppercase">
-            Web Hosting
+          <p className="mb-2 text-sm font-semibold tracking-wider text-[#A0001E] uppercase">
+            [Web Hosting]
           </p>
           <h2 className="mb-6 text-4xl font-bold leading-tight md:text-5xl">
             Why You Need Reliable <br className="hidden md:inline" /> Web Hosting

@@ -43,9 +43,7 @@ export default function Footer() {
                             <Link to="/mobile" className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors">
                                 Mobile Responsiveness
                             </Link>
-                            <Link to="#" className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors">
-                                Integration and Automation
-                            </Link>
+                         
                         </div>
                     </div>
 

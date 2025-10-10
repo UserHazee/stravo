@@ -1,10 +1,23 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Smartphone, Globe, Search, Users, Zap, ArrowRight } from "lucide-react";
+import {
+  Smartphone,
+  Globe,
+  Search,
+  Users,
+  Zap,
+  ArrowRight,
+} from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
-import ResponsiveDesignCarousel from './Carousel'
+import ResponsiveDesignCarousel from "./Carousel";
+
+
+    const myHandler = () => {
+        // Handle button click
+        console.log("Get Started clicked");
+    };
 
 const ResponsiveDesign = () => {
   return (
@@ -27,16 +40,21 @@ const ResponsiveDesign = () => {
 
             <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 xl:text-7xl lg:text-6xl">
               Mobile Responsiveness: <br />
-              <span className="text-[#E2001A]">Your Website’s First Impression</span>
+              <span className="text-[#E2001A]">
+                Your Website’s First Impression
+              </span>
             </h1>
 
             <p className="max-w-xl text-lg text-gray-600">
-              Over 70% of online visitors browse through mobile devices. If your website isn’t mobile-friendly,
-              you’re losing potential clients before they even explore your brand.
+              Over 70% of online visitors browse through mobile devices. If your
+              website isn’t mobile-friendly, you’re losing potential clients
+              before they even explore your brand.
             </p>
-
-            <Button className="bg-[#E2001A] hover:bg-[#A0001E] text-white px-6 py-3 rounded-lg text-lg">
-              Learn How It Works <ArrowRight className="w-5 h-5 ml-2" />
+            <Button
+              className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
+              onClick={myHandler}
+            >
+              Get a call <ArrowRight className="w-5 h-5 ml-1" />
             </Button>
           </motion.div>
 
@@ -86,21 +104,26 @@ const ResponsiveDesign = () => {
             </span>
 
             <h2 className="mb-4 text-4xl font-bold text-gray-900">
-              Why every website must be <span className="text-[#E2001A]">mobile-friendly</span>.
+              Why every website must be{" "}
+              <span className="text-[#E2001A]">mobile-friendly</span>.
             </h2>
 
             <p className="mb-6 text-gray-600">
-              Responsive design ensures your website adjusts seamlessly to any screen size — desktop, tablet, or
-              smartphone. It’s not just a design choice, it’s a business necessity.
+              Responsive design ensures your website adjusts seamlessly to any
+              screen size — desktop, tablet, or smartphone. It’s not just a
+              design choice, it’s a business necessity.
             </p>
 
             <div className="space-y-4">
               <div className="flex items-start gap-4">
                 <Smartphone className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Better User Experience</h4>
+                  <h4 className="font-semibold text-gray-900">
+                    Better User Experience
+                  </h4>
                   <p className="text-sm text-gray-600">
-                    Visitors stay longer and explore more when your site is comfortable to use on any device.
+                    Visitors stay longer and explore more when your site is
+                    comfortable to use on any device.
                   </p>
                 </div>
               </div>
@@ -108,9 +131,12 @@ const ResponsiveDesign = () => {
               <div className="flex items-start gap-4">
                 <Search className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Improved SEO Ranking</h4>
+                  <h4 className="font-semibold text-gray-900">
+                    Improved SEO Ranking
+                  </h4>
                   <p className="text-sm text-gray-600">
-                    Google prioritizes mobile-friendly sites, helping you rank higher in search results.
+                    Google prioritizes mobile-friendly sites, helping you rank
+                    higher in search results.
                   </p>
                 </div>
               </div>
@@ -118,9 +144,12 @@ const ResponsiveDesign = () => {
               <div className="flex items-start gap-4">
                 <Users className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Higher Conversions</h4>
+                  <h4 className="font-semibold text-gray-900">
+                    Higher Conversions
+                  </h4>
                   <p className="text-sm text-gray-600">
-                    Easy navigation and readability directly improve your sales, inquiries, and brand trust.
+                    Easy navigation and readability directly improve your sales,
+                    inquiries, and brand trust.
                   </p>
                 </div>
               </div>
@@ -142,7 +171,8 @@ const ResponsiveDesign = () => {
             The impact of mobile responsiveness
           </motion.h2>
           <p className="max-w-3xl mx-auto mb-12 text-gray-600">
-            Businesses that adopt mobile-friendly designs see improved engagement and lower bounce rates.
+            Businesses that adopt mobile-friendly designs see improved
+            engagement and lower bounce rates.
           </p>
 
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
@@ -159,7 +189,9 @@ const ResponsiveDesign = () => {
                 transition={{ delay: idx * 0.1 }}
                 className="p-6 bg-white shadow-md rounded-2xl"
               >
-                <h3 className="text-3xl font-bold text-[#E2001A]">{stat.value}</h3>
+                <h3 className="text-3xl font-bold text-[#E2001A]">
+                  {stat.value}
+                </h3>
                 <p className="mt-2 text-gray-600">{stat.label}</p>
               </motion.div>
             ))}
@@ -178,7 +210,8 @@ const ResponsiveDesign = () => {
           Ready to make your website mobile-ready?
         </motion.h2>
         <p className="max-w-2xl mx-auto mb-8 text-lg text-white/90">
-          Let’s help you create a seamless, responsive design that looks stunning on any device.
+          Let’s help you create a seamless, responsive design that looks
+          stunning on any device.
         </p>
         <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
           Get a Free Site Audit

@@ -10,6 +10,7 @@
 
 @theme inline {
   --breakpoint-planet: 390;
+  --breakpoint-navbutil: 996;
   --breakpoint-small: 538;
   --breakpoint-next: 840px;
   --radius-sm: calc(var(--radius) - 4px);

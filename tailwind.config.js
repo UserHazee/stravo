@@ -7,7 +7,12 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {}, // no tokens here — we define them in @theme instead
+    extend: {
+        screens: {
+        'navbutil': '996px',
+      }
+
+    }, // no tokens here — we define them in @theme instead
   },
   plugins: [
     require("@tailwindcss/forms"),

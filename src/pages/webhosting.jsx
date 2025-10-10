@@ -10,6 +10,7 @@ import {
   Plus,
   Minus,
   MessageCircle,
+  ArrowRight,
   TrendingUp,
   UserCheck,
   Database,
@@ -22,7 +23,7 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import GreenHero from './GreenHero';
-import DigitalMarketingSection from './NewSection';
+import WebHostingSection from './NewSection';
 import {Button} from '../components/ui/button'
 
 const myHandler = () => {
@@ -213,7 +214,8 @@ const WebHosting = () => {
               </span>
 
               <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl">
-                Reliable Web Hosting & Maintenance Services.
+                Reliable Web <br/>
+                <span className="text-[#E2001A]   ">Hosting & Maintenance Services.</span>
               </h1>
 
               <div className="space-y-4">
@@ -227,7 +229,7 @@ const WebHosting = () => {
                   className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
                   onClick={myHandler}
                 >
-                  Get a call
+                  Get a call <ArrowRight className="w-5 h-5 ml-1" />
                 </Button>
               </div>
             </motion.div>
@@ -302,7 +304,7 @@ const WebHosting = () => {
         </div>
       </section>
       
-        <DigitalMarketingSection />
+        <WebHostingSection />
 
       {/* Three Pillars Section */}
       <section className="px-4 py-20 bg-gray-50 sm:px-6 lg:px-20 font-outfit">
@@ -333,38 +335,6 @@ const WebHosting = () => {
                 </div>
                 <h3 className="mb-4 text-xl font-bold text-gray-900">{pillar.title}</h3>
                 <p className="text-gray-600">{pillar.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* What We Can Help With Section */}
-      <section className="px-4 py-20 bg-white sm:px-6 lg:px-20 font-outfit">
-        <div className="mx-auto max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-12 text-center"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl">
-              Additional services we provide
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {helpCategories.map((category, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.03 }}
-                whileHover={{ scale: 1.05 }}
-                className="p-6 text-center transition-all border-2 border-gray-200 rounded-xl cursor-pointer hover:border-[#E2001A] hover:shadow-md"
-              >
-                <span className="font-semibold text-gray-900">{category}</span>
               </motion.div>
             ))}
           </div>

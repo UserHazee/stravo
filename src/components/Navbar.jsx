@@ -1,5 +1,6 @@
 // components/Navbar.jsx
 import React, { useState } from 'react';
+import '../index.css'
 import { Link } from "react-router-dom";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,8 +23,8 @@ const navItems = [
             {
                 title: "Landing Page Websites",
                 items: [
-                    { label: "Single Page Website", href: "/" },
-                    { label: "Business Portfolios", href: "/portfolios" },
+                    { label: "Single Page Website", href: "/singlepagewebsite" },
+                    { label: "Business Portfolios", href: "/businessportfolio" },
                 ],
             },
             {
@@ -82,7 +83,7 @@ export default function Navbar() {
                         </Link>
 
                         {/* Desktop Nav */}
-                        <nav className="items-center hidden gap-8 md:flex">
+                        <nav className="items-center hidden gap-8 lg:flex">
                             {navItems.map((item, idx) => (
                                 <div
                                     key={idx}
@@ -112,7 +113,7 @@ export default function Navbar() {
                                                 animate={{ opacity: 1}}
                                                 exit={{ opacity: 0}}
                                                 transition={{ duration: 0.05, ease: "easeInOut" }}
-                                                className="absolute left-1/2 -translate-x-1/2  cursor-pointer w-[850px] bg-white border border-gray-100  shadow-2xl p-10 grid grid-cols-2 gap-x-12 gap-y-8"
+                                                className="absolute left-1/2 -translate-x-1/2  cursor-pointer lg:w-[650px] xl:w-[850px]   bg-white border border-gray-100  shadow-2xl p-10 grid grid-cols-2 gap-x-12 gap-y-8"
                                             >
                                                 {item.children.map((section, sIdx) => (
                                                     <div key={sIdx} className="space-y-1">
@@ -151,7 +152,7 @@ export default function Navbar() {
                         {/* Right Side */}
                         <div className="flex items-center gap-4">
                             <Button
-                                className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
+                                className="hidden lg:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
                                 onClick={myHandler}
                             >
                                 Get Started
@@ -160,7 +161,7 @@ export default function Navbar() {
                             {/* Mobile Menu Button */}
                             <button
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                                className="p-2 md:hidden"
+                                className="p-2 lg:hidden"
                                 aria-label="Toggle mobile menu"
                             >
                                 {mobileMenuOpen ? (
