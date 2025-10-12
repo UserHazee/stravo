@@ -11,6 +11,14 @@ import OnPageSEO from './pages/Onpage-Seo.jsx'
 import BusinessPortfolio from './pages/BusinessPortfolio.jsx'
 import ResponsiveDesign from './pages/MoblieResponsiveSection.jsx'
 import SinglePageWebsite from './pages/SinglePage.jsx';
+import ReactDevelopment from './pages/React.jsx';
+import Vue from './pages/Vue.jsx';
+import AngularDevelopment from './pages/angular.jsx';
+import NodejsDevelopment from './pages/Node.jsx';
+import LaravelDevelopment from './pages/larevel.jsx';
+import PHPDevelopment from './pages/php.jsx';
+import CaseStudies from './pages/CaseStudies.jsx';
+import CaseStudyDetails from './pages/CaseStudiesDetails.jsx';
 
 // Create the router configuration
 const router = createBrowserRouter([
@@ -46,6 +54,40 @@ const router = createBrowserRouter([
     path: "/businessportfolio",
     element: <BusinessPortfolio />,
   },
+  {
+    path: "/react-js",
+    element: <ReactDevelopment />,
+  },
+  {
+    path: "/vue-js",
+    element: <Vue />,
+  },
+  {
+    path: "/angular-js",
+    element: <AngularDevelopment />,
+  },
+  {
+    path: "/node-js",
+    element: <NodejsDevelopment />,
+  },
+  {
+    path: "/laravel",
+    element: <LaravelDevelopment />,
+  },
+  {
+    path: "/php",
+    element: <PHPDevelopment />,
+  },
+  
+  {
+    path: "/casestudies",
+    element: <CaseStudies />,
+  },
+  {
+    path: "/casestudies/:id",
+    element: <CaseStudyDetails />,
+  },
+  
    ],
   },
 ]);

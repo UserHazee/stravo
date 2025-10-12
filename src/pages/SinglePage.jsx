@@ -1,5 +1,4 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { memo, useCallback } from "react";
 import {
   Globe,
   MousePointer,
@@ -12,10 +11,78 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 
-const SinglePageWebsite = () => {
-  const myHandler = () => {
+// Hero image imports
+import heroImageWebP from "../assets/photo_sp.webp"; // You'll create this
+import heroImageAVIF from "../assets/photo_sp.avif"; // Your downloaded file
+
+// About section image imports
+import aboutImageWebP from "../assets/photo_sp1.webp"; // You'll create this
+import aboutImageAVIF from "../assets/photo_sp1.avif"; // Your downloaded file
+
+// ========== STATIC DATA MOVED OUTSIDE COMPONENT ==========
+const stats = [
+  { label: "Faster navigation", value: "3x" },
+  { label: "Higher conversions", value: "45%" },
+  { label: "Less bounce rate", value: "-35%" },
+  { label: "Quicker load time", value: "1.5s" },
+];
+
+const features = [
+  {
+    icon: <Zap className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />,
+    title: "Fast Loading",
+    description: "Optimized to load quickly, providing a smoother user experience and lower bounce rates."
+  },
+  {
+    icon: <MousePointer className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />,
+    title: "Simple Navigation",
+    description: "Scrolling replaces clicks — making it effortless for users to explore your message."
+  },
+  {
+    icon: <BarChart className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />,
+    title: "Better Conversion Focus",
+    description: "With one clear call-to-action, single-page websites drive visitors toward one goal — inquiry, signup, or purchase."
+  }
+];
+
+// ========== MEMOIZED COMPONENTS ==========
+const StatCard = memo(({ stat }) => (
+  <div className="p-6 bg-white shadow-md rounded-2xl">
+    <h3 className="text-3xl font-bold text-[#E2001A]">{stat.value}</h3>
+    <p className="mt-2 text-gray-600">{stat.label}</p>
+  </div>
+));
+
+const FeatureItem = memo(({ feature }) => (
+  <div className="flex items-start gap-4">
+    {feature.icon}
+    <div>
+      <h4 className="font-semibold text-gray-900">{feature.title}</h4>
+      <p className="text-sm text-gray-600">{feature.description}</p>
+    </div>
+  </div>
+));
+
+const OptimizedImage = memo(({ webpSrc, avifSrc, alt, className = "", loading = "lazy", priority = false }) => (
+  <picture>
+    <source srcSet={webpSrc} type="image/webp" />
+    <source srcSet={avifSrc} type="image/avif" />
+    <img
+      src={avifSrc}
+      alt={alt}
+      className={`object-cover w-full h-auto shadow-xl rounded-2xl ${className}`}
+      loading={priority ? "eager" : loading}
+      width="800"
+      height="600"
+      decoding="async"
+    />
+  </picture>
+));
+
+const SinglePageWebsite = memo(() => {
+  const myHandler = useCallback(() => {
     console.log("Get Started clicked");
-  };
+  }, []);
 
   return (
     <div className="min-h-screen bg-white font-outfit">
@@ -25,12 +92,7 @@ const SinglePageWebsite = () => {
       <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 font-outfit">
         <div className="grid items-center gap-10 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
               Landing Page Websites
             </span>
@@ -52,20 +114,17 @@ const SinglePageWebsite = () => {
             >
               Start Now <ArrowRight className="w-5 h-5 ml-1" />
             </Button>
-          </motion.div>
+          </div>
 
           {/* Right Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop"
+          <div>
+            <OptimizedImage
+              webpSrc={heroImageWebP}
+              avifSrc={heroImageAVIF}
               alt="Single page website design"
-              className="object-cover w-full h-auto shadow-xl rounded-2xl"
+              priority={true}
             />
-          </motion.div>
+          </div>
         </div>
 
         {/* Subtle gradient background effect */}
@@ -76,25 +135,16 @@ const SinglePageWebsite = () => {
       <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
         <div className="grid items-center gap-12 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="order-1 md:order-0"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=869&auto=format&fit=crop"
+          <div className="order-1 md:order-0">
+            <OptimizedImage
+              webpSrc={aboutImageWebP}
+              avifSrc={aboutImageAVIF}
               alt="Single page design layout"
-              className="object-cover w-full h-auto shadow-xl rounded-2xl"
             />
-          </motion.div>
+          </div>
 
           {/* Right Text */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div>
             <span className="inline-block mb-3 px-3 py-1 text-sm font-semibold uppercase tracking-wider bg-gray-100 text-[#E2001A] rounded-full">
               About Single Page Websites
             </span>
@@ -111,82 +161,28 @@ const SinglePageWebsite = () => {
             </p>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <Zap className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">Fast Loading</h4>
-                  <p className="text-sm text-gray-600">
-                    Optimized to load quickly, providing a smoother user
-                    experience and lower bounce rates.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <MousePointer className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    Simple Navigation
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    Scrolling replaces clicks — making it effortless for users
-                    to explore your message.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <BarChart className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    Better Conversion Focus
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    With one clear call-to-action, single-page websites drive
-                    visitors toward one goal — inquiry, signup, or purchase.
-                  </p>
-                </div>
-              </div>
+              {features.map((feature, index) => (
+                <FeatureItem key={index} feature={feature} />
+              ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Statistics Section */}
       <section className="px-6 py-20 bg-gray-50 sm:px-10 lg:px-20">
         <div className="max-w-6xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 text-4xl font-bold text-gray-900"
-          >
+          <h2 className="mb-6 text-4xl font-bold text-gray-900">
             Why brands choose single page websites
-          </motion.h2>
+          </h2>
           <p className="max-w-3xl mx-auto mb-12 text-gray-600">
             Minimalism, clarity, and speed — three pillars that make single-page
             sites more effective than ever.
           </p>
 
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {[
-              { label: "Faster navigation", value: "3x" },
-              { label: "Higher conversions", value: "45%" },
-              { label: "Less bounce rate", value: "-35%" },
-              { label: "Quicker load time", value: "1.5s" },
-            ].map((stat, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="p-6 bg-white shadow-md rounded-2xl"
-              >
-                <h3 className="text-3xl font-bold text-[#E2001A]">
-                  {stat.value}
-                </h3>
-                <p className="mt-2 text-gray-600">{stat.label}</p>
-              </motion.div>
+            {stats.map((stat, idx) => (
+              <StatCard key={idx} stat={stat} />
             ))}
           </div>
         </div>
@@ -194,16 +190,11 @@ const SinglePageWebsite = () => {
 
       {/* CTA Section */}
       <section className="px-6 py-20 bg-[#E2001A] text-white text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-6 text-4xl font-bold"
-        >
+        <h2 className="mb-6 text-4xl font-bold">
           Ready to build your single page website?
-        </motion.h2>
+        </h2>
         <p className="max-w-2xl mx-auto mb-8 text-lg text-white/90">
-          Let’s craft a sleek, modern single-page site that tells your story in
+          Let's craft a sleek, modern single-page site that tells your story in
           seconds — not clicks.
         </p>
         <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
@@ -214,6 +205,6 @@ const SinglePageWebsite = () => {
       <Footer />
     </div>
   );
-};
+});
 
 export default SinglePageWebsite;

@@ -1,5 +1,4 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { memo, useCallback } from "react";
 import {
   Smartphone,
   Globe,
@@ -13,27 +12,88 @@ import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import ResponsiveDesignCarousel from "./Carousel";
 
+// Hero image imports
+import heroImageWebP from "../assets/photo_mr.webp"; // You'll create this
+import heroImageAVIF from "../assets/photo_mr.avif"; // Your downloaded file
 
-    const myHandler = () => {
-        // Handle button click
-        console.log("Get Started clicked");
-    };
+// About section image imports
+import aboutImageWebP from "../assets/photo_mr1.webp"; // You'll create this
+import aboutImageAVIF from "../assets/photo_mr1.avif"; // Your downloaded file
 
-const ResponsiveDesign = () => {
+// ========== STATIC DATA MOVED OUTSIDE COMPONENT ==========
+const stats = [
+  { label: "Users browse via mobile", value: "70%" },
+  { label: "Higher retention rate", value: "60%" },
+  { label: "Faster load performance", value: "2x" },
+  { label: "SEO improvement", value: "35%" },
+];
+
+const features = [
+  {
+    icon: <Smartphone className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />,
+    title: "Better User Experience",
+    description: "Visitors stay longer and explore more when your site is comfortable to use on any device."
+  },
+  {
+    icon: <Search className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />,
+    title: "Improved SEO Ranking",
+    description: "Google prioritizes mobile-friendly sites, helping you rank higher in search results."
+  },
+  {
+    icon: <Users className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />,
+    title: "Higher Conversions",
+    description: "Easy navigation and readability directly improve your sales, inquiries, and brand trust."
+  }
+];
+
+// ========== MEMOIZED COMPONENTS ==========
+const StatCard = memo(({ stat }) => (
+  <div className="p-6 bg-white shadow-md rounded-2xl">
+    <h3 className="text-3xl font-bold text-[#E2001A]">{stat.value}</h3>
+    <p className="mt-2 text-gray-600">{stat.label}</p>
+  </div>
+));
+
+const FeatureItem = memo(({ feature }) => (
+  <div className="flex items-start gap-4">
+    {feature.icon}
+    <div>
+      <h4 className="font-semibold text-gray-900">{feature.title}</h4>
+      <p className="text-sm text-gray-600">{feature.description}</p>
+    </div>
+  </div>
+));
+
+const OptimizedImage = memo(({ webpSrc, avifSrc, alt, className = "", loading = "lazy", priority = false }) => (
+  <picture>
+    <source srcSet={webpSrc} type="image/webp" />
+    <source srcSet={avifSrc} type="image/avif" />
+    <img
+      src={avifSrc}
+      alt={alt}
+      className={`object-cover w-full h-auto shadow-xl rounded-2xl ${className}`}
+      loading={priority ? "eager" : loading}
+      width="800"
+      height="600"
+      decoding="async"
+    />
+  </picture>
+));
+
+const ResponsiveDesign = memo(() => {
+  const myHandler = useCallback(() => {
+    console.log("Get Started clicked");
+  }, []);
+
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white  sm:px-6 lg:px-20 font-outfit">
+      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 font-outfit">
         <div className="grid items-center gap-10 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left - Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
               Why It Matters
             </span>
@@ -41,13 +101,13 @@ const ResponsiveDesign = () => {
             <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 xl:text-7xl lg:text-6xl">
               Mobile Responsiveness: <br />
               <span className="text-[#E2001A]">
-                Your Website’s First Impression
+                Your Website's First Impression
               </span>
             </h1>
 
             <p className="max-w-xl text-lg text-gray-600">
               Over 70% of online visitors browse through mobile devices. If your
-              website isn’t mobile-friendly, you’re losing potential clients
+              website isn't mobile-friendly, you're losing potential clients
               before they even explore your brand.
             </p>
             <Button
@@ -56,20 +116,17 @@ const ResponsiveDesign = () => {
             >
               Get a call <ArrowRight className="w-5 h-5 ml-1" />
             </Button>
-          </motion.div>
+          </div>
 
           {/* Right - Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1600105574066-603ee0fbd1a8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          <div>
+            <OptimizedImage
+              webpSrc={heroImageWebP}
+              avifSrc={heroImageAVIF}
               alt="Responsive design mockup"
-              className="object-cover w-full h-auto shadow-xl rounded-2xl"
+              priority={true}
             />
-          </motion.div>
+          </div>
         </div>
 
         {/* Soft Background Decoration */}
@@ -80,25 +137,16 @@ const ResponsiveDesign = () => {
       <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
         <div className="grid items-center gap-12 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="order-1 md:order-0"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          <div className="order-1 md:order-0">
+            <OptimizedImage
+              webpSrc={aboutImageWebP}
+              avifSrc={aboutImageAVIF}
               alt="Design collaboration"
-              className="object-cover w-full h-auto shadow-xl rounded-2xl"
             />
-          </motion.div>
+          </div>
 
           {/* Right Text */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div>
             <span className="inline-block mb-3 px-3 py-1 text-sm font-semibold uppercase tracking-wider bg-gray-100 text-[#E2001A] rounded-full">
               About Responsive Design
             </span>
@@ -110,90 +158,35 @@ const ResponsiveDesign = () => {
 
             <p className="mb-6 text-gray-600">
               Responsive design ensures your website adjusts seamlessly to any
-              screen size — desktop, tablet, or smartphone. It’s not just a
-              design choice, it’s a business necessity.
+              screen size — desktop, tablet, or smartphone. It's not just a
+              design choice, it's a business necessity.
             </p>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <Smartphone className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    Better User Experience
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    Visitors stay longer and explore more when your site is
-                    comfortable to use on any device.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <Search className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    Improved SEO Ranking
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    Google prioritizes mobile-friendly sites, helping you rank
-                    higher in search results.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <Users className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">
-                    Higher Conversions
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    Easy navigation and readability directly improve your sales,
-                    inquiries, and brand trust.
-                  </p>
-                </div>
-              </div>
+              {features.map((feature, index) => (
+                <FeatureItem key={index} feature={feature} />
+              ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
+
       <ResponsiveDesignCarousel />
 
       {/* Statistic Section */}
       <section className="px-6 py-20 bg-gray-50 sm:px-10 lg:px-20">
         <div className="max-w-6xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6 text-4xl font-bold text-gray-900"
-          >
+          <h2 className="mb-6 text-4xl font-bold text-gray-900">
             The impact of mobile responsiveness
-          </motion.h2>
+          </h2>
           <p className="max-w-3xl mx-auto mb-12 text-gray-600">
             Businesses that adopt mobile-friendly designs see improved
             engagement and lower bounce rates.
           </p>
 
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {[
-              { label: "Users browse via mobile", value: "70%" },
-              { label: "Higher retention rate", value: "60%" },
-              { label: "Faster load performance", value: "2x" },
-              { label: "SEO improvement", value: "35%" },
-            ].map((stat, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="p-6 bg-white shadow-md rounded-2xl"
-              >
-                <h3 className="text-3xl font-bold text-[#E2001A]">
-                  {stat.value}
-                </h3>
-                <p className="mt-2 text-gray-600">{stat.label}</p>
-              </motion.div>
+            {stats.map((stat, idx) => (
+              <StatCard key={idx} stat={stat} />
             ))}
           </div>
         </div>
@@ -201,16 +194,11 @@ const ResponsiveDesign = () => {
 
       {/* CTA Section */}
       <section className="px-6 py-20 bg-[#E2001A] text-white text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-6 text-4xl font-bold"
-        >
+        <h2 className="mb-6 text-4xl font-bold">
           Ready to make your website mobile-ready?
-        </motion.h2>
+        </h2>
         <p className="max-w-2xl mx-auto mb-8 text-lg text-white/90">
-          Let’s help you create a seamless, responsive design that looks
+          Let's help you create a seamless, responsive design that looks
           stunning on any device.
         </p>
         <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
@@ -221,6 +209,6 @@ const ResponsiveDesign = () => {
       <Footer />
     </div>
   );
-};
+});
 
 export default ResponsiveDesign;

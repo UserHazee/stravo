@@ -42,22 +42,22 @@ const navItems = [
             {
                 title: "Frontend",
                 items: [
-                    { label: "React.js", href: "/tech/react" },
-                    { label: "Next.js", href: "/tech/nextjs" },
-                    { label: "Vue.js", href: "/tech/vue" },
+                    { label: "React.js", href: "/react-js" },
+                    { label: "Angular.js", href: "/angular-js" },
+                    { label: "Vue.js", href: "/vue-js" },
                 ],
             },
             {
                 title: "Backend",
                 items: [
-                    { label: "Node.js", href: "/tech/node" },
-                    { label: "Laravel", href: "/tech/laravel" },
-                    { label: "Spring Boot", href: "/tech/spring" },
+                    { label: "Node.js", href: "/node-js" },
+                    { label: "Laravel", href: "/laravel" },
+                    { label: "PHP", href: "/php" },
                 ],
             },
         ],
     },
-    { label: "Case Studies", href: "/case-studies" },
+    { label: "Case Studies", href: "/casestudies" },
     { label: "Insights", href: "/insights" },
     { label: "About", href: "/about" },
 ];
@@ -183,7 +183,7 @@ export default function Navbar() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 bg-black/50 z-[55] md:hidden"
+                        className="fixed inset-0 bg-black/50 z-[55] lg:hidden"
                         onClick={() => setMobileMenuOpen(false)}
                     />
                 )}
@@ -197,7 +197,7 @@ export default function Navbar() {
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="fixed top-0 right-0 bottom-0 w-80 bg-[#1A1A1A] text-white shadow-2xl overflow-y-auto z-[60] md:hidden"
+                        className="fixed top-0 right-0 bottom-0 w-80 bg-[#1A1A1A] text-white shadow-2xl overflow-y-auto z-[60] lg:hidden"
                     >
                         {/* Header */}
                         <div className="flex items-center justify-between p-6 border-b border-gray-700">

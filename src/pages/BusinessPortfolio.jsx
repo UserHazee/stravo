@@ -1,34 +1,85 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Briefcase, Globe, Star, Users, TrendingUp, ArrowRight } from "lucide-react";
 
-const BusinessPortfolio = () => {
-  const stats = [
-    { label: "Projects Completed", value: "120+" },
-    { label: "Industries Served", value: "15+" },
-    { label: "Client Satisfaction", value: "98%" },
-    { label: "Years of Experience", value: "10+" },
-  ];
+// Hero image imports
+import heroImageWebP from "../assets/photo_bp.webp"; // You'll create this
+import heroImageAVIF from "../assets/photo_bp.avif"; // Your downloaded file
 
-  const portfolioHighlights = [
-    {
-      title: "Modern Corporate Websites",
-      desc: "We build professional websites that showcase your brand’s identity and vision.",
-      icon: <Briefcase className="w-6 h-6 text-[#E2001A]" />,
-    },
-    {
-      title: "Global Reach",
-      desc: "Your online presence will be optimized for international audiences.",
-      icon: <Globe className="w-6 h-6 text-[#E2001A]" />,
-    },
-    {
-      title: "High Performance",
-      desc: "Fast, responsive, and SEO-friendly — designed to convert visitors into clients.",
-      icon: <TrendingUp className="w-6 h-6 text-[#E2001A]" />,
-    },
-  ];
+// About section image imports
+import aboutImageWebP from "../assets/photo_bp1.webp"; // You'll create this
+import aboutImageAVIF from "../assets/photo_bp1.avif"; // Your downloaded file
+
+// ========== STATIC DATA MOVED OUTSIDE COMPONENT ==========
+const stats = [
+  { label: "Projects Completed", value: "120+" },
+  { label: "Industries Served", value: "15+" },
+  { label: "Client Satisfaction", value: "98%" },
+  { label: "Years of Experience", value: "10+" },
+];
+
+const portfolioHighlights = [
+  {
+    title: "Modern Corporate Websites",
+    desc: "We build professional websites that showcase your brand's identity and vision.",
+    icon: <Briefcase className="w-6 h-6 text-[#E2001A]" />,
+  },
+  {
+    title: "Global Reach",
+    desc: "Your online presence will be optimized for international audiences.",
+    icon: <Globe className="w-6 h-6 text-[#E2001A]" />,
+  },
+  {
+    title: "High Performance",
+    desc: "Fast, responsive, and SEO-friendly — designed to convert visitors into clients.",
+    icon: <TrendingUp className="w-6 h-6 text-[#E2001A]" />,
+  },
+];
+
+// ========== MEMOIZED COMPONENTS ==========
+const StatCard = memo(({ stat }) => (
+  <div className="p-6 bg-white shadow-md rounded-2xl">
+    <h3 className="text-3xl font-bold text-[#E2001A]">{stat.value}</h3>
+    <p className="mt-2 text-gray-600">{stat.label}</p>
+  </div>
+));
+
+const HighlightItem = memo(({ highlight }) => (
+  <div className="flex items-start gap-4">
+    {highlight.icon}
+    <div>
+      <h4 className="font-semibold text-gray-900">{highlight.title}</h4>
+      <p className="text-sm text-gray-600">{highlight.desc}</p>
+    </div>
+  </div>
+));
+
+const OptimizedImage = memo(({ webpSrc, avifSrc, alt, className = "", loading = "lazy", priority = false }) => (
+  <picture>
+    <source srcSet={webpSrc} type="image/webp" />
+    <source srcSet={avifSrc} type="image/avif" />
+    <img
+      src={avifSrc}
+      alt={alt}
+      className={`object-cover w-full h-auto shadow-xl rounded-2xl ${className}`}
+      loading={priority ? "eager" : loading}
+      width="800"
+      height="600"
+      decoding="async"
+    />
+  </picture>
+));
+
+const BusinessPortfolio = memo(() => {
+  const handlePortfolioStart = useCallback(() => {
+    console.log("Start Portfolio clicked");
+  }, []);
+
+  const handleLaunchPortfolio = useCallback(() => {
+    console.log("Launch Portfolio clicked");
+  }, []);
 
   return (
     <div className="min-h-screen bg-white font-outfit">
@@ -48,22 +99,26 @@ const BusinessPortfolio = () => {
               <span className="text-[#E2001A]">Show. Impress. Convert.</span>
             </h1>
 
-             <p className="max-w-xl text-lg text-gray-600">
-              A well-crafted business portfolio isn’t just a website — it’s your
+            <p className="max-w-xl text-lg text-gray-600">
+              A well-crafted business portfolio isn't just a website — it's your
               online identity that builds credibility, showcases your work, and
               turns visitors into clients.
             </p>
-            <Button className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg">
+            <Button 
+              className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
+              onClick={handlePortfolioStart}
+            >
               Start Your Portfolio <ArrowRight className="w-5 h-5 ml-1" />
             </Button>
           </div>
 
           {/* Right - Image */}
           <div>
-            <img
-              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop"
+            <OptimizedImage
+              webpSrc={heroImageWebP}
+              avifSrc={heroImageAVIF}
               alt="Business portfolio showcase"
-              className="object-cover w-full h-auto shadow-xl rounded-2xl"
+              priority={true}
             />
           </div>
         </div>
@@ -77,10 +132,10 @@ const BusinessPortfolio = () => {
         <div className="grid items-center gap-12 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left Image */}
           <div className="order-1 md:order-0">
-            <img
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=900&auto=format&fit=crop"
+            <OptimizedImage
+              webpSrc={aboutImageWebP}
+              avifSrc={aboutImageAVIF}
               alt="Team collaboration"
-              className="object-cover w-full h-auto shadow-xl rounded-2xl"
             />
           </div>
 
@@ -97,19 +152,13 @@ const BusinessPortfolio = () => {
 
             <p className="mb-6 text-gray-600">
               Your business portfolio reflects your journey, skills, and credibility. 
-              Whether you’re a startup or an established brand, a well-structured portfolio 
+              Whether you're a startup or an established brand, a well-structured portfolio 
               helps attract clients, investors, and opportunities.
             </p>
 
             <div className="space-y-4">
               {portfolioHighlights.map((highlight, idx) => (
-                <div key={idx} className="flex items-start gap-4">
-                  {highlight.icon}
-                  <div>
-                    <h4 className="font-semibold text-gray-900">{highlight.title}</h4>
-                    <p className="text-sm text-gray-600">{highlight.desc}</p>
-                  </div>
-                </div>
+                <HighlightItem key={idx} highlight={highlight} />
               ))}
             </div>
           </div>
@@ -129,13 +178,7 @@ const BusinessPortfolio = () => {
 
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {stats.map((stat, idx) => (
-              <div
-                key={idx}
-                className="p-6 bg-white shadow-md rounded-2xl"
-              >
-                <h3 className="text-3xl font-bold text-[#E2001A]">{stat.value}</h3>
-                <p className="mt-2 text-gray-600">{stat.label}</p>
-              </div>
+              <StatCard key={idx} stat={stat} />
             ))}
           </div>
         </div>
@@ -148,9 +191,12 @@ const BusinessPortfolio = () => {
         </h2>
         <p className="max-w-2xl mx-auto mb-8 text-lg text-white/90">
           Build a portfolio that speaks for your brand and attracts your ideal clients. 
-          Let’s create your professional online presence today.
+          Let's create your professional online presence today.
         </p>
-        <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
+        <Button 
+          className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg"
+          onClick={handleLaunchPortfolio}
+        >
           Launch My Portfolio
         </Button>
       </section>
@@ -158,6 +204,6 @@ const BusinessPortfolio = () => {
       <Footer />
     </div>
   );
-};
+});
 
 export default BusinessPortfolio;

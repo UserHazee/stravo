@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+// Static data moved outside component to prevent re-creation on each render
 const steps = [
   {
     day: "Day 1",
@@ -17,14 +17,12 @@ const steps = [
   }
 ];
 
-
 export function ProcessSection() {
   return (
     <section className="px-6 py-16 text-white bg-black md:py-20 lg:py-24 md:px-12 ">
       <div className="relative grid max-w-6xl gap-12 mx-auto next:grid-cols-2">
         {/* Left Side */}
-        <motion.div
-        >
+        <div>
           <h3 className="text-sm uppercase text-[#E2001A] tracking-wide">
             What are the next steps
           </h3>
@@ -38,7 +36,7 @@ export function ProcessSection() {
           <button className="mt-6 px-6 py-3 bg-[#E2001A] text-white font-medium rounded-md hover:bg-teal-300 transition">
             Get a Proposal →
           </button>
-        </motion.div>
+        </div>
 
         {/* Right Side Timeline */}
         <div className="relative pl-8 ms-8 next:ms-0">
@@ -48,12 +46,9 @@ export function ProcessSection() {
           <div className="absolute top-70 left-0 h-[50px] w-[2px] bg-gradient-to-b from-[#000000] to-[#F8F9FA]"></div>
 
           {steps.map((step, index) => (
-            <motion.div
+            <div
               key={index}
               className="relative mb-20"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
             >
               {/* Step Label */}
               <span className="absolute px-4 py-5 text-sm font-normal text-white bg-gray-800 -left-16 font-outfit">
@@ -61,7 +56,7 @@ export function ProcessSection() {
               </span>
               <h3 className="text-lg font-medium tracking-normal ps-7 font-outfit ">{step.title}</h3>
               <p className="text-gray-400 mt-2 text-sm ps-7 h-[70px] font-outfit tracking-tight ">{step.desc}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
