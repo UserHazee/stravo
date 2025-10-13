@@ -7,6 +7,7 @@ import {
   ArrowRight,
   Layers,
 } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
@@ -31,18 +32,23 @@ const features = [
   {
     icon: <Zap className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />,
     title: "Fast Loading",
-    description: "Optimized to load quickly, providing a smoother user experience and lower bounce rates."
+    description:
+      "Optimized to load quickly, providing a smoother user experience and lower bounce rates.",
   },
   {
-    icon: <MousePointer className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />,
+    icon: (
+      <MousePointer className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />
+    ),
     title: "Simple Navigation",
-    description: "Scrolling replaces clicks — making it effortless for users to explore your message."
+    description:
+      "Scrolling replaces clicks — making it effortless for users to explore your message.",
   },
   {
     icon: <BarChart className="w-6 h-6 text-[#E2001A] flex-shrink-0 mt-1" />,
     title: "Better Conversion Focus",
-    description: "With one clear call-to-action, single-page websites drive visitors toward one goal — inquiry, signup, or purchase."
-  }
+    description:
+      "With one clear call-to-action, single-page websites drive visitors toward one goal — inquiry, signup, or purchase.",
+  },
 ];
 
 // ========== MEMOIZED COMPONENTS ==========
@@ -63,33 +69,79 @@ const FeatureItem = memo(({ feature }) => (
   </div>
 ));
 
-const OptimizedImage = memo(({ webpSrc, avifSrc, alt, className = "", loading = "lazy", priority = false }) => (
-  <picture>
-    <source srcSet={webpSrc} type="image/webp" />
-    <source srcSet={avifSrc} type="image/avif" />
-    <img
-      src={avifSrc}
-      alt={alt}
-      className={`object-cover w-full h-auto shadow-xl rounded-2xl ${className}`}
-      loading={priority ? "eager" : loading}
-      width="800"
-      height="600"
-      decoding="async"
-    />
-  </picture>
-));
+const OptimizedImage = memo(
+  ({
+    webpSrc,
+    avifSrc,
+    alt,
+    className = "",
+    loading = "lazy",
+    priority = false,
+  }) => (
+    <picture>
+      <source srcSet={webpSrc} type="image/webp" />
+      <source srcSet={avifSrc} type="image/avif" />
+      <img
+        src={avifSrc}
+        alt={alt}
+        className={`object-cover w-full h-auto shadow-xl rounded-2xl ${className}`}
+        loading={priority ? "eager" : loading}
+        width="800"
+        height="600"
+        decoding="async"
+      />
+    </picture>
+  )
+);
 
 const SinglePageWebsite = memo(() => {
-  const myHandler = useCallback(() => {
-    console.log("Get Started clicked");
-  }, []);
-
   return (
     <div className="min-h-screen bg-white font-outfit">
+      <Helmet>
+        <title>Single Page Website Design | Stravo</title>
+        <meta
+          name="description"
+          content="Build a high-converting single page website with Stravo. Fast-loading, mobile-optimized, and designed to engage visitors with a clear, focused message."
+        />
+        <meta
+          name="keywords"
+          content="single page website, landing page design, one page website, responsive web design, Stravo web development"
+        />
+        <meta
+          property="og:title"
+          content="Single Page Website Design | Stravo"
+        />
+        <meta
+          property="og:description"
+          content="Stravo creates stunning single page websites that are smooth, fast, and focused — perfect for startups, portfolios, and campaigns."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://stravo.com/singlepagewebsite"
+        />
+        <meta
+          property="og:image"
+          content="https://stravo.com/og/singlepage.webp"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Single Page Website Design | Stravo"
+        />
+        <meta
+          name="twitter:description"
+          content="Build a sleek, conversion-focused single page website with Stravo."
+        />
+        <meta
+          name="twitter:image"
+          content="https://stravo.com/og/singlepage.webp"
+        />
+      </Helmet>
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 font-outfit">
+      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 ">
         <div className="grid items-center gap-10 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left Text */}
           <div className="space-y-6">
@@ -107,13 +159,6 @@ const SinglePageWebsite = memo(() => {
               streamlined web page — fast loading, easy to navigate, and perfect
               for showcasing your brand or product.
             </p>
-
-            <Button
-              className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
-              onClick={myHandler}
-            >
-              Start Now <ArrowRight className="w-5 h-5 ml-1" />
-            </Button>
           </div>
 
           {/* Right Image */}
@@ -189,7 +234,7 @@ const SinglePageWebsite = memo(() => {
       </section>
 
       {/* CTA Section */}
-      <section className="px-6 py-20 bg-[#E2001A] text-white text-center">
+      <section className="px-6 py-20 bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white text-center">
         <h2 className="mb-6 text-4xl font-bold">
           Ready to build your single page website?
         </h2>
@@ -197,8 +242,8 @@ const SinglePageWebsite = memo(() => {
           Let's craft a sleek, modern single-page site that tells your story in
           seconds — not clicks.
         </p>
-        <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
-          Request a Free Concept
+        <Button variant="primary" size="top">
+          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
         </Button>
       </section>
 

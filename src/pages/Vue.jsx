@@ -12,6 +12,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 
+import { Helmet } from "react-helmet-async";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // --- Image placeholders (replace with your own later) ---
@@ -27,44 +29,44 @@ const heroIcon = (
   <FontAwesomeIcon
     icon={["fab", "vuejs"]}
     size="10x"
-    className="text-[#ddcbca]"
+    className="text-[#ffffff]"
   />
 );
 
 // --- Features data ---
 const features = [
   {
-    icon: <Code2 className="w-6 h-6 text-[#42b883]" />,
+    icon: <Code2 className="w-6 h-6 text-[#E2001A]" />,
     title: "Reactive Components",
     description:
       "Vue’s reactivity system ensures your app updates instantly when data changes — without unnecessary rendering.",
   },
   {
-    icon: <Zap className="w-6 h-6 text-[#42b883]" />,
+    icon: <Zap className="w-6 h-6 text-[#E2001A]" />,
     title: "Lightweight & Fast",
     description:
       "Vue’s small footprint and virtual DOM make it one of the fastest frameworks for modern web apps.",
   },
   {
-    icon: <Users className="w-6 h-6 text-[#42b883]" />,
+    icon: <Users className="w-6 h-6 text-[#E2001A]" />,
     title: "Strong Community",
     description:
       "Vue is supported by a passionate global community, continuously improving the ecosystem and plugins.",
   },
   {
-    icon: <Globe className="w-6 h-6 text-[#42b883]" />,
+    icon: <Globe className="w-6 h-6 text-[#E2001A]" />,
     title: "Progressive Framework",
     description:
       "Vue can be adopted incrementally — use it to enhance parts of a site or power an entire SPA.",
   },
   {
-    icon: <Target className="w-6 h-6 text-[#42b883]" />,
+    icon: <Target className="w-6 h-6 text-[#E2001A]" />,
     title: "Versatile Integration",
     description:
       "Vue easily integrates with Laravel, Node.js, and REST APIs — making it flexible for all project types.",
   },
   {
-    icon: <Cpu className="w-6 h-6 text-[#42b883]" />,
+    icon: <Cpu className="w-6 h-6 text-[#E2001A]" />,
     title: "Developer-Friendly",
     description:
       "Vue’s simple syntax and dev tools reduce complexity, improving productivity and project scalability.",
@@ -103,10 +105,42 @@ const pillars = [
 const Vue = memo(() => {
   return (
     <div className="min-h-screen bg-white font-outfit">
+      <Helmet>
+        <title>Vue.js Development Company | Stravo</title>
+        <meta
+          name="description"
+          content="Empower your business with fast, flexible, and reactive Vue.js web applications. Stravo builds scalable and maintainable Vue solutions for modern businesses."
+        />
+        <meta
+          name="keywords"
+          content="Vue development, Vue.js company, front-end development, SPA, Vue apps, Stravo"
+        />
+        <meta
+          property="og:title"
+          content="Vue.js Development Company | Stravo"
+        />
+        <meta
+          property="og:description"
+          content="Stravo creates dynamic and efficient Vue.js applications tailored to your business goals."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://stravo.com/vue-js" />
+        <meta property="og:image" content="https://stravo.com/og/vue.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Vue.js Development Company | Stravo"
+        />
+        <meta
+          name="twitter:description"
+          content="Fast and flexible Vue.js web development by Stravo."
+        />
+        <meta name="twitter:image" content="https://stravo.com/og/vue.webp" />
+      </Helmet>
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#35495e] to-[#42b883] text-white sm:px-6 lg:px-20">
+      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white sm:px-6 lg:px-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 items-center gap-10">
           <div>
             <h1 className="text-5xl font-bold leading-tight mb-4">
@@ -116,7 +150,7 @@ const Vue = memo(() => {
               Scalable. Efficient. Modern. Build seamless, dynamic interfaces
               and single-page applications powered by Vue.js.
             </p>
-            <Button className="bg-white text-[#42b883] hover:bg-gray-100 font-semibold px-8 py-4 rounded-lg">
+            <Button variant="primary" size="top">
               Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
@@ -148,13 +182,13 @@ const Vue = memo(() => {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Why we use Vue.js at{" "}
-              <span className="text-[#42b883]">Stravo</span>
+              <span className="text-[#E2001A]">Stravo</span>
             </h2>
             <p className="text-gray-600 mb-6">
               Vue.js is a progressive JavaScript framework known for its
               simplicity and flexibility. At Stravo, we use Vue to deliver
-              interactive, maintainable, and performant web solutions your
-              users will love.
+              interactive, maintainable, and performant web solutions your users
+              will love.
             </p>
           </div>
           <div>
@@ -212,6 +246,12 @@ const Vue = memo(() => {
               <details
                 key={idx}
                 className="border-b border-gray-200 py-4 group cursor-pointer"
+                onToggle={(e) =>
+                  e.currentTarget.setAttribute(
+                    "aria-expanded",
+                    e.currentTarget.open
+                  )
+                }
               >
                 <summary className="flex justify-between items-center text-gray-800 font-medium">
                   {item}
@@ -232,7 +272,7 @@ const Vue = memo(() => {
       {/* THREE PILLARS */}
       <section className="px-6 py-20 bg-[#111111] text-white sm:px-10 lg:px-20">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-sm uppercase text-[#42b883] mb-3 tracking-wider">
+          <h3 className="text-sm uppercase text-[#E2001A] mb-3 tracking-wider">
             Software Delivery Excellence Framework
           </h3>
           <h2 className="text-3xl font-bold mb-10">
@@ -245,7 +285,7 @@ const Vue = memo(() => {
                 key={idx}
                 className="bg-white/5 p-6 rounded-2xl backdrop-blur"
               >
-                <h4 className="text-lg font-semibold mb-4 text-[#42b883]">
+                <h4 className="text-lg font-semibold mb-4 text-[#E2001A]">
                   {pillar.title}
                 </h4>
                 <ul className="space-y-3 text-sm text-gray-300 list-disc list-inside">
@@ -260,7 +300,7 @@ const Vue = memo(() => {
       </section>
 
       {/* FINAL CTA */}
-      <section className="px-6 py-20 text-center bg-gradient-to-br from-[#35495e] to-[#42b883] text-white">
+      <section className="px-6 py-20 text-center bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white">
         <h2 className="text-3xl font-bold mb-4">
           With 50+ Vue.js projects delivered, Stravo can help bring yours to
           life.
@@ -269,8 +309,8 @@ const Vue = memo(() => {
           Let’s collaborate to build intuitive and high-performing Vue
           applications.
         </p>
-        <Button className="bg-white text-[#42b883] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
-          Book a Tech Call
+        <Button variant="primary" size="top">
+          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
         </Button>
       </section>
 

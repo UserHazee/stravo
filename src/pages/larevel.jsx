@@ -8,6 +8,7 @@ import {
   Globe,
   Cpu,
 } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
@@ -26,7 +27,7 @@ const heroIcon = (
   <FontAwesomeIcon
     icon={["fab", "laravel"]}
     size="10x"
-    className="text-[#ddcbca]"
+    className="text-[#ffffff]"
   />
 );
 
@@ -101,6 +102,44 @@ const pillars = [
 const LaravelDevelopment = memo(() => {
   return (
     <div className="min-h-screen bg-white font-outfit">
+      <Helmet>
+        <title>Laravel Development Services | Stravo</title>
+        <meta
+          name="description"
+          content="Power your business with Laravel — the most elegant PHP framework. Stravo delivers scalable, secure, and feature-rich Laravel applications."
+        />
+        <meta
+          name="keywords"
+          content="Laravel development, PHP framework, web application development, Laravel developers, Stravo"
+        />
+        <meta
+          property="og:title"
+          content="Laravel Development Services | Stravo"
+        />
+        <meta
+          property="og:description"
+          content="Stravo builds robust and secure Laravel applications tailored to your business needs."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://stravo.com/laravel" />
+        <meta
+          property="og:image"
+          content="https://stravo.com/og/laravel.webp"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Laravel Development Services | Stravo"
+        />
+        <meta
+          name="twitter:description"
+          content="Elegant and powerful Laravel web development by Stravo."
+        />
+        <meta
+          name="twitter:image"
+          content="https://stravo.com/og/laravel.webp"
+        />
+      </Helmet>
       <Navbar />
 
       {/* HERO SECTION */}
@@ -114,7 +153,7 @@ const LaravelDevelopment = memo(() => {
               Build high-performance, secure, and scalable web applications with
               Laravel — the framework built for modern development.
             </p>
-            <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold px-8 py-4 rounded-lg">
+            <Button variant="primary" size="top">
               Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
@@ -211,6 +250,12 @@ const LaravelDevelopment = memo(() => {
               <details
                 key={idx}
                 className="border-b border-gray-200 py-4 group cursor-pointer"
+                onToggle={(e) =>
+                  e.currentTarget.setAttribute(
+                    "aria-expanded",
+                    e.currentTarget.open
+                  )
+                }
               >
                 <summary className="flex justify-between items-center text-gray-800 font-medium">
                   {item}
@@ -267,8 +312,8 @@ const LaravelDevelopment = memo(() => {
           From startups to enterprises, Stravo builds robust and secure Laravel
           applications that scale as your business grows.
         </p>
-        <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
-          Book a Free Consultation
+        <Button variant="primary" size="top">
+          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
         </Button>
       </section>
 

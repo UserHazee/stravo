@@ -8,6 +8,7 @@ import {
   Globe,
   Cpu,
 } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
@@ -26,7 +27,7 @@ const heroIcon = (
   <FontAwesomeIcon
     icon={["fab", "node-js"]}
     size="10x"
-    className="text-[#ddcbca]"
+    className="text-[#ffffff]"
   />
 );
 
@@ -101,10 +102,42 @@ const pillars = [
 const NodejsDevelopment = memo(() => {
   return (
     <div className="min-h-screen bg-white font-outfit">
+      <Helmet>
+        <title>Node.js Backend Development | Stravo</title>
+        <meta
+          name="description"
+          content="Build scalable, real-time backend systems with Stravo’s expert Node.js developers. Fast, reliable, and designed for modern web applications."
+        />
+        <meta
+          name="keywords"
+          content="Node.js development, backend development, API development, real-time apps, Express.js, Stravo"
+        />
+        <meta
+          property="og:title"
+          content="Node.js Backend Development | Stravo"
+        />
+        <meta
+          property="og:description"
+          content="Stravo creates high-performance Node.js backends for real-time, data-driven web applications."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://stravo.com/node-js" />
+        <meta property="og:image" content="https://stravo.com/og/node.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Node.js Backend Development | Stravo"
+        />
+        <meta
+          name="twitter:description"
+          content="Fast and scalable Node.js backend development by Stravo."
+        />
+        <meta name="twitter:image" content="https://stravo.com/og/node.webp" />
+      </Helmet>
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#004C0F] to-[#00B341] text-white sm:px-6 lg:px-20">
+      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white sm:px-6 lg:px-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 items-center gap-10">
           <div>
             <h1 className="text-5xl font-bold leading-tight mb-4">
@@ -114,7 +147,7 @@ const NodejsDevelopment = memo(() => {
               Fast. Reliable. Scalable. Build modern backend systems that power
               real-time, data-driven web applications using Node.js.
             </p>
-            <Button className="bg-white text-[#00A300] hover:bg-gray-100 font-semibold px-8 py-4 rounded-lg">
+            <Button variant="primary" size="top">
               Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
@@ -146,7 +179,7 @@ const NodejsDevelopment = memo(() => {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Why we use Node.js at{" "}
-              <span className="text-[#00A300]">Stravo</span>
+              <span className="text-[#E2001A]">Stravo</span>
             </h2>
             <p className="text-gray-600 mb-6">
               Node.js has revolutionized backend development by allowing
@@ -208,6 +241,12 @@ const NodejsDevelopment = memo(() => {
               <details
                 key={idx}
                 className="border-b border-gray-200 py-4 group cursor-pointer"
+                onToggle={(e) =>
+                  e.currentTarget.setAttribute(
+                    "aria-expanded",
+                    e.currentTarget.open
+                  )
+                }
               >
                 <summary className="flex justify-between items-center text-gray-800 font-medium">
                   {item}
@@ -228,7 +267,7 @@ const NodejsDevelopment = memo(() => {
       {/* THREE PILLARS */}
       <section className="px-6 py-20 bg-[#111111] text-white sm:px-10 lg:px-20">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-sm uppercase text-[#00FF80] mb-3 tracking-wider">
+          <h3 className="text-sm uppercase text-[#E2001A] mb-3 tracking-wider">
             Backend Delivery Excellence Framework
           </h3>
           <h2 className="text-3xl font-bold mb-10">
@@ -240,7 +279,7 @@ const NodejsDevelopment = memo(() => {
                 key={idx}
                 className="bg-white/5 p-6 rounded-2xl backdrop-blur"
               >
-                <h4 className="text-lg font-semibold mb-4 text-[#00FF80]">
+                <h4 className="text-lg font-semibold mb-4 text-[#E2001A]">
                   {pillar.title}
                 </h4>
                 <ul className="space-y-3 text-sm text-gray-300 list-disc list-inside">
@@ -255,15 +294,15 @@ const NodejsDevelopment = memo(() => {
       </section>
 
       {/* FINAL CTA */}
-      <section className="px-6 py-20 text-center bg-gradient-to-br from-[#004C0F] to-[#00B341] text-white">
+      <section className="px-6 py-20 text-center bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white">
         <h2 className="text-3xl font-bold mb-4">
           With 60+ Node.js backends delivered, we know what performance means.
         </h2>
         <p className="max-w-2xl mx-auto mb-8 text-white/90">
           Let’s build your next scalable, event-driven application together.
         </p>
-        <Button className="bg-white text-[#00A300] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
-          Book a Tech Call
+        <Button variant="primary" size="top">
+          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
         </Button>
       </section>
 

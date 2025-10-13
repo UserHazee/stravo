@@ -31,10 +31,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 
-const myHandler = () => {
-  // Handle button click
-  console.log("Get Started clicked");
-};
 
 // ========== ALL MEMOIZED COMPONENTS MUST BE OUTSIDE ==========
 // UPDATED OptimizedImage Component with Next.js Image
@@ -468,14 +464,7 @@ const WebDev = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-4 pt-4 sm:flex-row">
-                <Button
-                  className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
-                  onClick={handleGetStarted}
-                >
-                  Get a call <ArrowRight className="w-5 h-5 ml-1" />
-                </Button>
-              </div>
+            
             </div>
 
             {/* Right Column - Technology Grid */}
@@ -721,7 +710,7 @@ const WebDev = () => {
               {stats.map((stat, idx) => (
                 <div
                   key={idx}
-                  className="px-6 py-3 bg-white border-2 border- bg-gradient-to-br from-[#4A000F] to-[#E2001A] rounded-full"
+                  className="px-6 py-3 bg-white border-2 border-gray-700 bg-gradient-to-br from-[#4A000F] to-[#E2001A] rounded-full"
                 >
                   <span className="font-semibold text-white">{stat.label}</span>
                 </div>

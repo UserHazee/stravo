@@ -8,6 +8,8 @@ import {
   Globe,
   Cpu,
 } from "lucide-react";
+
+import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
@@ -26,7 +28,7 @@ const heroIcon = (
   <FontAwesomeIcon
     icon={["fab", "php"]}
     size="10x"
-    className="text-[#ddcbca]"
+    className="text-[#ffffff]"
   />
 );
 
@@ -101,6 +103,38 @@ const pillars = [
 const PHPDevelopment = memo(() => {
   return (
     <div className="min-h-screen bg-white font-outfit">
+      <Helmet>
+        <title>PHP Web Development Company | Stravo</title>
+        <meta
+          name="description"
+          content="From dynamic websites to enterprise-grade applications — Stravo delivers secure and efficient PHP development using the latest frameworks."
+        />
+        <meta
+          name="keywords"
+          content="PHP development, PHP web apps, backend development, Laravel, CodeIgniter, Stravo"
+        />
+        <meta
+          property="og:title"
+          content="PHP Web Development Company | Stravo"
+        />
+        <meta
+          property="og:description"
+          content="Stravo builds secure, high-performance PHP applications for businesses of all sizes."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://stravo.com/php" />
+        <meta property="og:image" content="https://stravo.com/og/php.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="PHP Web Development Company | Stravo"
+        />
+        <meta
+          name="twitter:description"
+          content="Secure and efficient PHP development solutions by Stravo."
+        />
+        <meta name="twitter:image" content="https://stravo.com/og/php.webp" />
+      </Helmet>
       <Navbar />
 
       {/* HERO SECTION */}
@@ -114,7 +148,7 @@ const PHPDevelopment = memo(() => {
               Build dynamic, secure, and scalable web applications using PHP —
               the foundation of modern web development.
             </p>
-            <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold px-8 py-4 rounded-lg">
+            <Button variant="primary" size="top">
               Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
@@ -145,8 +179,7 @@ const PHPDevelopment = memo(() => {
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Why we use PHP at{" "}
-              <span className="text-[#E2001A]">Stravo</span>
+              Why we use PHP at <span className="text-[#E2001A]">Stravo</span>
             </h2>
             <p className="text-gray-600 mb-6">
               PHP powers over 75% of websites worldwide — from WordPress to
@@ -211,6 +244,12 @@ const PHPDevelopment = memo(() => {
               <details
                 key={idx}
                 className="border-b border-gray-200 py-4 group cursor-pointer"
+                onToggle={(e) =>
+                  e.currentTarget.setAttribute(
+                    "aria-expanded",
+                    e.currentTarget.open
+                  )
+                }
               >
                 <summary className="flex justify-between items-center text-gray-800 font-medium">
                   {item}
@@ -267,8 +306,8 @@ const PHPDevelopment = memo(() => {
           From small business websites to enterprise-grade platforms, Stravo
           delivers fast, secure, and scalable PHP solutions.
         </p>
-        <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
-          Book a Free Consultation
+        <Button variant="primary" size="top">
+          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
         </Button>
       </section>
 

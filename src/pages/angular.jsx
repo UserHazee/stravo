@@ -8,6 +8,8 @@ import {
   Globe,
   Cpu,
 } from "lucide-react";
+
+import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
@@ -26,7 +28,7 @@ const heroIcon = (
   <FontAwesomeIcon
     icon={["fab", "angular"]}
     size="10x"
-    className="text-[#ddcbca]"
+    className="text-[#ffffff]"
   />
 );
 
@@ -101,6 +103,44 @@ const pillars = [
 const AngularDevelopment = memo(() => {
   return (
     <div className="min-h-screen bg-white font-outfit">
+      <Helmet>
+        <title>Angular Development Experts | Stravo</title>
+        <meta
+          name="description"
+          content="Develop enterprise-grade, dynamic web applications using Angular. Stravo’s team delivers scalable and secure solutions for businesses worldwide."
+        />
+        <meta
+          name="keywords"
+          content="Angular development, Angular apps, enterprise web apps, front-end framework, Stravo"
+        />
+        <meta
+          property="og:title"
+          content="Angular Development Experts | Stravo"
+        />
+        <meta
+          property="og:description"
+          content="Stravo builds high-performing Angular applications for enterprises and startups."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://stravo.com/angular-js" />
+        <meta
+          property="og:image"
+          content="https://stravo.com/og/angular.webp"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Angular Development Experts | Stravo"
+        />
+        <meta
+          name="twitter:description"
+          content="Enterprise-grade Angular development solutions by Stravo."
+        />
+        <meta
+          name="twitter:image"
+          content="https://stravo.com/og/angular.webp"
+        />
+      </Helmet>
       <Navbar />
 
       {/* HERO SECTION */}
@@ -115,7 +155,7 @@ const AngularDevelopment = memo(() => {
               applications with Angular — a framework designed for enterprise
               excellence and long-term performance.
             </p>
-            <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold px-8 py-4 rounded-lg">
+            <Button variant="primary" size="top">
               Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
@@ -161,6 +201,7 @@ const AngularDevelopment = memo(() => {
               src={chartPlaceholder}
               alt="Angular growth chart"
               className="rounded-2xl shadow-lg"
+              loading="lazy"
             />
           </div>
         </div>
@@ -209,6 +250,12 @@ const AngularDevelopment = memo(() => {
               <details
                 key={idx}
                 className="border-b border-gray-200 py-4 group cursor-pointer"
+                onToggle={(e) =>
+                  e.currentTarget.setAttribute(
+                    "aria-expanded",
+                    e.currentTarget.open
+                  )
+                }
               >
                 <summary className="flex justify-between items-center text-gray-800 font-medium">
                   {item}
@@ -265,8 +312,8 @@ const AngularDevelopment = memo(() => {
           Consult our Angular experts today and take your enterprise platform to
           the next level.
         </p>
-        <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
-          Book a Tech Call
+        <Button variant="primary" size="top">
+          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
         </Button>
       </section>
 

@@ -8,6 +8,8 @@ import {
   Globe,
   Cpu,
 } from "lucide-react";
+
+import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
@@ -102,6 +104,38 @@ const pillars = [
 const ReactDevelopment = memo(() => {
   return (
     <div className="min-h-screen bg-white font-outfit">
+      <Helmet>
+        <title>React.js Development Services | Stravo</title>
+        <meta
+          name="description"
+          content="Build lightning-fast, interactive web applications with Stravo’s expert React.js development team. Modern, scalable, and high-performing front-end solutions."
+        />
+        <meta
+          name="keywords"
+          content="React development, React.js web apps, front-end development, SPA development, React developers, Stravo"
+        />
+        <meta
+          property="og:title"
+          content="React.js Development Services | Stravo"
+        />
+        <meta
+          property="og:description"
+          content="Stravo delivers fast, responsive React.js applications built for performance, scalability, and user engagement."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://stravo.com/react-js" />
+        <meta property="og:image" content="https://stravo.com/og/react.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="React.js Development Services | Stravo"
+        />
+        <meta
+          name="twitter:description"
+          content="Modern, scalable, and interactive React.js development by Stravo."
+        />
+        <meta name="twitter:image" content="https://stravo.com/og/react.webp" />
+      </Helmet>
       <Navbar />
 
       {/* HERO SECTION */}
@@ -116,7 +150,7 @@ const ReactDevelopment = memo(() => {
               handle large data fast, helping your business grow with modern
               React.js technology.
             </p>
-            <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold px-8 py-4 rounded-lg">
+            <Button variant="primary" size="top">
               Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
@@ -212,6 +246,12 @@ const ReactDevelopment = memo(() => {
               <details
                 key={idx}
                 className="border-b border-gray-200 py-4 group cursor-pointer"
+                onToggle={(e) =>
+                  e.currentTarget.setAttribute(
+                    "aria-expanded",
+                    e.currentTarget.open
+                  )
+                }
               >
                 <summary className="flex justify-between items-center text-gray-800 font-medium">
                   {item}
@@ -268,8 +308,12 @@ const ReactDevelopment = memo(() => {
         <p className="max-w-2xl mx-auto mb-8 text-white/90">
           Discuss your most pressing problem with our technical advisors today.
         </p>
-        <Button className="bg-white text-[#E2001A] hover:bg-gray-100 font-semibold text-lg px-8 py-4 rounded-lg">
-          Book a Tech Call
+        <Button
+          variant="primary"
+          size="top"
+          aria-label="Contact us to discuss your React project"
+        >
+          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
         </Button>
       </section>
 

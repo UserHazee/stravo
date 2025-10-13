@@ -12,7 +12,14 @@ import case4 from "../assets/photo_wd.webp";
 import case5 from "../assets/photo_bp.webp";
 
 const filters = {
-  Industry: ["Fintech", "eCommerce", "Education", "Healthtech", "Gaming", "Travel"],
+  Industry: [
+    "Fintech",
+    "eCommerce",
+    "Education",
+    "Healthtech",
+    "Gaming",
+    "Travel",
+  ],
   Services: [
     "Web Development",
     "Product Strategy",
@@ -20,7 +27,15 @@ const filters = {
     "Team Augmentation",
     "MVP Development",
   ],
-  Technology: ["React.js", "Node.js", "Vue.js", "Angular", "PHP", "AWS", "Docker"],
+  Technology: [
+    "React.js",
+    "Node.js",
+    "Vue.js",
+    "Angular",
+    "PHP",
+    "AWS",
+    "Docker",
+  ],
 };
 
 const featured = [
@@ -61,7 +76,8 @@ const featured = [
 const moreStories = [
   {
     id: 5,
-    title: "How we turned a no-code networking app into a scalable custom solution",
+    title:
+      "How we turned a no-code networking app into a scalable custom solution",
     tag: "No-Code",
     image: case5,
   },
@@ -85,7 +101,8 @@ const moreStories = [
   },
   {
     id: 9,
-    title: "How National Geographic accelerated content delivery across continents",
+    title:
+      "How National Geographic accelerated content delivery across continents",
     tag: "Enterprise",
     image: case4,
   },
@@ -118,8 +135,8 @@ const CaseStudies = memo(() => {
             Real-world success stories showcasing how Stravo helps businesses
             innovate, scale, and build impactful digital products.
           </p>
-          <Button className="bg-white text-[#E2001A] hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold">
-            Explore Stories <ArrowRight className="ml-2 w-5 h-5" />
+          <Button variant="primary" size="top">
+            Explore Stories <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </div>
       </section>

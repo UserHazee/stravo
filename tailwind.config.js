@@ -10,6 +10,10 @@ export default {
     extend: {
         screens: {
         'navbutil': '996px',
+      },
+      colors :{
+        primary: "#E2001A",
+        dark: "#4A000F",
       }
 
     }, // no tokens here — we define them in @theme instead

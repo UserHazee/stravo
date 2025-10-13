@@ -53,32 +53,38 @@ const importanceItems = [
   {
     icon: Search,
     title: "Helps Search Engines Understand",
-    description: "Proper on-page optimization helps search engines understand your content's topic, relevance, and value, leading to better rankings.",
+    description:
+      "Proper on-page optimization helps search engines understand your content's topic, relevance, and value, leading to better rankings.",
   },
   {
     icon: Eye,
     title: "Improves User Experience",
-    description: "Well-optimized pages load faster, are easier to navigate, and provide better overall experience for your visitors.",
+    description:
+      "Well-optimized pages load faster, are easier to navigate, and provide better overall experience for your visitors.",
   },
   {
     icon: TrendingUp,
     title: "Increases Organic Traffic",
-    description: "Higher rankings from on-page SEO result in more visibility and clicks from users searching for your topics.",
+    description:
+      "Higher rankings from on-page SEO result in more visibility and clicks from users searching for your topics.",
   },
   {
     icon: Target,
     title: "Better Targeting",
-    description: "Optimize for specific keywords to attract the right audience who are actively searching for your products or services.",
+    description:
+      "Optimize for specific keywords to attract the right audience who are actively searching for your products or services.",
   },
   {
     icon: Award,
     title: "Competitive Advantage",
-    description: "Many competitors overlook on-page SEO. Proper optimization gives you an edge in search results.",
+    description:
+      "Many competitors overlook on-page SEO. Proper optimization gives you an edge in search results.",
   },
   {
     icon: BarChart3,
     title: "Measurable Results",
-    description: "Track rankings, traffic, and conversions to see the direct impact of your on-page optimization efforts.",
+    description:
+      "Track rankings, traffic, and conversions to see the direct impact of your on-page optimization efforts.",
   },
 ];
 
@@ -111,9 +117,7 @@ const ImportanceCard = memo(({ item }) => (
     <div className="flex items-center justify-center mb-4 shadow-lg w-14 h-14 bg-gradient-to-br from-[#4A000F] to-[#E2001A] rounded-xl">
       <item.icon className="text-white w-7 h-7" />
     </div>
-    <h3 className="mb-3 text-xl font-bold text-slate-900">
-      {item.title}
-    </h3>
+    <h3 className="mb-3 text-xl font-bold text-slate-900">{item.title}</h3>
     <p className="text-slate-600">{item.description}</p>
   </div>
 ));
@@ -142,7 +146,9 @@ const FloatingBadge = memo(() => (
         <TrendingUp className="w-5 h-5 text-green-600" />
       </div>
       <div>
-        <p className="text-sm font-semibold text-slate-900">Search Visibility</p>
+        <p className="text-sm font-semibold text-slate-900">
+          Search Visibility
+        </p>
         <p className="text-xs text-slate-600">+156% increase</p>
       </div>
     </div>
@@ -150,16 +156,13 @@ const FloatingBadge = memo(() => (
 ));
 
 const OnPageSEO = memo(() => {
-  const myHandler = useCallback(() => {
-    console.log("Get Started clicked");
-  }, []);
 
   return (
     <div className="min-h-screen font-outfit bg-gradient-to-b from-slate-50 to-white">
       <Navbar />
-      
+
       {/* Hero Section */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 font-outfit">
+      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 ">
         <div className="grid items-center gap-12 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left - Text */}
           <div className="space-y-6">
@@ -180,15 +183,6 @@ const OnPageSEO = memo(() => {
               content, structure, and user experience to dominate search results
               and attract your ideal audience.
             </p>
-
-            <div className="">
-              <Button
-                className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
-                onClick={myHandler}
-              >
-                Get a call <ArrowRight className="w-5 h-5 ml-1" />
-              </Button>
-            </div>
           </div>
 
           {/* Right - Image with overlay effect */}
@@ -305,17 +299,11 @@ const OnPageSEO = memo(() => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <Button
-              className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
-              onClick={myHandler}
-            >
-              Get a call <ArrowRight className="w-5 h-5 ml-1" />
+            <Button variant="primary" size="top">
+              Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button
-              className="hidden md:inline-flex bg-gradient-to-br from-[#000000] to-[#333333] hover:from-[#A0001E] hover:to-[#A0001E] text-white px-6 rounded-lg"
-              onClick={myHandler}
-            >
-              View Our Case Studies <ArrowRight className="w-5 h-5 ml-1" />
+            <Button variant="primary" size="top">
+              View our Case Studies <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </div>
         </div>
@@ -324,7 +312,7 @@ const OnPageSEO = memo(() => {
         <div className="absolute w-64 h-64 rounded-full top-10 left-10 bg-white/10 blur-3xl" />
         <div className="absolute rounded-full bottom-10 right-10 w-96 h-96 bg-white/10 blur-3xl" />
       </section>
-      
+
       <Footer />
     </div>
   );
