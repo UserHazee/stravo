@@ -20,6 +20,9 @@ import LaravelDevelopment from './pages/larevel.jsx';
 import PHPDevelopment from './pages/php.jsx';
 import CaseStudies from './pages/CaseStudies.jsx';
 import CaseStudyDetails from './pages/CaseStudiesDetails.jsx';
+import Insights from './pages/Insight.jsx'
+import InsightDetails from "./pages/InsightDetails.jsx"
+import About from "./pages/About.jsx"
 
 // Create the router configuration
 const router = createBrowserRouter([
@@ -88,7 +91,18 @@ const router = createBrowserRouter([
     path: "/casestudies/:id",
     element: <CaseStudyDetails />,
   },
-  
+  {
+    path: "/insights",
+    element: <Insights />,
+  },
+  {
+    path: "/insights/:id",
+    element: <InsightDetails />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
    ],
   },
 ]);

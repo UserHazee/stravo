@@ -30,7 +30,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
-
+import { Helmet } from "react-helmet-async";
 
 // ========== ALL MEMOIZED COMPONENTS MUST BE OUTSIDE ==========
 // UPDATED OptimizedImage Component with Next.js Image
@@ -439,6 +439,55 @@ const WebDev = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Web Development Services | Stravo</title>
+        <meta
+          name="description"
+          content="Professional web development services by Stravo. We design, build, and maintain modern, scalable websites tailored for your business success."
+        />
+        <meta
+          name="keywords"
+          content="web development, web design, full stack development, React, Node.js, custom websites, Stravo"
+        />
+        <meta property="og:title" content="Web Development Services | Stravo" />
+        <meta
+          property="og:description"
+          content="Stravo builds responsive, fast, and scalable web solutions — from concept to launch. Design, Code, and Deliver."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://stravo.com/webdevelopment" />
+        <meta property="og:image" content="https://stravo.com/og/webdev.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Web Development Services | Stravo"
+        />
+        <meta
+          name="twitter:description"
+          content="Build your business online with Stravo’s expert web development team. We design, code, and deliver."
+        />
+        <meta
+          name="twitter:image"
+          content="https://stravo.com/og/webdev.webp"
+        />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Stravo Web Development",
+              "url": "https://stravo.com",
+              "description": "Stravo provides professional web development and design services.",
+              "publisher": {
+                "@type": "Organization",
+                "name": "Stravo",
+                "logo": "https://stravo.com/logo.png"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
+
       <Navbar />
 
       {/* Hero Section */}
@@ -463,8 +512,6 @@ const WebDev = () => {
                   infrastructure.
                 </p>
               </div>
-
-            
             </div>
 
             {/* Right Column - Technology Grid */}

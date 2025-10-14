@@ -11,15 +11,16 @@ import {
   Cloud as CloudIcon,
   RefreshCw,
 } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GreenHero from "./GreenHero";
 import WebHostingSection from "./NewSection";
 import vpsImage from "../assets/Vps.png";
 
-// ========== STATIC DATA MOVED OUTSIDE COMPONENT ==========
+// ========== STATIC DATA ==========
 
-// Hosting team roles
+// Team roles
 const teamRoles = [
   {
     name: "Sys Admin",
@@ -48,7 +49,7 @@ const teamRoles = [
   },
 ];
 
-// Hosting pillars
+// Pillars
 const pillars = [
   {
     icon: <Zap className="w-10 h-10" />,
@@ -70,33 +71,32 @@ const pillars = [
   },
 ];
 
-// Hosting FAQs
+// FAQs
 const faqs = [
   {
     question: "Do you offer website migration services?",
     answer:
-      "Yes, we provide free website migration for all our hosting plans. Our experts will handle the entire migration process with minimal downtime.",
+      "Yes, we provide free website migration for all our hosting plans. Our experts handle the process with minimal downtime.",
   },
   {
     question: "What is your uptime guarantee?",
     answer:
-      "We offer a 99.9% uptime guarantee. If we fall below this, we provide service credits as outlined in our SLA.",
+      "We offer a 99.9% uptime guarantee and provide service credits if uptime falls below this threshold.",
   },
   {
     question: "How often do you perform backups?",
     answer:
-      "We perform daily automated backups for all plans, with real-time backups available on our Enterprise plan. All backups are stored securely off-site.",
+      "We perform daily automated backups for all plans, with real-time backups on Enterprise plans.",
   },
   {
     question: "What security measures do you have in place?",
     answer:
-      "Our security includes DDoS protection, malware scanning, firewall protection, regular security patches, and SSL certificates for all hosted sites.",
+      "We include DDoS protection, malware scanning, firewalls, SSL certificates, and frequent security patches.",
   },
 ];
 
 // ========== MEMOIZED COMPONENTS ==========
 
-// Memoized Team Role Component
 const TeamRole = memo(({ role }) => (
   <div className="flex flex-col items-center">
     <div
@@ -108,7 +108,6 @@ const TeamRole = memo(({ role }) => (
   </div>
 ));
 
-// Memoized Pillar Component
 const Pillar = memo(({ pillar }) => (
   <div className="p-10 text-center bg-white shadow-lg rounded-2xl">
     <div className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-gradient-to-br from-red-50 to-pink-50 rounded-full text-[#E2001A]">
@@ -119,7 +118,6 @@ const Pillar = memo(({ pillar }) => (
   </div>
 ));
 
-// Memoized FAQ Item Component
 const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
   <div className="overflow-hidden border border-gray-200 rounded-xl">
     <button
@@ -137,91 +135,136 @@ const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
         <Plus className="flex-shrink-0 w-5 h-5 text-gray-500" />
       )}
     </button>
-    {isOpen && <div className="px-6 pb-6 text-gray-600">{faq.answer}</div>}
+    {isOpen && (
+      <div id={`faq-${index}`} className="px-6 pb-6 text-gray-600">
+        {faq.answer}
+      </div>
+    )}
   </div>
 ));
 
+// ========== MAIN COMPONENT ==========
+
 const WebHosting = () => {
   const [openFaq, setOpenFaq] = useState(null);
-
-  // Optimized FAQ toggle handler
   const toggleFaq = useCallback(
-    (index) => {
-      setOpenFaq(openFaq === index ? null : index);
-    },
+    (index) => setOpenFaq(openFaq === index ? null : index),
     [openFaq]
   );
 
-  // Optimized button handler
   const handleGetStarted = useCallback(() => {
     console.log("Get Started clicked");
   }, []);
 
   return (
     <div className="min-h-screen bg-white font-outfit">
+      <Helmet>
+        <title>Web Hosting & Maintenance | Stravo</title>
+        <meta
+          name="description"
+          content="Keep your website online, fast, and secure with Stravo’s professional web hosting and maintenance services. We monitor, optimize, and protect your digital presence."
+        />
+        <meta
+          name="keywords"
+          content="web hosting, website maintenance, VPS, managed hosting, Stravo hosting, website uptime"
+        />
+        <meta property="og:title" content="Web Hosting & Maintenance | Stravo" />
+        <meta
+          property="og:description"
+          content="Stravo provides reliable, secure, and high-performance hosting solutions with 24/7 monitoring and expert support."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:url"
+          content="https://stravo.com/services/webhosting"
+        />
+        <meta
+          property="og:image"
+          content="https://stravo.com/og/hosting-preview.webp"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          name="twitter:title"
+          content="Stravo Web Hosting & Maintenance"
+        />
+        <meta
+          name="twitter:description"
+          content="Design, Code, and Deliver — Stravo keeps your website fast, secure, and online 24/7."
+        />
+        <meta
+          name="twitter:image"
+          content="https://stravo.com/og/hosting-preview.webp"
+        />
+        <link
+          rel="canonical"
+          href="https://stravo.com/services/webhosting"
+        />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "Service",
+              "name": "Web Hosting & Maintenance",
+              "provider": {
+                "@type": "Organization",
+                "name": "Stravo",
+                "url": "https://stravo.com"
+              },
+              "description": "Professional web hosting and maintenance services by Stravo. We design, code, and deliver reliable hosting solutions.",
+              "areaServed": "Worldwide"
+            }
+          `}
+        </script>
+      </Helmet>
+
       <Navbar />
-      {/* Hero Section - REMOVED MOTION */}
-      <section className="relative px-4 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 ">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid items-start gap-10 mx-auto max-w-7xl lg:grid-cols-2">
-            {/* Left Column - Content */}
-            <div className="space-y-6">
-              <span className="inline-block px-4 py-2  text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full ">
-                Premium Hosting Solutions
-              </span>
 
-              <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl">
-                Reliable Web <br />
-                <span className="text-[#E2001A]">
-                  Hosting & Maintenance Services.
-                </span>
-              </h1>
+      {/* Hero Section */}
+      <section className="relative px-4 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20">
+        <div className="grid items-start gap-10 mx-auto max-w-7xl lg:grid-cols-2">
+          <div className="space-y-6">
+            <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
+              Premium Hosting Solutions
+            </span>
 
-              <div className="space-y-4">
-                <p className="text-lg text-gray-600 lg:text-xl">
-                  Keep your website fast, secure, and always online with our
-                  comprehensive hosting solutions and proactive maintenance
-                  services.
-                </p>
-              </div>
-            </div>
+            <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl">
+              Reliable Web{" "}
+              <span className="text-[#E2001A]">Hosting & Maintenance</span>
+            </h1>
 
-            {/* Right Column - Image */}
-            <div>
-              <picture className="w-full mx-auto md:min-w-lg sm:min-w-md min-w-xs">
-                {/* ADDED: loading="lazy" and dimensions for CLS optimization */}
-                <img
-                  src={vpsImage}
-                  alt="VPS Hosting Illustration"
-                  className="object-contain w-full h-auto"
-                  loading="lazy"
-                  width="600"
-                  height="400"
-                />
-              </picture>
-            </div>
+            <p className="text-lg text-gray-600 lg:text-xl">
+              Keep your website fast, secure, and always online with our
+              comprehensive hosting and proactive maintenance solutions.
+            </p>
+
           </div>
-        </div>
 
-        {/* Background Decorations */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#E2001A]/5 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 rounded-full w-96 h-96 bg-gradient-to-tr from-gray-200/20 to-transparent blur-3xl" />
+          <picture className="w-full mx-auto md:min-w-lg">
+            <img
+              src={vpsImage}
+              alt="Stravo VPS Hosting Server Illustration"
+              className="object-contain w-full h-auto"
+              loading="lazy"
+              width="600"
+              height="400"
+              decoding="async"
+            />
+          </picture>
+        </div>
       </section>
 
       <GreenHero />
 
-      {/* Team Structure Section - REMOVED MOTION */}
-      <section className="px-4 py-20 bg-white sm:px-6 lg:px-20 ">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-16 text-center">
-            <h2 className="mb-6 text-4xl font-bold text-gray-900 lg:text-5xl">
-              Expert hosting team at your service
-            </h2>
-            <p className="max-w-3xl mx-auto text-lg text-gray-600">
-              Our specialized team ensures your hosting infrastructure is
-              secure, optimized, and always available.
-            </p>
-          </div>
+      {/* Team Structure */}
+      <section className="px-4 py-20 bg-white sm:px-6 lg:px-20">
+        <div className="mx-auto max-w-7xl text-center">
+          <h2 className="mb-6 text-4xl font-bold text-gray-900 lg:text-5xl">
+            Expert Hosting Team at Your Service
+          </h2>
+          <p className="max-w-3xl mx-auto text-lg text-gray-600 mb-16">
+            Our specialized team ensures your hosting infrastructure is secure,
+            optimized, and always available.
+          </p>
 
           <div className="grid grid-cols-2 gap-6 mb-16 md:grid-cols-5">
             {teamRoles.map((role, idx) => (
@@ -235,8 +278,8 @@ const WebHosting = () => {
             </h3>
             <p className="max-w-4xl mx-auto text-lg text-gray-600">
               Our team continuously monitors your infrastructure, performs
-              regular maintenance, and is available 24/7 to resolve any issues
-              before they impact your business.
+              regular maintenance, and is available 24/7 to resolve issues before
+              they impact your business.
             </p>
           </div>
         </div>
@@ -244,15 +287,12 @@ const WebHosting = () => {
 
       <WebHostingSection />
 
-      {/* Three Pillars Section - REMOVED MOTION */}
-      <section className="px-4 py-20 bg-gray-50 sm:px-6 lg:px-20 ">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-16 text-center">
-            <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl">
-              Our Hosting Excellence Pillars
-            </h2>
-          </div>
-
+      {/* Pillars */}
+      <section className="px-4 py-20 bg-gray-50 sm:px-6 lg:px-20">
+        <div className="mx-auto max-w-7xl text-center">
+          <h2 className="mb-16 text-4xl font-bold text-gray-900 lg:text-5xl">
+            Our Hosting Excellence Pillars
+          </h2>
           <div className="grid gap-8 md:grid-cols-3">
             {pillars.map((pillar, idx) => (
               <Pillar key={idx} pillar={pillar} />
@@ -261,56 +301,12 @@ const WebHosting = () => {
         </div>
       </section>
 
-      {/* Contact Form Section - REMOVED MOTION */}
-      <section className="px-4 py-20 bg-gray-50 sm:px-6 lg:px-20 ">
-        <div className="max-w-3xl mx-auto">
-          <div className="p-10 bg-white shadow-xl rounded-2xl">
-            <h2 className="mb-4 text-3xl font-bold text-center text-gray-900 lg:text-4xl">
-              Need hosting for your website?
-            </h2>
-            <p className="mb-8 text-lg text-center text-gray-600">
-              Let's discuss your hosting requirements and find the perfect
-              solution for your business.
-            </p>
-
-            <form className="space-y-4">
-              <input
-                required
-                type="text"
-                placeholder="Your Name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E2001A] focus:border-transparent"
-              />
-              <input
-                required
-                type="email"
-                placeholder="Your Email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E2001A] focus:border-transparent"
-              />
-              <textarea
-                placeholder="Tell us about your hosting needs..."
-                rows="5"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#E2001A] focus:border-transparent"
-              ></textarea>
-              <button
-                type="submit"
-                className="w-full px-8 py-4 bg-[#E2001A] hover:bg-[#A0001E] text-white text-lg font-semibold rounded-lg transition-all hover:shadow-xl hover:-translate-y-1"
-              >
-                Get Hosting Quote →
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section - REMOVED MOTION & ANIMATEPRESENCE */}
-      <section className="px-4 py-20 bg-white sm:px-6 lg:px-20 ">
+      {/* FAQ */}
+      <section className="px-4 py-20 bg-white sm:px-6 lg:px-20">
         <div className="max-w-4xl mx-auto">
-          <div className="mb-12 text-center">
-            <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl">
-              Frequently Asked Questions
-            </h2>
-          </div>
-
+          <h2 className="mb-12 text-4xl font-bold text-center text-gray-900 lg:text-5xl">
+            Frequently Asked Questions
+          </h2>
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
               <FAQItem

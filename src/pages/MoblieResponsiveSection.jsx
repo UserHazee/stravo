@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import ResponsiveDesignCarousel from "./Carousel";
+import { Helmet } from "react-helmet-async";
 
 // Hero image imports
 import heroImageWebP from "../assets/photo_mr.webp"; // You'll create this
@@ -93,6 +94,54 @@ const ResponsiveDesign = memo(() => {
 
   return (
     <div className="min-h-screen bg-white font-outfit">
+      <Helmet>
+        <title>Mobile Responsiveness | STRAVO</title>
+        <meta
+          name="description"
+          content="STRAVO builds mobile-responsive websites that impress clients on every device. We design, code, and deliver digital experiences that perform beautifully."
+        />
+        <meta
+          name="keywords"
+          content="STRAVO, responsive web design, mobile-friendly website, web development, SEO optimization, fast loading, user experience"
+        />
+        <meta property="og:title" content="Mobile Responsiveness | STRAVO" />
+        <meta
+          property="og:description"
+          content="We build your machine behind your vision — STRAVO designs mobile-responsive websites for performance and growth."
+        />
+        <meta
+          property="og:image"
+          content="/assets/og-mobile-responsiveness.jpg"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="STRAVO" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="STRAVO - Mobile Responsiveness" />
+        <meta
+          name="twitter:description"
+          content="Design, Code, and Deliver responsive web experiences with STRAVO."
+        />
+        <meta
+          name="twitter:image"
+          content="/assets/og-mobile-responsiveness.jpg"
+        />
+        <script type="application/ld+json">{`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "name": "Mobile Responsiveness | STRAVO",
+              "description": "We build your machine behind your vision — STRAVO designs and develops responsive, mobile-first websites.",
+              "publisher": {
+                "@type": "Organization",
+                "name": "STRAVO",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "/assets/logo.png"
+                }
+              }
+            }
+          `}</script>
+      </Helmet>
       <Navbar />
 
       {/* Hero Section */}

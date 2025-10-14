@@ -4,15 +4,15 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "../components/ui/button";
+import { Helmet } from "react-helmet-async"; // ✅ For SEO metadata
 import case1 from "../assets/photo_wd.webp";
 import case2 from "../assets/photo_bp.webp";
 
-// Mock dataset (for demo; replace with backend/API later)
+// ✅ Mock dataset (replace later with API/backend)
 const caseStudies = [
   {
     id: "big-four",
-    title:
-      "How we developed 3 dedicated digital products for one of the Big Four Companies",
+    title: "How we developed 3 dedicated digital products for one of the Big Four Companies",
     subtitle: "TACTICAL STRATEGY & FULL-STACK DEVELOPMENT",
     overview:
       "Stravo partnered with a global Big Four company to modernize their digital tools for compliance, analytics, and reporting — driving scalability and cross-department efficiency.",
@@ -22,6 +22,7 @@ const caseStudies = [
       "Launched 3 major applications in 6 months",
     ],
     image: case1,
+    imageAlt: "Enterprise digital product development case study by STRAVO",
     challenges: [
       "Legacy systems with outdated technology stack",
       "Security and compliance requirements",
@@ -36,17 +37,17 @@ const caseStudies = [
   },
   {
     id: "stralo-performance",
-    title:
-      "How Stralo improved their React app performance by 50%",
+    title: "How Stralo improved their React app performance by 50%",
     subtitle: "FRONTEND PERFORMANCE ENGINEERING",
     overview:
-      "Our engineering team at Stravo collaborated with Stralo to optimize their React-based analytics dashboard, improving rendering time and reducing bundle size significantly.",
+      "Our engineering team at STRAVO collaborated with Stralo to optimize their React-based analytics dashboard, improving rendering time and reducing bundle size significantly.",
     results: [
       "50% faster page loads",
       "Reduced JS bundle size by 70%",
       "Improved Lighthouse scores from 65 → 95",
     ],
     image: case2,
+    imageAlt: "React app performance optimization by STRAVO engineers",
     challenges: [
       "Slow loading and rendering time",
       "Inefficient component structure",
@@ -64,12 +65,11 @@ const caseStudies = [
 const CaseStudyDetails = memo(() => {
   const { id } = useParams();
   const navigate = useNavigate();
-
   const caseData = caseStudies.find((item) => item.id === id);
 
   if (!caseData) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen text-gray-800">
+      <div className="flex flex-col items-center justify-center min-h-screen text-gray-800 font-outfit">
         <h2 className="text-3xl font-bold mb-4">Case Study Not Found</h2>
         <Button onClick={() => navigate("/casestudies")}>
           Back to Case Studies
@@ -80,11 +80,27 @@ const CaseStudyDetails = memo(() => {
 
   return (
     <div className="bg-white text-gray-900 min-h-screen font-outfit">
+      {/* ✅ SEO Meta Tags */}
+      <Helmet>
+        <title>{`${caseData.title} | STRAVO Case Study`}</title>
+        <meta
+          name="description"
+          content={`${caseData.overview} | STRAVO — We build your machine behind your vision.`}
+        />
+        <meta name="author" content="STRAVO" />
+        <meta name="keywords" content={`${caseData.technologies.join(", ")}, STRAVO, Web Development, Software Solutions`} />
+        <meta property="og:title" content={`${caseData.title} | STRAVO`} />
+        <meta property="og:description" content={caseData.overview} />
+        <meta property="og:image" content={caseData.image} />
+        <meta property="og:type" content="article" />
+        <meta property="og:site_name" content="STRAVO" />
+      </Helmet>
+
       <Navbar />
 
       {/* HERO */}
-      <section className="bg-[#0C0C0C] text-white py-28 px-6 sm:px-10 lg:px-20 relative">
-        <div className="max-w-5xl mx-auto">
+      <section className="bg-[#0C0C0C] text-white py-28 px-6 sm:px-10 lg:px-20 relative overflow-hidden">
+        <div className="max-w-5xl mx-auto relative z-10">
           <Button
             variant="ghost"
             onClick={() => navigate("/casestudies")}
@@ -96,14 +112,15 @@ const CaseStudyDetails = memo(() => {
           <p className="text-[#E2001A] uppercase text-sm tracking-widest mb-4">
             {caseData.subtitle}
           </p>
-          <h1 className="text-5xl font-bold leading-tight mb-6">
-            {caseData.title}
-          </h1>
+          <h1 className="text-5xl font-bold leading-tight mb-6">{caseData.title}</h1>
           <p className="text-white/80 max-w-3xl">{caseData.overview}</p>
         </div>
+
         <img
           src={caseData.image}
-          alt={caseData.title}
+          alt={caseData.imageAlt}
+          loading="lazy"
+          decoding="async"
           className="w-full max-h-[500px] object-cover mt-10 rounded-2xl shadow-xl"
         />
       </section>
@@ -112,19 +129,16 @@ const CaseStudyDetails = memo(() => {
       <section className="py-20 px-6 sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-[#E2001A]">
-              Challenges
-            </h2>
+            <h2 className="text-2xl font-bold mb-4 text-[#E2001A]">Challenges</h2>
             <ul className="space-y-3 list-disc pl-5 text-gray-700">
               {caseData.challenges.map((c, i) => (
                 <li key={i}>{c}</li>
               ))}
             </ul>
           </div>
+
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-[#E2001A]">
-              Our Solutions
-            </h2>
+            <h2 className="text-2xl font-bold mb-4 text-[#E2001A]">Our Solutions</h2>
             <ul className="space-y-3 list-disc pl-5 text-gray-700">
               {caseData.solutions.map((s, i) => (
                 <li key={i}>{s}</li>
@@ -137,9 +151,7 @@ const CaseStudyDetails = memo(() => {
       {/* RESULTS */}
       <section className="bg-[#0C0C0C] text-white py-20 px-6 sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6 text-[#E2001A]">
-            Measurable Results
-          </h2>
+          <h2 className="text-3xl font-bold mb-6 text-[#E2001A]">Measurable Results</h2>
           <div className="grid sm:grid-cols-3 gap-10 mt-10">
             {caseData.results.map((r, i) => (
               <div
@@ -156,9 +168,7 @@ const CaseStudyDetails = memo(() => {
       {/* TECHNOLOGY STACK */}
       <section className="py-20 px-6 sm:px-10 lg:px-20 bg-white">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-8 text-[#E2001A]">
-            Technologies Used
-          </h2>
+          <h2 className="text-2xl font-bold mb-8 text-[#E2001A]">Technologies Used</h2>
           <div className="flex flex-wrap justify-center gap-4">
             {caseData.technologies.map((tech, idx) => (
               <span
@@ -172,12 +182,10 @@ const CaseStudyDetails = memo(() => {
         </div>
       </section>
 
-      {/* NEXT CASE CTA */}
+      {/* CTA */}
       <section className="bg-[#E2001A] text-white py-16 text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6">
-            Want to see another transformation story?
-          </h2>
+          <h2 className="text-3xl font-bold mb-6">Want to see another transformation story?</h2>
           <Button
             onClick={() => navigate("/casestudies")}
             className="bg-white text-[#E2001A] hover:bg-gray-100"
