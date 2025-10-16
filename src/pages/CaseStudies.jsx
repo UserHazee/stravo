@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import { HashLink } from "react-router-hash-link";
 
 // ======== IMAGE IMPORTS (Use .webp for optimization) ========
 import case1 from "../assets/photo_wd.webp";
@@ -15,37 +16,62 @@ import case5 from "../assets/photo_bp.webp";
 
 // ======== FILTER DATA ========
 const filters = {
-  Industry: ["Fintech", "eCommerce", "Education", "Healthtech", "Gaming", "Travel"],
-  Services: ["Web Development", "Product Strategy", "Design", "Team Augmentation", "MVP Development"],
-  Technology: ["React.js", "Node.js", "Vue.js", "Angular", "PHP", "AWS", "Docker"],
+  Industry: [
+    "Fintech",
+    "eCommerce",
+    "Education",
+    "Healthtech",
+    "Gaming",
+    "Travel",
+  ],
+  Services: [
+    "Web Development",
+    "Product Strategy",
+    "Design",
+    "Team Augmentation",
+    "MVP Development",
+  ],
+  Technology: [
+    "React.js",
+    "Node.js",
+    "Vue.js",
+    "Angular",
+    "PHP",
+    "AWS",
+    "Docker",
+  ],
 };
 
 // ======== FEATURED STORIES ========
 const featured = [
   {
     id: "big-four",
-    title: "How we developed 3 dedicated digital products for one of the Big Four Companies",
+    title:
+      "How we developed 3 dedicated digital products for one of the Big Four Companies",
     subtitle: "TACTICAL STRATEGY & FULL-STACK DEVELOPMENT",
     image: case1,
     tag: "Big Four",
   },
   {
     id: "stralo-performance",
-    title: "How team augmentation and ambitious frontend drove the future of e-learning",
+    title:
+      "How team augmentation and ambitious frontend drove the future of e-learning",
     subtitle: "PARTNER WITH A GLOBAL TECH LEADER",
     image: case2,
     tag: "E-Learning",
   },
   {
     id: "national-geographic",
-    title: "How National Geographic improved their marketing time-to-market by 450%",
+    title:
+      "How National Geographic improved their marketing time-to-market by 450%",
     subtitle: "STRATEGIC UX DESIGN IMPROVEMENT",
     image: case3,
     tag: "National Geographic",
   },
   {
     id: "hello-learning",
-    title: "How our partnership with Hello helped redefine personalized learning experiences",
+    title:
+      "How our partnership with Hello helped redefine personalized learning experiences",
     subtitle: "PARTNERSHIP STORY",
     image: case4,
     tag: "Hello",
@@ -56,7 +82,8 @@ const featured = [
 const moreStories = [
   {
     id: "no-code-app",
-    title: "How we turned a no-code networking app into a scalable custom solution",
+    title:
+      "How we turned a no-code networking app into a scalable custom solution",
     tag: "No-Code",
     image: case5,
   },
@@ -80,7 +107,8 @@ const moreStories = [
   },
   {
     id: "natgeo-enterprise",
-    title: "How National Geographic accelerated content delivery across continents",
+    title:
+      "How National Geographic accelerated content delivery across continents",
     tag: "Enterprise",
     image: case4,
   },
@@ -165,8 +193,10 @@ const CaseStudies = memo(() => {
               Real-world success stories showcasing how STRAVO helps businesses
               innovate, scale, and build impactful digital products.
             </p>
-            <Button variant="primary" size="top">
-              Explore Stories <ArrowRight className="w-5 h-5 ml-2" />
+            <Button variant="primary" size="top" className="cursor-pointer">
+              <HashLink to="#moreStories" smooth>
+                Explore Stories →
+              </HashLink>
             </Button>
           </div>
         </section>
@@ -194,7 +224,7 @@ const CaseStudies = memo(() => {
                   <h3 className="text-lg font-semibold mb-4">{item.title}</h3>
                   <Button
                     variant="link"
-                    className="text-white text-sm hover:text-[#E2001A]"
+                    className="text-white text-sm hover:text-[#E2001A] cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
                       navigate(`/casestudies/${item.id}`);
@@ -209,7 +239,10 @@ const CaseStudies = memo(() => {
         </section>
 
         {/* DISCOVER MORE SECTION */}
-        <section className="bg-white py-20 px-6 sm:px-10 lg:px-20">
+        <section
+          id="moreStories"
+          className="bg-white py-20 px-6 sm:px-10 lg:px-20"
+        >
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
               Discover More Success Stories
@@ -222,7 +255,9 @@ const CaseStudies = memo(() => {
             <div className="flex flex-wrap gap-4 mb-12">
               {Object.entries(filters).map(([category, tags]) => (
                 <div key={category}>
-                  <h4 className="font-semibold text-gray-800 mb-2">{category}</h4>
+                  <h4 className="font-semibold text-gray-800 mb-2">
+                    {category}
+                  </h4>
                   <div className="flex flex-wrap gap-2">
                     {tags.map((tag) => (
                       <button
@@ -230,7 +265,7 @@ const CaseStudies = memo(() => {
                         onClick={() =>
                           setSelectedFilter(selectedFilter === tag ? null : tag)
                         }
-                        className={`px-3 py-1 rounded-full text-sm border transition ${
+                        className={`px-3 py-1 rounded-full text-sm border transition cursor-pointer ${
                           selectedFilter === tag
                             ? "bg-[#E2001A] text-white border-[#E2001A]"
                             : "border-gray-300 text-gray-700 hover:border-[#E2001A]"
@@ -275,7 +310,7 @@ const CaseStudies = memo(() => {
                       </h4>
                       <Button
                         variant="link"
-                        className="text-[#E2001A] p-0"
+                        className="text-[#E2001A] p-0 cursor-pointer"
                         onClick={(e) => {
                           e.stopPropagation();
                           navigate(`/casestudies/${story.id}`);

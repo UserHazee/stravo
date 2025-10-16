@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
+import { Link } from "react-router-dom";
 
 // Hero image imports
 import heroImageWebP from "../assets/photo_sp.webp"; // You'll create this
@@ -118,11 +119,11 @@ const SinglePageWebsite = memo(() => {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://stravo.com/singlepagewebsite"
+          content="https://stravoph.netlify.app/singlepagewebsite"
         />
         <meta
           property="og:image"
-          content="https://stravo.com/og/singlepage.webp"
+          content="https://stravoph.netlify.app/og/singlepage.webp"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
@@ -135,7 +136,7 @@ const SinglePageWebsite = memo(() => {
         />
         <meta
           name="twitter:image"
-          content="https://stravo.com/og/singlepage.webp"
+          content="https://stravoph.netlify.app/og/singlepage.webp"
         />
       </Helmet>
       <Navbar />
@@ -242,9 +243,16 @@ const SinglePageWebsite = memo(() => {
           Let's craft a sleek, modern single-page site that tells your story in
           seconds — not clicks.
         </p>
-        <Button variant="primary" size="top">
-          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-        </Button>
+        <Link to="/contact">
+          <Button
+            className="cursor-pointer"
+            variant="primary"
+            size="top"
+            aria-label="Contact us to discuss your React project"
+          >
+            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </Link>
       </section>
 
       <Footer />

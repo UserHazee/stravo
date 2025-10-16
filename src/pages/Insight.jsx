@@ -148,22 +148,6 @@ const Insights = memo(() => {
           </div>
         </div>
       </section>
-
-      {/* CTA SECTION */}
-      <section className="bg-[#E2001A] text-white py-20 text-center">
-        <div className="max-w-4xl mx-auto space-y-6">
-          <h2 className="text-4xl font-bold leading-tight">
-            Join 10,000+ Professionals Learning from Stravo
-          </h2>
-          <p className="text-white/90 text-lg max-w-2xl mx-auto">
-            Get the latest insights, tips, and resources straight to your inbox.
-          </p>
-          <Button className="bg-white text-[#E2001A] hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold">
-            Subscribe to Newsletter
-          </Button>
-        </div>
-      </section>
-
       <Footer />
     </div>
   );

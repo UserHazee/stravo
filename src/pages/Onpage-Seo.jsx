@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
+import { Link } from "react-router-dom";
 import {
   FileText,
   Target,
@@ -141,7 +142,9 @@ const FloatingBadge = memo(() => (
         <TrendingUp className="w-5 h-5 text-green-600" />
       </div>
       <div>
-        <p className="text-sm font-semibold text-slate-900">Search Visibility</p>
+        <p className="text-sm font-semibold text-slate-900">
+          Search Visibility
+        </p>
         <p className="text-xs text-slate-600">+156% increase</p>
       </div>
     </div>
@@ -208,7 +211,9 @@ const OnPageSEO = memo(() => {
 
             <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 xl:text-7xl lg:text-6xl">
               On-Page SEO:{" "}
-              <span className="text-[#E2001A]">Rank Higher, Convert Better</span>
+              <span className="text-[#E2001A]">
+                Rank Higher, Convert Better
+              </span>
             </h1>
 
             <p className="max-w-xl text-xl leading-relaxed text-slate-600">
@@ -308,12 +313,21 @@ const OnPageSEO = memo(() => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="primary" size="top">
-              Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-            <Button variant="primary" size="top">
-              View Case Studies <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <Link to="/contact">
+              <Button
+                className="cursor-pointer"
+                variant="primary"
+                size="top"
+                aria-label="Contact us to discuss your React project"
+              >
+                Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+            <Link to="/casestudies">
+              <Button variant="primary" size="top" className="cursor-pointer">
+                View Case Studies <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

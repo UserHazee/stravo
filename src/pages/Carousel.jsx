@@ -1,5 +1,5 @@
 import React, { useState, useCallback, memo } from "react";
-import Logo from '../assets/Remove background project.png'
+import Logo from '../assets/StravoLogo.png'
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 // Carousel images imports (WebP)

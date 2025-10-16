@@ -1,0 +1,13 @@
+{
+  "name": "Stravo Web Solutions",
+  "short_name": "Stravo",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#E2001A",
+  "description": "Stravo — Smart Web Development, Hosting, and SEO solutions that perform even offline.",
+  "icons": [
+    { "src": "/manifest_logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/manifest_logo512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

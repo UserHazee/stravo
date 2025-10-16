@@ -75,7 +75,7 @@ export default function Navbar() {
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-20">
           <div className="flex items-center justify-between h-20 lg:h-20">
             <Link to="/">
-              <Logo className="w-auto h-16" />
+              <Logo className="w-auto h-16 " />
             </Link>
 
             {/* Desktop Nav */}
@@ -147,10 +147,11 @@ export default function Navbar() {
 
             {/* Right Side */}
             <div className="flex items-center gap-4">
-              <Button variant="default" size="top">
-               Get a Call
-              </Button>
-
+              <Link to="/contact" className="w-full sm:w-auto">
+                <Button variant="nav" size="top" className="cursor-pointer">
+                  Get a Call
+                </Button>
+              </Link>
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

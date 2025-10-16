@@ -3,12 +3,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Helmet } from "react-helmet-async";
-import {
-  Briefcase,
-  Globe,
-  TrendingUp,
-  ArrowRight,
-} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Briefcase, Globe, TrendingUp, ArrowRight } from "lucide-react";
 
 // Hero image imports
 import heroImageWebP from "../assets/photo_bp.webp";
@@ -113,7 +109,10 @@ const BusinessPortfolio = memo(() => {
           name="twitter:description"
           content="Professional portfolio design and development by STRAVO. Build trust, attract clients, and grow your business online."
         />
-        <meta name="twitter:image" content="/assets/og-business-portfolio.jpg" />
+        <meta
+          name="twitter:image"
+          content="/assets/og-business-portfolio.jpg"
+        />
 
         {/* Schema Markup */}
         <script type="application/ld+json">{`
@@ -152,8 +151,8 @@ const BusinessPortfolio = memo(() => {
 
               <p className="max-w-xl text-lg text-gray-600">
                 A well-crafted business portfolio isn't just a website — it's
-                your digital identity that builds trust, showcases expertise, and
-                drives real growth.
+                your digital identity that builds trust, showcases expertise,
+                and drives real growth.
               </p>
             </div>
 
@@ -235,9 +234,16 @@ const BusinessPortfolio = memo(() => {
             Build a portfolio that represents your vision. STRAVO designs and
             delivers platforms that make your brand unforgettable.
           </p>
-          <Button variant="primary" size="top">
-            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
+          <Link to="/contact">
+            <Button
+              className="cursor-pointer"
+              variant="primary"
+              size="top"
+              aria-label="Contact us to discuss your React project"
+            >
+              Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link> 
         </section>
 
         <Footer />

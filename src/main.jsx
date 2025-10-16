@@ -5,11 +5,11 @@ import { HelmetProvider } from "react-helmet-async";
 import './index.css'
 import './icons/fontawesome.js';
 import App from './App.jsx'
-import WebDev from './pages/webdev.jsx'
+// import WebDev from './pages/webdev.jsx'
 import WebHosting from './pages/webhosting.jsx'
 import RootLayout from './components/RootLayout.jsx';
 import OnPageSEO from './pages/Onpage-Seo.jsx'
-import BusinessPortfolio from './pages/BusinessPortfolio.jsx'
+// import BusinessPortfolio from './pages/BusinessPortfolio.jsx'
 import ResponsiveDesign from './pages/MoblieResponsiveSection.jsx'
 import SinglePageWebsite from './pages/SinglePage.jsx';
 import ReactDevelopment from './pages/React.jsx';
@@ -23,6 +23,13 @@ import CaseStudyDetails from './pages/CaseStudiesDetails.jsx';
 import Insights from './pages/Insight.jsx'
 import InsightDetails from "./pages/InsightDetails.jsx"
 import About from "./pages/About.jsx"
+import ContactSection from './pages/Contact.jsx';
+
+import { lazy, Suspense } from "react";
+
+const WebDev = lazy(() => import("./pages/webdev"));
+const BusinessPortfolio = lazy(() => import("./pages/BusinessPortfolio"));
+
 
 // Create the router configuration
 const router = createBrowserRouter([
@@ -103,6 +110,11 @@ const router = createBrowserRouter([
     path: "/about",
     element: <About />,
   },
+  
+  {
+    path: "/contact",
+    element: <ContactSection />,
+  },
    ],
   },
 ]);
@@ -114,3 +126,13 @@ createRoot(document.getElementById('root')).render(
     </HelmetProvider>
   </StrictMode>
 )
+if ("serviceWorker" in navigator && import.meta.env.PROD) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((reg) => console.log("[SW] Registered:", reg.scope))
+      .catch((err) => console.error("[SW] Registration failed:", err));
+  });
+}
+
+

@@ -1,196 +1,262 @@
-// App.jsx - This is now your HOME PAGE (OPTIMIZED)
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
-import './index.css';
-import { ProcessSection } from './components/ui/next';
-import {
-    Code2,
-    Smartphone,
-    Cloud,
-    BriefcaseBusiness,
-    Menu,
-    Workflow,
-    X,
-    Frame,
-    Twitter,
-    Linkedin,
-    Facebook,
-    Instagram
-} from 'lucide-react';
+// App.jsx — STRAVO Home Page (Fully Optimized for SEO + Netlify)
+import React, { memo } from "react";
+import { Helmet } from "react-helmet-async";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { PlanetHero } from "@/components/ui/planet";
+import { ProcessSection } from "./components/ui/next";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import { HashLink } from "react-router-hash-link";
 
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { PlanetHero } from '@/components/ui/planet';
+import {
+  Code2,
+  Smartphone,
+  Cloud,
+  BriefcaseBusiness,
+  Workflow,
+  Frame,
+} from "lucide-react";
+
 import pic1 from "./assets/1000483199.webp";
 import pic2 from "./assets/1000483218.webp";
 import pic3 from "./assets/1000483230 (1).webp";
 import pic4 from "./assets/1752798249832.jpg";
 import pic5 from "./assets/Gemini_Mullet.webp";
-import Logo from "./assets/logo";
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import aboutImg from "./assets/photo_wd.webp"; // For OG preview image
+import { Link } from "react-router-dom";
 
-// Static data moved outside component to prevent re-creation on each render
+// === Data ===
 const services = [
-    {
-        icon: <Code2 className="w-7 h-7" />,
-        title: "Web Development",
-        description: "Build modern, responsive, and user-friendly websites tailored to your business needs using the latest web technologies like ReactJS and Node.js."
-    },
-    {
-        icon: <Frame className="w-7 h-7" />,
-        title: "Custom Web Applications",
-        description: "Develop tailored web based solutions to meet your unique business requirements, whether it's managing data, enhancing workflows, or improving customer interaction."
-    },
-    {
-        icon: <Smartphone className="w-7 h-7" />,
-        title: "Responsive Web Design",
-        description: "Ensure your website looks and works perfectly across all devices, including desktops, tablets, and smartphones."
-    },
-    {
-        icon: <Cloud className="w-7 h-7" />,
-        title: "Website Hosting & Maintenance",
-        description: "Worry-free hosting and regular maintenance to ensure your website is secure, fast, and always up-to-date."
-    },
-    {
-        icon: <BriefcaseBusiness className="w-7 h-7" />,
-        title: "Business Websites",
-        description: "Launch a professional and sleek online presence with affordable, fast-loading websites that showcase your services and attract more customers."
-    },
-    {
-        icon: <Workflow className="w-7 h-7" />,
-        title: "Integration & Automation",
-        description: "Connect your website with third-party tools like email platforms, Google Calendar, or payment systems to automate your workflow and save time."
-    }
+  {
+    icon: <Code2 className="w-7 h-7" />,
+    title: "Web Development",
+    description:
+      "Build modern, responsive, and user-friendly websites tailored to your business needs using the latest web technologies like ReactJS and Node.js.",
+  },
+  {
+    icon: <Frame className="w-7 h-7" />,
+    title: "Custom Web Applications",
+    description:
+      "Develop tailored web-based solutions to meet your unique business requirements — from workflow automation to customer experience enhancement.",
+  },
+  {
+    icon: <Smartphone className="w-7 h-7" />,
+    title: "Responsive Web Design",
+    description:
+      "Ensure your website looks and performs beautifully across all devices — desktop, tablet, and mobile.",
+  },
+  {
+    icon: <Cloud className="w-7 h-7" />,
+    title: "Website Hosting & Maintenance",
+    description:
+      "Worry-free hosting and regular maintenance to keep your website secure, fast, and always up-to-date.",
+  },
+  {
+    icon: <BriefcaseBusiness className="w-7 h-7" />,
+    title: "Business Websites",
+    description:
+      "Launch a professional, fast-loading website that elevates your brand and attracts customers.",
+  },
+  {
+    icon: <Workflow className="w-7 h-7" />,
+    title: "Integration & Automation",
+    description:
+      "Connect your website with third-party tools like Google Calendar, Mailchimp, or payment gateways for seamless automation.",
+  },
 ];
 
 const team = [
-    { name: "Zeek Rivera", role: "CEO & Founder", initials: "ZR", img: pic1 },
-    { name: "Zeek Rivera", role: "CTO", initials: "ZR", img: pic2 },
-    { name: "Zeek Rivera", role: "VP Engineering", initials: "ZR", img: pic3 },
-    { name: "Zeek Rivera", role: "Head of Design", initials: "ZR", img: pic4 },
-    { name: "Zeek Rivera", role: "Chief Architect", initials: "ZR", img: pic5 }
+  { name: "Zeek Rivera", role: "CEO & Founder", initials: "ZR", img: pic1 },
+  { name: "Zeek Rivera", role: "CTO", initials: "ZR", img: pic2 },
+  { name: "Zeek Rivera", role: "VP Engineering", initials: "ZR", img: pic3 },
+  { name: "Zeek Rivera", role: "Head of Design", initials: "ZR", img: pic4 },
+  { name: "Zeek Rivera", role: "Chief Architect", initials: "ZR", img: pic5 },
 ];
 
-const clientLogos = ['🔜', '🔜', '🔜', '🔜', '🔜', '🔜'];
+const clientLogos = ["🔜", "🔜", "🔜", "🔜", "🔜", "🔜"];
 
-export default function App() {
-    return (
-        <div className="min-h-screen overflow-x-hidden bg-white">
-            {/* Navbar */}
-            <Navbar />
-            
-            {/* Hero Section */}
-            <section className="px-4 pt-32 pb-12 lg:pt-22 sm:px-6 lg:px-20">
-                <div className="mx-auto max-w-7xl">
-                    <div className="grid items-center gap-12 lg:grid-cols-2">
-                        <div className="space-y-6">
-                            <h1 className="text-4xl  sm:text-5xl lg:text-6xl font-outfit font-medium leading-tight tracking-normal text-[#1A1A1A]">
-                                Top <span className="text-[#A0001E]">1% IT Talent</span> For Your Software Development Needs
-                            </h1>
-                            <p className="font-outfit text-base sm:text-lg text-[#6B6B6B] leading-relaxed">
-                                We help startups and Fortune 500 companies build digital products through staff augmentation and software outsourcing services.
-                            </p>
-                            <div className="flex flex-col gap-4 sm:flex-row font-outfit">
-                                <Button className="bg-[#A0001E] hover:bg-[#E2001A] text-white px-8 py-6.5 text-base rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-                                    Email me
-                                </Button>
-                                <Button variant="outline" className="border-2 border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white px-8 py-6 text-base rounded-lg transition-all hover:-translate-y-1">
-                                    Our Services
-                                </Button>
-                            </div>
-                        </div>
+const App = memo(() => {
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-white font-outfit text-[#1A1A1A]">
+      {/* SEO */}
+      <Helmet>
+        <title>STRAVO | We Build Your Machine Behind Your Vision</title>
+        <meta
+          name="description"
+          content="STRAVO builds scalable web and software solutions that align design, code, and delivery. Empowering startups and enterprises through innovation and technology."
+        />
+        <meta
+          name="keywords"
+          content="Stravo, Web Development, Software Engineering, ReactJS, NodeJS, Startup Solutions, Philippines Tech Agency"
+        />
+        <meta
+          property="og:title"
+          content="STRAVO | Design, Code, and Deliver"
+        />
+        <meta
+          property="og:description"
+          content="We build your machine behind your vision — design, code, and deliver."
+        />
+        <meta property="og:image" content={aboutImg} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="STRAVO" />
+      </Helmet>
 
-                        <div className="relative h-[400px] lg:h-[500px]">
-                            <div className="absolute top-10 right-0 w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-[#4A000F] to-[#E2001A] rounded-3xl" />
-                            <div className="absolute bottom-6 left-0 w-48 h-48 lg:w-56 lg:h-56 bg-gradient-to-br from-[#000000] to-[#090f24] rounded-3xl" />
-                        </div>
-                    </div>
+      {/* Navbar */}
+      <Navbar />
+
+      <main>
+        {/* HERO */}
+        <header className="px-4 pt-32 pb-12 sm:px-6 lg:px-20 bg-white">
+          <div className="mx-auto max-w-7xl grid items-center gap-12 lg:grid-cols-2">
+            <div className="space-y-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight tracking-normal">
+                Top <span className="text-[#A0001E]">1% IT Talent</span> For
+                Your Software Development Needs
+              </h1>
+              <p className="text-base sm:text-lg text-[#6B6B6B] leading-relaxed">
+                We help startups and Fortune 500 companies build digital
+                products through staff augmentation and software outsourcing
+                services.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+                <Link to="/contact" className="w-full sm:w-auto">
+                  <Button
+                    variant="default"
+                    className="w-full cursor-pointer sm:w-auto bg-[#A0001E] hover:bg-[#E2001A] border-2 hover:border-[#E2001A] border-[#A0001E] 
+                 text-white px-6 sm:px-8 py-6 sm:py-6 text-sm sm:text-base rounded-lg 
+                 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+                  >
+                    Email Us
+                  </Button>
+                </Link>
+
+                <Button
+                  variant="outline"
+                  asChild
+                  className="w-full sm:w-auto border-2 border-[#1A1A1A] text-[#1A1A1A] 
+               hover:bg-[#1A1A1A] hover:text-white px-6 sm:px-8 py-6 sm:py-6 
+               text-sm sm:text-base rounded-lg transition-all hover:-translate-y-1"
+                >
+                  <HashLink to="#services" smooth>
+                    Our Services
+                  </HashLink>
+                </Button>
+              </div>
+            </div>
+
+            <div className="relative h-[400px] lg:h-[500px]">
+              <div className="absolute top-10 right-0 w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-[#4A000F] to-[#E2001A] rounded-3xl" />
+              <div className="absolute bottom-6 left-0 w-48 h-48 lg:w-56 lg:h-56 bg-gradient-to-br from-[#000000] to-[#090f24] rounded-3xl" />
+            </div>
+          </div>
+        </header>
+
+        <PlanetHero />
+        <ProcessSection />
+
+        {/* CLIENTS */}
+        <section className="px-4 py-12 sm:px-6 lg:px-20 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-8 text-center">
+              <p className="text-sm uppercase tracking-wider text-[#6B6B6B] font-semibold">
+                Trusted by Leading Companies
+              </p>
+            </div>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-8 justify-items-center">
+              {clientLogos.map((logo, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-center w-20 h-20 text-4xl transition-all cursor-not-allowed grayscale"
+                >
+                  {logo}
                 </div>
-            </section>
+              ))}
+            </div>
+          </div>
+        </section>
 
-            <PlanetHero />
-            <ProcessSection />
+        {/* SERVICES */}
+        <section
+          id="services"
+          className="py-16 lg:py-24 px-4 sm:px-6 lg:px-20 bg-[#F8F9FA]"
+        >
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-16 text-center">
+              <h2 className="text-3xl lg:text-5xl font-semibold mb-4">
+                Our Services
+              </h2>
+              <p className="text-lg text-[#6B6B6B] max-w-2xl mx-auto">
+                Comprehensive technology solutions tailored to your business
+                needs.
+              </p>
+            </div>
 
-            {/* Clients Section */}
-            <section className="px-4 py-12 bg-white sm:px-6 lg:px-20">
-                <div className="mx-auto max-w-7xl">
-                    <div className="mb-8 text-center">
-                        <p className="text-sm uppercase tracking-wider text-[#6B6B6B] font-semibold">Trusted by Leading Companies</p>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {services.map((service, index) => (
+                <Card
+                  key={index}
+                  className="h-full hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 bg-gradient-to-br from-[#000000] to-[#090f24]"
+                >
+                  <CardContent className="p-8">
+                    <div className="w-14 h-14 bg-gradient-to-br from-[#4A000F] to-[#E2001A] flex items-center justify-center text-white mb-6">
+                      {service.icon}
                     </div>
-                    <div className="grid items-center grid-cols-3 gap-8 md:grid-cols-6 justify-items-center">
-                        {clientLogos.map((logo, i) => (
-                            <div
-                                key={i}
-                                className="flex items-center justify-center w-20 h-20 text-4xl transition-all cursor-not-allowed grayscale"
-                            >
-                                {logo}
-                            </div>
-                        ))}
-                    </div>
+                    <h3 className="mb-3 text-xl font-medium text-white">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm font-light leading-relaxed text-white">
+                      {service.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* TEAM */}
+        <section
+          id="team"
+          className="px-4 py-16 sm:px-6 lg:px-20 lg:py-24 bg-white"
+        >
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-16 text-center">
+              <h2 className="text-3xl lg:text-5xl font-semibold mb-4">
+                Meet Our Leadership
+              </h2>
+              <p className="text-lg text-[#6B6B6B]">
+                Experienced professionals driving innovation and excellence.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
+              {team.map((member, index) => (
+                <div
+                  key={index}
+                  className="text-center transition-transform hover:-translate-y-2"
+                >
+                  <Avatar className="w-32 h-32 lg:w-40 lg:h-40 mx-auto mb-4 bg-gradient-to-br from-[#E5E5E5] to-[#F8F9FA] text-[#6B6B6B] text-2xl font-semibold">
+                    <AvatarImage src={member.img} loading="lazy" />
+                    <AvatarFallback>{member.initials}</AvatarFallback>
+                  </Avatar>
+                  <h4 className="text-base lg:text-lg font-semibold mb-1">
+                    {member.name}
+                  </h4>
+                  <p className="text-sm text-[#6B6B6B]">{member.role}</p>
                 </div>
-            </section>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
 
-            {/* Services Section */}
-            <section id="services" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-20 bg-[#F8F9FA]">
-                <div className="mx-auto max-w-7xl">
-                    <div className="mb-16 text-center">
-                        <h2 className="text-3xl lg:text-5xl font-semibold text-[#1A1A1A] mb-4">Our Services</h2>
-                        <p className="text-lg text-[#6B6B6B] max-w-2xl mx-auto">
-                            Comprehensive technology solutions tailored to your business needs
-                        </p>
-                    </div>
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
+});
 
-                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        {services.map((service, index) => (
-                            <div key={index}>
-                                <Card className="h-full hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 bg-gradient-to-br from-[#000000] to-[#090f24]">
-                                    <CardContent className="p-8">
-                                        <div className="w-14 h-14 bg-gradient-to-br from-[#4A000F] to-[#E2001A]  flex items-center justify-center text-white mb-6">
-                                            {service.icon}
-                                        </div>
-                                        <h3 className="mb-3 text-xl font-medium text-white font-outfit">{service.title}</h3>
-                                        <p className="text-sm font-light leading-relaxed text-white font-outfit">{service.description}</p>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Team Section */}
-            <section id="team" className="px-4 py-16 bg-white lg:py-24 sm:px-6 lg:px-20">
-                <div className="mx-auto max-w-7xl">
-                    <div className="mb-16 text-center">
-                        <h2 className="text-3xl lg:text-5xl font-semibold text-[#1A1A1A] mb-4">Meet Our Leadership</h2>
-                        <p className="text-lg text-[#6B6B6B]">
-                            Experienced professionals driving innovation and excellence
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5 lg:gap-8">
-                        {team.map((member, index) => (
-                            <div
-                                key={index}
-                                className="text-center transition-transform hover:-translate-y-2"
-                            >
-                                <Avatar className="w-32 h-32 lg:w-40 lg:h-40 mx-auto mb-4 bg-gradient-to-br from-[#E5E5E5] to-[#F8F9FA] text-[#6B6B6B] text-2xl font-semibold">
-                                    <AvatarImage src={member.img} />
-                                    <AvatarFallback>{member.initials}</AvatarFallback>
-                                </Avatar>
-                                <h4 className="text-base lg:text-lg font-semibold text-[#1A1A1A] mb-1">{member.name}</h4>
-                                <p className="text-sm text-[#6B6B6B]">{member.role}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Footer */}
-            <Footer/>
-        </div>
-    );
-}
+export default App;

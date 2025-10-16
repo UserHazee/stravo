@@ -13,6 +13,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 // --- Image placeholders (replace with your own) ---
 import chartPlaceholder from "../assets/photo_bp.webp";
@@ -121,10 +122,13 @@ const LaravelDevelopment = memo(() => {
           content="Stravo builds robust and secure Laravel applications tailored to your business needs."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://stravo.com/laravel" />
+        <meta
+          property="og:url"
+          content="https://stravoph.netlify.app/laravel"
+        />
         <meta
           property="og:image"
-          content="https://stravo.com/og/laravel.webp"
+          content="https://stravoph.netlify.app/og/laravel.webp"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
@@ -137,7 +141,7 @@ const LaravelDevelopment = memo(() => {
         />
         <meta
           name="twitter:image"
-          content="https://stravo.com/og/laravel.webp"
+          content="https://stravoph.netlify.app/og/laravel.webp"
         />
       </Helmet>
       <Navbar />
@@ -153,9 +157,6 @@ const LaravelDevelopment = memo(() => {
               Build high-performance, secure, and scalable web applications with
               Laravel — the framework built for modern development.
             </p>
-            <Button variant="primary" size="top">
-              Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
           </div>
           <div className="flex justify-center">
             <div className="bg-white/10 rounded-full w-[300px] h-[300px] flex items-center justify-center">
@@ -312,9 +313,16 @@ const LaravelDevelopment = memo(() => {
           From startups to enterprises, Stravo builds robust and secure Laravel
           applications that scale as your business grows.
         </p>
-        <Button variant="primary" size="top">
-          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-        </Button>
+        <Link to="/contact">
+          <Button
+            className="cursor-pointer"
+            variant="primary"
+            size="top"
+            aria-label="Contact us to discuss your React project"
+          >
+            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </Link>
       </section>
 
       <Footer />

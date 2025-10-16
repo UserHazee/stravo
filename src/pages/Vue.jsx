@@ -11,7 +11,7 @@ import {
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
-
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -124,8 +124,11 @@ const Vue = memo(() => {
           content="Stravo creates dynamic and efficient Vue.js applications tailored to your business goals."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://stravo.com/vue-js" />
-        <meta property="og:image" content="https://stravo.com/og/vue.webp" />
+        <meta property="og:url" content="https://stravoph.netlify.app/vue-js" />
+        <meta
+          property="og:image"
+          content="https://stravoph.netlify.app/og/vue.webp"
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -135,7 +138,10 @@ const Vue = memo(() => {
           name="twitter:description"
           content="Fast and flexible Vue.js web development by Stravo."
         />
-        <meta name="twitter:image" content="https://stravo.com/og/vue.webp" />
+        <meta
+          name="twitter:image"
+          content="https://stravoph.netlify.app/og/vue.webp"
+        />
       </Helmet>
       <Navbar />
 
@@ -150,9 +156,6 @@ const Vue = memo(() => {
               Scalable. Efficient. Modern. Build seamless, dynamic interfaces
               and single-page applications powered by Vue.js.
             </p>
-            <Button variant="primary" size="top">
-              Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
           </div>
           <div className="flex justify-center">
             <div className="bg-white/10 rounded-full w-[300px] h-[300px] flex items-center justify-center">
@@ -309,9 +312,16 @@ const Vue = memo(() => {
           Let’s collaborate to build intuitive and high-performing Vue
           applications.
         </p>
-        <Button variant="primary" size="top">
-          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-        </Button>
+        <Link to="/contact">
+          <Button
+            className="cursor-pointer"
+            variant="primary"
+            size="top"
+            aria-label="Contact us to discuss your React project"
+          >
+            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </Link>
       </section>
 
       <Footer />

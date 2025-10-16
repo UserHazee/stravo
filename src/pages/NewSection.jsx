@@ -4,8 +4,8 @@ import {ArrowRight} from "lucide-react";
 
 // --- Images ---
 // Hosting images (no fallback needed)
-import hostingImg1 from "../assets/HOsitng.png";
-import hostingImg2 from "../assets/H&M.png";
+import hostingImg1 from "../assets/HOsitng.webp";
+import hostingImg2 from "../assets/H&M.webp";
 
 // Team member WebP images (optimized)
 import teamMember1WebP from "../assets/1000483230 (1).webp";

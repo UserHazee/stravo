@@ -11,17 +11,12 @@ import Img3WebP from "../assets/photo_wd_2.webp";
 import Img3Fallback from "../assets/photo_wd_2.avif"; // Keep original as fallback
 import {
   Code2,
-  Users,
-  Zap,
-  Target,
   Check,
   Plus,
-  ArrowRight,
   Minus,
   MessageCircle,
   TrendingUp,
   UserCheck,
-  Database,
   Server,
   Cloud as CloudIcon,
   Bug,
@@ -455,8 +450,8 @@ const WebDev = () => {
           content="Stravo builds responsive, fast, and scalable web solutions — from concept to launch. Design, Code, and Deliver."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://stravo.com/webdevelopment" />
-        <meta property="og:image" content="https://stravo.com/og/webdev.webp" />
+        <meta property="og:url" content="https://stravoph.netlify.app/webdevelopment" />
+        <meta property="og:image" content="https://stravoph.netlify.app/og/webdev.webp" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -468,7 +463,7 @@ const WebDev = () => {
         />
         <meta
           name="twitter:image"
-          content="https://stravo.com/og/webdev.webp"
+          content="https://stravoph.netlify.app/og/webdev.webp"
         />
         <script type="application/ld+json">
           {`
@@ -476,12 +471,12 @@ const WebDev = () => {
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "Stravo Web Development",
-              "url": "https://stravo.com",
+              "url": "https://stravoph.netlify.app",
               "description": "Stravo provides professional web development and design services.",
               "publisher": {
                 "@type": "Organization",
                 "name": "Stravo",
-                "logo": "https://stravo.com/logo.png"
+                "logo": "https://stravoph.netlify.app/logo.png"
               }
             }
           `}

@@ -14,6 +14,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 // --- Image placeholders (replace with your own) ---
 import chartPlaceholder from "../assets/photo_bp.webp";
@@ -122,8 +123,11 @@ const PHPDevelopment = memo(() => {
           content="Stravo builds secure, high-performance PHP applications for businesses of all sizes."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://stravo.com/php" />
-        <meta property="og:image" content="https://stravo.com/og/php.webp" />
+        <meta property="og:url" content="https://stravoph.netlify.app/php" />
+        <meta
+          property="og:image"
+          content="https://stravoph.netlify.app/og/php.webp"
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -133,7 +137,10 @@ const PHPDevelopment = memo(() => {
           name="twitter:description"
           content="Secure and efficient PHP development solutions by Stravo."
         />
-        <meta name="twitter:image" content="https://stravo.com/og/php.webp" />
+        <meta
+          name="twitter:image"
+          content="https://stravoph.netlify.app/og/php.webp"
+        />
       </Helmet>
       <Navbar />
 
@@ -148,9 +155,6 @@ const PHPDevelopment = memo(() => {
               Build dynamic, secure, and scalable web applications using PHP —
               the foundation of modern web development.
             </p>
-            <Button variant="primary" size="top">
-              Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
           </div>
           <div className="flex justify-center">
             <div className="bg-white/10 rounded-full w-[300px] h-[300px] flex items-center justify-center">
@@ -306,9 +310,16 @@ const PHPDevelopment = memo(() => {
           From small business websites to enterprise-grade platforms, Stravo
           delivers fast, secure, and scalable PHP solutions.
         </p>
-        <Button variant="primary" size="top">
-          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-        </Button>
+        <Link to="/contact">
+          <Button
+            className="cursor-pointer"
+            variant="primary"
+            size="top"
+            aria-label="Contact us to discuss your React project"
+          >
+            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </Link>
       </section>
 
       <Footer />

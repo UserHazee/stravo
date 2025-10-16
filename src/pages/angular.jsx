@@ -14,6 +14,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 // --- Image placeholders (replace later) ---
 import chartPlaceholder from "../assets/photo_bp.webp";
@@ -122,10 +123,13 @@ const AngularDevelopment = memo(() => {
           content="Stravo builds high-performing Angular applications for enterprises and startups."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://stravo.com/angular-js" />
+        <meta
+          property="og:url"
+          content="https://stravoph.netlify.app/angular-js"
+        />
         <meta
           property="og:image"
-          content="https://stravo.com/og/angular.webp"
+          content="https://stravoph.netlify.app/og/angular.webp"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
@@ -138,7 +142,7 @@ const AngularDevelopment = memo(() => {
         />
         <meta
           name="twitter:image"
-          content="https://stravo.com/og/angular.webp"
+          content="https://stravoph.netlify.app/og/angular.webp"
         />
       </Helmet>
       <Navbar />
@@ -155,9 +159,6 @@ const AngularDevelopment = memo(() => {
               applications with Angular — a framework designed for enterprise
               excellence and long-term performance.
             </p>
-            <Button variant="primary" size="top">
-              Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
           </div>
           <div className="flex justify-center">
             <div className="bg-white/10 rounded-full w-[300px] h-[300px] flex items-center justify-center">
@@ -312,9 +313,16 @@ const AngularDevelopment = memo(() => {
           Consult our Angular experts today and take your enterprise platform to
           the next level.
         </p>
-        <Button variant="primary" size="top">
-          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-        </Button>
+        <Link to="/contact">
+          <Button
+            className="cursor-pointer"
+            variant="primary"
+            size="top"
+            aria-label="Contact us to discuss your React project"
+          >
+            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </Link>
       </section>
 
       <Footer />

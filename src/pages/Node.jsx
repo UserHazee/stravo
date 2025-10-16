@@ -13,6 +13,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 // --- Image placeholders (replace with your own images later) ---
 import chartPlaceholder from "../assets/photo_bp.webp";
@@ -121,8 +122,14 @@ const NodejsDevelopment = memo(() => {
           content="Stravo creates high-performance Node.js backends for real-time, data-driven web applications."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://stravo.com/node-js" />
-        <meta property="og:image" content="https://stravo.com/og/node.webp" />
+        <meta
+          property="og:url"
+          content="https://stravoph.netlify.app/node-js"
+        />
+        <meta
+          property="og:image"
+          content="https://stravoph.netlify.app/og/node.webp"
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -132,7 +139,10 @@ const NodejsDevelopment = memo(() => {
           name="twitter:description"
           content="Fast and scalable Node.js backend development by Stravo."
         />
-        <meta name="twitter:image" content="https://stravo.com/og/node.webp" />
+        <meta
+          name="twitter:image"
+          content="https://stravoph.netlify.app/og/node.webp"
+        />
       </Helmet>
       <Navbar />
 
@@ -147,9 +157,6 @@ const NodejsDevelopment = memo(() => {
               Fast. Reliable. Scalable. Build modern backend systems that power
               real-time, data-driven web applications using Node.js.
             </p>
-            <Button variant="primary" size="top">
-              Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
           </div>
           <div className="flex justify-center">
             <div className="bg-white/10 rounded-full w-[300px] h-[300px] flex items-center justify-center">
@@ -301,9 +308,16 @@ const NodejsDevelopment = memo(() => {
         <p className="max-w-2xl mx-auto mb-8 text-white/90">
           Let’s build your next scalable, event-driven application together.
         </p>
-        <Button variant="primary" size="top">
-          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-        </Button>
+        <Link to="/contact">
+          <Button
+            className="cursor-pointer"
+            variant="primary"
+            size="top"
+            aria-label="Contact us to discuss your React project"
+          >
+            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </Link>
       </section>
 
       <Footer />

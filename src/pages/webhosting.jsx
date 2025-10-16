@@ -16,7 +16,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GreenHero from "./GreenHero";
 import WebHostingSection from "./NewSection";
-import vpsImage from "../assets/Vps.png";
+import vpsImage from "../assets/Vps.webp";
 
 // ========== STATIC DATA ==========
 
@@ -176,11 +176,11 @@ const WebHosting = () => {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://stravo.com/services/webhosting"
+          content="https://stravoph.netlify.app/services/webhosting"
         />
         <meta
           property="og:image"
-          content="https://stravo.com/og/hosting-preview.webp"
+          content="https://stravoph.netlify.app/og/hosting-preview.webp"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
@@ -193,11 +193,11 @@ const WebHosting = () => {
         />
         <meta
           name="twitter:image"
-          content="https://stravo.com/og/hosting-preview.webp"
+          content="https://stravoph.netlify.app/og/hosting-preview.webp"
         />
         <link
           rel="canonical"
-          href="https://stravo.com/services/webhosting"
+          href="https://stravoph.netlify.app/services/webhosting"
         />
         <script type="application/ld+json">
           {`
@@ -208,7 +208,7 @@ const WebHosting = () => {
               "provider": {
                 "@type": "Organization",
                 "name": "Stravo",
-                "url": "https://stravo.com"
+                "url": "https://stravoph.netlify.app"
               },
               "description": "Professional web hosting and maintenance services by Stravo. We design, code, and deliver reliable hosting solutions.",
               "areaServed": "Worldwide"

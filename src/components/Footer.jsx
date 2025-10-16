@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 mb-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <Logo className="mb-4" />
+              <Logo className="w-auto h-16 mb-4 " />
             <p className="text-[#B0B0B0] leading-relaxed mb-6">
               Leading software development company helping businesses build
               innovative digital products with top 1% IT talent.
@@ -23,28 +23,28 @@ export default function Footer() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-[#2A2A2A] hover:bg-[#E2001A] text-white rounded-lg"
+                className="bg-[#2A2A2A] hover:bg-[#E2001A] text-white rounded-lg cursor-pointer"
               >
                 <Twitter className="w-5 h-5" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-[#2A2A2A] hover:bg-[#E2001A] text-white rounded-lg"
+                className="bg-[#2A2A2A] hover:bg-[#E2001A] text-white rounded-lg cursor-pointer"
               >
                 <Linkedin className="w-5 h-5" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-[#2A2A2A] hover:bg-[#E2001A] text-white rounded-lg"
+                className="bg-[#2A2A2A] hover:bg-[#E2001A] text-white rounded-lg cursor-pointer"
               >
                 <Facebook className="w-5 h-5" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-[#2A2A2A] hover:bg-[#E2001A] text-white rounded-lg"
+                className="bg-[#2A2A2A] hover:bg-[#E2001A] text-white rounded-lg cursor-pointer"
               >
                 <Instagram className="w-5 h-5" />
               </Button>
@@ -88,43 +88,55 @@ export default function Footer() {
                 to="/blog"
                 className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
               >
-                Blog
+                Case Studies
               </Link>
               <Link
                 to="/contact"
                 className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
               >
-                Contact
+                Insights
               </Link>
             </div>
           </div>
 
           <div>
-            <h4 className="mb-4 text-lg font-semibold">Resources</h4>
+            <h4 className="mb-4 text-lg font-semibold">Technologies</h4>
             <div className="space-y-3">
               <Link
-                to="/case-studies"
+                to="/react-js"
                 className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
               >
-                Case Studies
+                React JS
               </Link>
               <Link
-                to="#"
+                to="/node-js"
                 className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
               >
-                White Papers
+                Node JS
               </Link>
               <Link
-                to="#"
+                to="/vue-js"
                 className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
               >
-                Documentation
+                Vue JS
               </Link>
               <Link
-                to="#"
+                to="/php"
                 className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
               >
-                Support
+                PHP
+              </Link>
+                <Link
+                to="/laravel"
+                className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
+              >
+                Laravel
+              </Link> 
+               <Link
+                to="/angular"
+                className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
+              >
+                Angular
               </Link>
             </div>
           </div>

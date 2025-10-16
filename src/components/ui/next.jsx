@@ -1,20 +1,23 @@
 // Static data moved outside component to prevent re-creation on each render
+import { Link } from "react-router-dom";
+
+import { Button } from "@/components/ui/button";
 const steps = [
   {
     day: "Day 1",
     title: "Discovery Call & Notes",
-    desc: "Quick call to understand project goals, scope, and budget. We sign NDA if you require one."
+    desc: "Quick call to understand project goals, scope, and budget. We sign NDA if you require one.",
   },
   {
     day: "Day 3",
     title: "Draft Proposal",
-    desc: "As a startup consultant, I provide a clear MVP path. Detailed architecture will evolve as we build."
+    desc: "As a startup consultant, I provide a clear MVP path. Detailed architecture will evolve as we build.",
   },
   {
     day: "Day 4",
     title: "Finalize Agreement",
-    desc: "Send refined proposal with pricing, timeline, and deliverables."
-  }
+    desc: "Send refined proposal with pricing, timeline, and deliverables.",
+  },
 ];
 
 export function ProcessSection() {
@@ -33,29 +36,32 @@ export function ProcessSection() {
             The goal is to get you the best team of engineers in the shortest
             time and start delivering real business value.
           </p>
-          <button className="mt-6 px-6 py-3 bg-[#E2001A] text-white font-medium rounded-md hover:bg-teal-300 transition">
-            Get a Proposal →
-          </button>
+          <Link to="/contact">
+            <Button className="mt-4 cursor-pointer bg-[#A0001E] hover:bg-[#E2001A] border-2 hover:border-[#E2001A] border-[#A0001E] text-white px-8 py-6 text-base rounded-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
+             Get a Proposal →
+            </Button>
+          </Link>
         </div>
 
         {/* Right Side Timeline */}
         <div className="relative pl-8 ms-8 next:ms-0">
           {/* Gradient Line */}
           <div className="absolute top-25 left-0 h-[50px] w-[2px] bg-gradient-to-b from-[#000000] to-[#F8F9FA]"></div>
-          
+
           <div className="absolute top-70 left-0 h-[50px] w-[2px] bg-gradient-to-b from-[#000000] to-[#F8F9FA]"></div>
 
           {steps.map((step, index) => (
-            <div
-              key={index}
-              className="relative mb-20"
-            >
+            <div key={index} className="relative mb-20">
               {/* Step Label */}
               <span className="absolute px-4 py-5 text-sm font-normal text-white bg-gray-800 -left-16 font-outfit">
                 {step.day}
               </span>
-              <h3 className="text-lg font-medium tracking-normal ps-7 font-outfit ">{step.title}</h3>
-              <p className="text-gray-400 mt-2 text-sm ps-7 h-[70px] font-outfit tracking-tight ">{step.desc}</p>
+              <h3 className="text-lg font-medium tracking-normal ps-7 font-outfit ">
+                {step.title}
+              </h3>
+              <p className="text-gray-400 mt-2 text-sm ps-7 h-[70px] font-outfit tracking-tight ">
+                {step.desc}
+              </p>
             </div>
           ))}
         </div>

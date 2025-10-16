@@ -13,6 +13,7 @@ import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
+import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -123,8 +124,14 @@ const ReactDevelopment = memo(() => {
           content="Stravo delivers fast, responsive React.js applications built for performance, scalability, and user engagement."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://stravo.com/react-js" />
-        <meta property="og:image" content="https://stravo.com/og/react.webp" />
+        <meta
+          property="og:url"
+          content="https://stravoph.netlifly.app/react-js"
+        />
+        <meta
+          property="og:image"
+          content="https://stravoph.netlifly.app/og/react.webp"
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -134,7 +141,10 @@ const ReactDevelopment = memo(() => {
           name="twitter:description"
           content="Modern, scalable, and interactive React.js development by Stravo."
         />
-        <meta name="twitter:image" content="https://stravo.com/og/react.webp" />
+        <meta
+          name="twitter:image"
+          content="https://stravoph.netlifly.app/og/react.webp"
+        />
       </Helmet>
       <Navbar />
 
@@ -150,9 +160,7 @@ const ReactDevelopment = memo(() => {
               handle large data fast, helping your business grow with modern
               React.js technology.
             </p>
-            <Button variant="primary" size="top">
-              Let’s Talk <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+           
           </div>
           <div className="flex justify-center">
             <div className="bg-white/10 rounded-full w-[300px] h-[300px] flex items-center justify-center">
@@ -308,13 +316,16 @@ const ReactDevelopment = memo(() => {
         <p className="max-w-2xl mx-auto mb-8 text-white/90">
           Discuss your most pressing problem with our technical advisors today.
         </p>
-        <Button
-          variant="primary"
-          size="top"
-          aria-label="Contact us to discuss your React project"
-        >
-          Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-        </Button>
+        <Link to="/contact">
+          <Button
+          className="cursor-pointer"
+            variant="primary"
+            size="top"
+            aria-label="Contact us to discuss your React project"
+          >
+            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </Link>
       </section>
 
       <Footer />
