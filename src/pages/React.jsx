@@ -1,9 +1,13 @@
-import React, { memo } from "react";
+import React, { useState, memo, useCallback } from "react";
 import {
   ArrowRight,
   Code2,
   Users,
   Zap,
+  Minus,
+  Plus,
+  Home,
+  ChevronRight,
   Target,
   Globe,
   Cpu,
@@ -24,7 +28,99 @@ import logo2 from "../assets/photo_wd.webp";
 import logo3 from "../assets/photo_wd.webp";
 import logo4 from "../assets/photo_wd.webp";
 import logo5 from "../assets/photo_wd.webp";
+// Function to generate the JSON-LD structure
 
+// Generate the final JSON-LD object
+
+// --- SEO-Optimized FAQ Data (from previous response) ---
+const reactFaqs = [
+  {
+    question: "What is React (React.js) and why is it so popular?",
+    answer:
+      "React (often called React.js or ReactJS) is a powerful, open-source **JavaScript library** used for building fast, scalable, and complex **user interfaces (UIs)**, especially for single-page applications. Why it's popular: It works by letting developers break down the UI into reusable, isolated pieces called **Components**. This modular approach makes code easier to manage, debug, and scale. For today's consumer, React is the engine behind the smooth, instant-loading experience you expect from modern websites and apps.",
+  },
+  {
+    question:
+      "What are the main benefits of choosing React for a modern web application?",
+    answer:
+      "Choosing React offers significant advantages that directly impact development cost, speed, and user experience (UX): 1. **Performance (Virtual DOM):** React uses a **Virtual DOM** (Document Object Model) to only update the necessary parts of the page, leading to **lightning-fast loading** and seamless user interactions. 2. **Reusability:** Components can be reused across different parts of an application, which drastically **speeds up development** and reduces long-term maintenance costs. 3. **Strong Community:** Backed by Facebook (Meta) and a massive developer community, ensuring constant improvements and easy access to solutions. 4. **SEO-Friendliness:** React supports **Server-Side Rendering (SSR)** with frameworks like Next.js, ensuring your dynamic content is easily crawled and indexed by Google.",
+  },
+  {
+    question: "What are the primary use cases for a React-based web solution?",
+    answer:
+      "React excels in scenarios where a highly **dynamic, data-driven, and interactive user experience** is required. Its primary use cases include: 1. **Single-Page Applications (SPAs):** Websites that load once and dynamically update content without full page reloads (e.g., Gmail, social media feeds). 2. **Interactive Dashboards and Data Visualization:** Building complex charts, tables, and analytical interfaces that update in real-time. 3. **Cross-Platform Mobile Apps:** Using **React Native** to leverage the same principles and code for native iOS and Android applications. 4. **E-commerce Front-Ends:** Creating fast product pages, complex filtering systems, and smooth checkout flows.",
+  },
+  {
+    question:
+      "Can you provide examples of well-known applications built with React?",
+    answer:
+      "Yes, React is the foundation for some of the world's largest and most performance-intensive digital products, proving its scalability and robustness: **Facebook, Instagram, Netflix, Airbnb, and The New York Times.** These examples demonstrate that React is the **industry standard** for high-traffic, modern web experiences that prioritize speed and excellent UX.",
+  },
+];
+
+/**
+ * Safely converts '**text**' (markdown) to <strong> elements in React.
+ * @param {string} text - The FAQ answer string.
+ * @returns {Array<React.ReactNode>} - An array of React elements (strings and <strong> tags).
+ */
+const renderAnswerContent = (text) => {
+  // Regex to split the string by content surrounded by double asterisks
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+
+  return parts.map((part, i) => {
+    // Check if the part starts and ends with '**'
+    if (part.startsWith("**") && part.endsWith("**")) {
+      // Extract the content and wrap it in a <strong> tag
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    // Return the plain text part
+    return part;
+  });
+};
+
+// 1. The Memoized Child Component
+const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
+  <div className="overflow-hidden border border-gray-200 rounded-xl">
+    <div>
+      <button
+        aria-expanded={isOpen}
+        aria-controls={`faq-${index}`}
+        onClick={onToggle}
+        className="flex items-center justify-between w-full p-6 text-left transition-colors hover:bg-gray-50"
+      >
+        <span className="text-lg font-semibold text-gray-900">
+          {faq.question}
+        </span>
+        {/* Replace with your actual icon components (Minus/Plus) */}
+        {isOpen ? (
+          <Minus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        ) : (
+          <Plus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        )}
+      </button>
+      {isOpen && (
+        <div id={`faq-${index}`} className="px-6 pb-6 text-gray-600">
+          <p>{renderAnswerContent(faq.answer)}</p>
+        </div>
+      )}
+    </div>
+  </div>
+));
+
+const getFaqSchema = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      // Important: Remove HTML bolding tags from the schema text
+      text: faq.answer.replace(/\*\*/g, ""),
+    },
+  })),
+});
+const faqSchema = getFaqSchema(reactFaqs);
 // HERO ICON
 const heroIcon = (
   <FontAwesomeIcon
@@ -103,6 +199,28 @@ const pillars = [
 
 // --- Component ---
 const ReactDevelopment = memo(() => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "React Development",
+        item: "https://stravoph.netlify.app/react-js",
+      },
+    ],
+  };
+  const [openIndex, setOpenIndex] = useState(null);
+  const handleToggle = useCallback((index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  }, []);
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Helmet>
@@ -145,11 +263,40 @@ const ReactDevelopment = memo(() => {
           name="twitter:image"
           content="https://stravoph.netlifly.app/og/react.webp"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
-      <Navbar />
+      <header role="banner">
+        <Navbar />
+      </header>
 
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 pb-4 text-sm text-white bg-gradient-to-r from-[#4A000F] to-[#A0001E] mt-20 "
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link
+              to="/"
+              className="flex items-center hover:text-[#E2001A] transition-colors"
+            >
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#E2001A] font-medium">React Development</li>
+        </ol>
+      </nav>
       {/* HERO SECTION */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white sm:px-6 lg:px-20">
+      <section className="relative px-6  pb-20 overflow-hidden bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white sm:px-6 lg:px-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 items-center gap-10">
           <div>
             <h1 className="text-5xl font-bold leading-tight mb-4">
@@ -160,7 +307,6 @@ const ReactDevelopment = memo(() => {
               handle large data fast, helping your business grow with modern
               React.js technology.
             </p>
-           
           </div>
           <div className="flex justify-center">
             <div className="bg-white/10 rounded-full w-[300px] h-[300px] flex items-center justify-center">
@@ -236,42 +382,26 @@ const ReactDevelopment = memo(() => {
       {/* KNOW REACT */}
       <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Things you need to know about React
+          <h2
+            className="text-3xl font-bold text-gray-900 mb-6"
+            id="react-faq-guide"
+          >
+            Everything You Need to Know About React Development
           </h2>
           <p className="text-gray-600 mb-10">
-            Before you choose your React development partner, here’s a quick
-            guide:
+            Before you choose your **React development** partner, here’s a quick
+            guide to the technology that powers the modern web.
           </p>
 
-          <div className="space-y-4 border-t border-gray-200">
-            {[
-              "What is React",
-              "React benefits",
-              "React use cases",
-              "React app examples",
-            ].map((item, idx) => (
-              <details
-                key={idx}
-                className="border-b border-gray-200 py-4 group cursor-pointer"
-                onToggle={(e) =>
-                  e.currentTarget.setAttribute(
-                    "aria-expanded",
-                    e.currentTarget.open
-                  )
-                }
-              >
-                <summary className="flex justify-between items-center text-gray-800 font-medium">
-                  {item}
-                  <span className="group-open:rotate-180 transition-transform">
-                    +
-                  </span>
-                </summary>
-                <p className="text-sm text-gray-600 mt-2">
-                  Placeholder content — you can expand on this to explain each
-                  topic in more depth for your visitors.
-                </p>
-              </details>
+          <div className="space-y-4">
+            {reactFaqs.map((faq, index) => (
+              <FAQItem
+                key={faq.question}
+                faq={faq}
+                index={index}
+                isOpen={openIndex === index}
+                onToggle={() => handleToggle(index)}
+              />
             ))}
           </div>
         </div>
@@ -318,7 +448,7 @@ const ReactDevelopment = memo(() => {
         </p>
         <Link to="/contact">
           <Button
-          className="cursor-pointer"
+            className="cursor-pointer"
             variant="primary"
             size="top"
             aria-label="Contact us to discuss your React project"

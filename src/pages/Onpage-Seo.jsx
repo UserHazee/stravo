@@ -9,6 +9,8 @@ import {
   Target,
   TrendingUp,
   Award,
+  Home,
+  ChevronRight,
   ArrowRight,
   CheckCircle2,
   Sparkles,
@@ -153,6 +155,24 @@ const FloatingBadge = memo(() => (
 
 // ========== MAIN COMPONENT ==========
 const OnPageSEO = memo(() => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "SEO Optimization",
+        item: "https://stravoph.netlify.app/onpageseo",
+      },
+    ],
+  };
   return (
     <div className="min-h-screen font-outfit bg-gradient-to-b from-slate-50 to-white">
       <Helmet>
@@ -196,16 +216,40 @@ const OnPageSEO = memo(() => {
           }
         }
         `}</script>
+
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
+      <header role="banner">
+        <Navbar />
+      </header>
 
-      <Navbar />
-
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 text-sm text-gray-600 bg-gradient-to-tr from-[#FFF5F5] to-white mt-20"
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link
+              to="/"
+              className="flex items-center hover:text-[#A0001E] transition-colors"
+            >
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#A0001E] font-medium">SEO Optimization</li>
+        </ol>
+      </nav>
       {/* Hero Section */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20">
+      <section className="relative px-6 pt-3 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20">
         <div className="grid items-center gap-12 mx-auto max-w-7xl lg:grid-cols-2">
           <div className="space-y-6">
             <span className="flex items-center gap-2 w-46 px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
-              <Sparkles className="w-4 h-4" />
               SEO Excellence
             </span>
 

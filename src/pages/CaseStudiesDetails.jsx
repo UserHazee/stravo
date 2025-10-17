@@ -1,8 +1,8 @@
 import React, { memo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom"; // ✅ Added Link
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ChevronRight, ArrowRight, BookOpenCheck } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Helmet } from "react-helmet-async"; // ✅ For SEO metadata
 import case1 from "../assets/photo_wd.webp";
@@ -12,7 +12,8 @@ import case2 from "../assets/photo_bp.webp";
 const caseStudies = [
   {
     id: "big-four",
-    title: "How we developed 3 dedicated digital products for one of the Big Four Companies",
+    title:
+      "How we developed 3 dedicated digital products for one of the Big Four Companies",
     subtitle: "TACTICAL STRATEGY & FULL-STACK DEVELOPMENT",
     overview:
       "Stravo partnered with a global Big Four company to modernize their digital tools for compliance, analytics, and reporting — driving scalability and cross-department efficiency.",
@@ -63,6 +64,26 @@ const caseStudies = [
 ];
 
 const CaseStudyDetails = memo(() => {
+  // NOTE: breadcrumbSchema static URLs are fine for this mock setup,
+  // but in a real-world app, you'd calculate the canonical URL dynamically.
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Case Studies Details",
+        item: "https://stravoph.netlify.app/big-four",
+      },
+    ],
+  };
   const { id } = useParams();
   const navigate = useNavigate();
   const caseData = caseStudies.find((item) => item.id === id);
@@ -88,31 +109,54 @@ const CaseStudyDetails = memo(() => {
           content={`${caseData.overview} | STRAVO — We build your machine behind your vision.`}
         />
         <meta name="author" content="STRAVO" />
-        <meta name="keywords" content={`${caseData.technologies.join(", ")}, STRAVO, Web Development, Software Solutions`} />
+        <meta
+          name="keywords"
+          content={`${caseData.technologies.join(
+            ", "
+          )}, STRAVO, Web Development, Software Solutions`}
+        />
         <meta property="og:title" content={`${caseData.title} | STRAVO`} />
         <meta property="og:description" content={caseData.overview} />
         <meta property="og:image" content={caseData.image} />
         <meta property="og:type" content="article" />
         <meta property="og:site_name" content="STRAVO" />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
 
-      <Navbar />
-
+      <header role="banner">
+        <Navbar />
+      </header>
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 pb-4 text-sm text-gray-600 bg-[#0C0C0C] mt-20"
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link 
+              to="/casestudies"
+              className="flex items-center hover:text-[#A0001E] transition-colors"
+            >
+              <BookOpenCheck className="w-4 h-4 mr-1" aria-hidden="true" />
+              Case Studies
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#A0001E] font-medium">Case Study Highlight</li>
+        </ol>
+      </nav>
       {/* HERO */}
-      <section className="bg-[#0C0C0C] text-white py-28 px-6 sm:px-10 lg:px-20 relative overflow-hidden">
+      <section className="bg-[#0C0C0C] text-white pt-4 pb-28 px-6 sm:px-10 lg:px-20 relative overflow-hidden">
         <div className="max-w-5xl mx-auto relative z-10">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/casestudies")}
-            className="absolute top-6 left-6 text-white/70 hover:text-white"
-          >
-            <ArrowLeft className="mr-2 w-5 h-5" /> Back
-          </Button>
-
           <p className="text-[#E2001A] uppercase text-sm tracking-widest mb-4">
             {caseData.subtitle}
           </p>
-          <h1 className="text-5xl font-bold leading-tight mb-6">{caseData.title}</h1>
+          <h1 className="text-5xl font-bold leading-tight mb-6">
+            {caseData.title}
+          </h1>
           <p className="text-white/80 max-w-3xl">{caseData.overview}</p>
         </div>
 
@@ -129,7 +173,9 @@ const CaseStudyDetails = memo(() => {
       <section className="py-20 px-6 sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-[#E2001A]">Challenges</h2>
+            <h2 className="text-2xl font-bold mb-4 text-[#E2001A]">
+              Challenges
+            </h2>
             <ul className="space-y-3 list-disc pl-5 text-gray-700">
               {caseData.challenges.map((c, i) => (
                 <li key={i}>{c}</li>
@@ -138,7 +184,9 @@ const CaseStudyDetails = memo(() => {
           </div>
 
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-[#E2001A]">Our Solutions</h2>
+            <h2 className="text-2xl font-bold mb-4 text-[#E2001A]">
+              Our Solutions
+            </h2>
             <ul className="space-y-3 list-disc pl-5 text-gray-700">
               {caseData.solutions.map((s, i) => (
                 <li key={i}>{s}</li>
@@ -151,7 +199,9 @@ const CaseStudyDetails = memo(() => {
       {/* RESULTS */}
       <section className="bg-[#0C0C0C] text-white py-20 px-6 sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6 text-[#E2001A]">Measurable Results</h2>
+          <h2 className="text-3xl font-bold mb-6 text-[#E2001A]">
+            Measurable Results
+          </h2>
           <div className="grid sm:grid-cols-3 gap-10 mt-10">
             {caseData.results.map((r, i) => (
               <div
@@ -168,7 +218,9 @@ const CaseStudyDetails = memo(() => {
       {/* TECHNOLOGY STACK */}
       <section className="py-20 px-6 sm:px-10 lg:px-20 bg-white">
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-8 text-[#E2001A]">Technologies Used</h2>
+          <h2 className="text-2xl font-bold mb-8 text-[#E2001A]">
+            Technologies Used
+          </h2>
           <div className="flex flex-wrap justify-center gap-4">
             {caseData.technologies.map((tech, idx) => (
               <span
@@ -185,7 +237,9 @@ const CaseStudyDetails = memo(() => {
       {/* CTA */}
       <section className="bg-[#E2001A] text-white py-16 text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6">Want to see another transformation story?</h2>
+          <h2 className="text-3xl font-bold mb-6">
+            Want to see another transformation story?
+          </h2>
           <Button
             onClick={() => navigate("/casestudies")}
             className="bg-white text-[#E2001A] hover:bg-gray-100"

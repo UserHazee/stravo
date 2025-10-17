@@ -1,5 +1,6 @@
 // pages/webdev.jsx
 import React, { useState, useCallback, memo } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Img1WebP from "../assets/photo_wd.webp";
 import Img1Fallback from "../assets/photo_wd.avif"; // Keep original as fallback
@@ -14,6 +15,8 @@ import {
   Check,
   Plus,
   Minus,
+  Home,
+  ChevronRight,
   MessageCircle,
   TrendingUp,
   UserCheck,
@@ -130,9 +133,11 @@ const Testimonial = memo(({ testimonial }) => (
 ));
 
 // Memoized FAQ Item Component
-const FAQItem = memo(({ faq, isOpen, onToggle }) => (
+const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
   <div className="overflow-hidden border border-gray-200 rounded-xl">
     <button
+      aria-expanded={isOpen}
+      aria-controls={`faq-${index}`}
       onClick={onToggle}
       className="flex items-center justify-between w-full p-6 text-left transition-colors hover:bg-gray-50"
     >
@@ -145,7 +150,11 @@ const FAQItem = memo(({ faq, isOpen, onToggle }) => (
         <Plus className="flex-shrink-0 w-5 h-5 text-gray-500" />
       )}
     </button>
-    {isOpen && <div className="px-6 pb-6 text-gray-600">{faq.answer}</div>}
+    {isOpen && (
+      <div id={`faq-${index}`} className="px-6 pb-6 text-gray-600">
+        {faq.answer}
+      </div>
+    )}
   </div>
 ));
 
@@ -305,46 +314,64 @@ const services = [
 const teamRoles = [
   {
     name: "Frontend",
-    icon: <Code2 className="w-10 h-10" />,
+    icon: <Code2 aria-hidden="true" className="w-10 h-10" />,
     color: "from-[#4A000F] to-[#E2001A]",
   },
   {
     name: "Backend",
-    icon: <Server className="w-10 h-10" />,
+    icon: <Server aria-hidden="true" className="w-10 h-10" />,
     color: "from-[#4A000F] to-[#E2001A]",
   },
   {
     name: "DevOps",
-    icon: <CloudIcon className="w-10 h-10" />,
+    icon: <CloudIcon aria-hidden="true" className="w-10 h-10" />,
     color: "from-[#4A000F] to-[#E2001A]",
   },
   {
     name: "QA",
-    icon: <Bug className="w-10 h-10" />,
+    icon: <Bug aria-hidden="true" className="w-10 h-10" />,
     color: "from-[#4A000F] to-[#E2001A]",
   },
   {
     name: "Design",
-    icon: <Palette className="w-10 h-10" />,
+    icon: <Palette aria-hidden="true" className="w-10 h-10" />,
     color: "from-[#4A000F] to-[#E2001A]",
   },
 ];
 
 const pillars = [
   {
-    icon: <MessageCircle className="w-10 h-10" />,
+    icon: (
+      <MessageCircle
+        className="w-10 h-10"
+        role="img"
+        aria-label="Communication Icon"
+      />
+    ),
     title: "Communication & Project Delivery",
     description:
       "Transparent communication, agile methodology, regular updates.",
   },
   {
-    icon: <TrendingUp className="w-10 h-10" />,
+    icon: (
+      <TrendingUp
+        className="w-10 h-10"
+        role="img"
+        aria-label="Implementation Icon"
+      />
+    ),
     title: "Business-oriented Implementation Decisions",
     description:
       "Focus on ROI, scalability, and alignment with business goals.",
   },
   {
-    icon: <UserCheck className="w-10 h-10" />,
+    icon: (
+      <UserCheck
+        className="w-10 h-10"
+        role="img"
+        aria-label="Excepetional People Icon"
+      />
+    ),
     title: "Exceptional People Experience",
     description:
       "Dedicated teams with high ownership and technical excellence.",
@@ -367,7 +394,7 @@ const testimonials = [
     author: "Sarah Johnson",
     role: "CEO, TechFlow SaaS",
     quote:
-      "BrainHub helped us scale quickly with a reliable development team. Their expertise in React and Node.js was exactly what we needed to launch our platform ahead of schedule.",
+      "Stravo helped us scale quickly with a reliable development team. Their expertise in React and Node.js was exactly what we needed to launch our platform ahead of schedule.",
     rating: 5,
   },
   {
@@ -416,7 +443,57 @@ const faqs = [
   },
 ];
 
+// ========== JSON-LD SCHEMA FUNCTIONS ==========
+
+const getFaqSchema = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+});
+
+const faqSchema = getFaqSchema(faqs);
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Web Development Services",
+  provider: {
+    "@type": "Organization",
+    name: "Stravo",
+    url: "https://stravoph.netlify.app",
+  },
+  description:
+    "Professional web development services by Stravo. We design, build, and maintain modern, scalable websites tailored for your business success.",
+  areaServed: "Worldwide",
+};
+
 const WebDev = () => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Web Development",
+        item: "https://stravoph.netlify.app/webdev",
+      },
+    ],
+  };
+
   const [openFaq, setOpenFaq] = useState(null);
 
   // Optimized FAQ toggle handler with useCallback
@@ -433,8 +510,9 @@ const WebDev = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white font-outfit">
       <Helmet>
+        <html lang="en" />
         <title>Web Development Services | Stravo</title>
         <meta
           name="description"
@@ -450,8 +528,14 @@ const WebDev = () => {
           content="Stravo builds responsive, fast, and scalable web solutions — from concept to launch. Design, Code, and Deliver."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://stravoph.netlify.app/webdevelopment" />
-        <meta property="og:image" content="https://stravoph.netlify.app/og/webdev.webp" />
+        <meta
+          property="og:url"
+          content="https://stravoph.netlify.app/webdevelopment"
+        />
+        <meta
+          property="og:image"
+          content="https://stravoph.netlify.app/og/webdev.webp"
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -465,363 +549,384 @@ const WebDev = () => {
           name="twitter:image"
           content="https://stravoph.netlify.app/og/webdev.webp"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
         <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "Stravo Web Development",
-              "url": "https://stravoph.netlify.app",
-              "description": "Stravo provides professional web development and design services.",
-              "publisher": {
-                "@type": "Organization",
-                "name": "Stravo",
-                "logo": "https://stravoph.netlify.app/logo.png"
-              }
-            }
-          `}
+          {JSON.stringify(breadcrumbSchema)}
         </script>
       </Helmet>
 
-      <Navbar />
+      <header role="banner">
+        <Navbar />
+      </header>
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 text-sm text-gray-600 bg-gradient-to-tr from-[#FFF5F5] to-white mt-20"
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link 
+              to="/"
+              className="flex items-center hover:text-[#A0001E] transition-colors"
+            >
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#A0001E] font-medium">Web Development</li>
+        </ol>
+      </nav>
 
       {/* Hero Section */}
-      <section className="relative px-4 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 font-outfit">
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            {/* Left Column - Content */}
-            <div className="space-y-6">
-              <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
-                Software Delivery Services
-              </span>
+      <main id="main-content" role="main">
+        <section
+          className="relative px-4 pt-3 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 font-outfit"
+          aria-labelledby="webdev-hero-heading"
+        >
+          <div className="relative z-10 mx-auto max-w-7xl">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              {/* Left Column - Content */}
+              <div className="space-y-6">
+                <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
+                  Software Delivery Services
+                </span>
+                <h1
+                  id="hero-heading"
+                  className="text-5xl font-medium leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl"
+                >
+                  Professional Web Development for{" "}
+                  <span className="text-[#E2001A]">Your Business Needs.</span>
+                </h1>
+                <div className="space-y-4">
+                  <p className="text-lg text-gray-600 lg:text-xl">
+                    Get scalable, interactive web applications built with an
+                    end-to-end delivery approach from frontend and backend to
+                    infrastructure.
+                  </p>
+                </div>
+              </div>
 
-              <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl">
-                Professional Web Development for{" "}
-                <span className="text-[#E2001A]">Your Business Needs.</span>
-              </h1>
-
-              <div className="space-y-4">
-                <p className="text-lg text-gray-600 lg:text-xl">
-                  Get scalable, interactive web applications built with an
-                  end-to-end delivery approach from frontend and backend to
-                  infrastructure.
-                </p>
+              {/* Right Column - Technology Grid */}
+              <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">
+                {technologies.map((tech, idx) => (
+                  <TechnologyItem key={tech.name} tech={tech} />
+                ))}
               </div>
             </div>
+          </div>
 
-            {/* Right Column - Technology Grid */}
-            <div className="grid grid-cols-3 gap-4 lg:grid-cols-4">
-              {technologies.map((tech, idx) => (
-                <TechnologyItem key={idx} tech={tech} />
+          {/* Background Decorations */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#E2001A]/5 to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 rounded-full w-96 h-96 bg-gradient-to-tr from-gray-200/20 to-transparent blur-3xl" />
+        </section>
+        {/* Services Grid Section */}
+        <section
+          className="px-6 py-20 bg-white font-outfit"
+          aria-labelledby="Services-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-16 text-center">
+              <h2 className="mb-4 text-4xl font-bold text-gray-900 lg:text-5xl">
+                We'll bring your product to life from start to finish.
+              </h2>
+              <p className="max-w-2xl mx-auto text-gray-600">
+                From web development and hosting to SEO optimization — discover
+                how we can help you build, launch, and grow your digital
+                presence.
+              </p>
+            </div>
+
+            <div className="grid gap-8 md:grid-cols-3">
+              {services.map((service, idx) => (
+                <ServiceCard key={service.title} service={service} />
               ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Background Decorations */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#E2001A]/5 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 rounded-full w-96 h-96 bg-gradient-to-tr from-gray-200/20 to-transparent blur-3xl" />
-      </section>
-      {/* Services Grid Section */}
-      <section className="px-6 py-20 bg-white font-outfit">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-16 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-gray-900 lg:text-5xl">
-              We'll bring your product to life from start to finish.
-            </h2>
-            <p className="max-w-2xl mx-auto text-gray-600">
-              From web development and hosting to SEO optimization — discover
-              how we can help you build, launch, and grow your digital presence.
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            {services.map((service, idx) => (
-              <ServiceCard key={idx} service={service} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Structure Section - New Layout */}
-      <section className="px-4 py-20 bg-white sm:px-6 lg:px-20 font-outfit">
-        <div className="mx-auto max-w-7xl space-y-20">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="mb-6 text-4xl font-bold text-gray-900 lg:text-5xl">
-              Full-stack teams tailored for your needs
-            </h2>
-            <p className="max-w-3xl mx-auto text-lg text-gray-600">
-              Our team includes frontend, backend, DevOps, and QA engineers
-              working together to deliver complete solutions — seamlessly from
-              concept to launch.
-            </p>
-          </div>
-
-          {/* Row 1 */}
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            <div className="overflow-hidden rounded-2xl shadow-md aspect-[3/2]">
-              <OptimizedImage
-                webpSrc={Img1WebP}
-                fallbackSrc={Img1Fallback}
-                alt="Developers at work"
-                className="object-cover w-full h-full"
-                width={1154}
-                height={768}
-                loading="eager"
-                priority={true}
-              />
+        {/* Team Structure Section - New Layout */}
+        <section
+          className="px-4 py-20 bg-white sm:px-6 lg:px-20 font-outfit"
+          aria-labelledby="Team Structure-heading"
+        >
+          <div className="mx-auto max-w-7xl space-y-20">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <h2 className="mb-6 text-4xl font-bold text-gray-900 lg:text-5xl">
+                Full-stack teams tailored for your needs
+              </h2>
+              <p className="max-w-3xl mx-auto text-lg text-gray-600">
+                Our team includes frontend, backend, DevOps, and QA engineers
+                working together to deliver complete solutions — seamlessly from
+                concept to launch.
+              </p>
             </div>
 
-            {/* Text */}
-            <div>
-              <h3 className="mb-4 text-2xl font-bold text-gray-900">
-                Collaborative Approach
-              </h3>
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex gap-3 items-start">
-                  <Check className="w-5 h-5 text-[#E2001A] flex-shrink-0" />
-                  <span>
-                    Each member contributes specialized expertise while
-                    maintaining project unity.
-                  </span>
-                </li>
-                <li className="flex gap-3 items-start">
-                  <Check className="w-5 h-5 text-[#E2001A] flex-shrink-0" />
-                  <span>
-                    Transparent communication and agile methods ensure on-time
-                    project delivery.
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Row 2 */}
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            {/* Text */}
-            <div>
-              <h3 className="mb-4 text-2xl font-bold text-gray-900">
-                Dedicated QA and Testing
-              </h3>
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex gap-3 items-start">
-                  <Check className="w-5 h-5 text-[#E2001A] flex-shrink-0" />
-                  <span>
-                    Rigorous manual and automated testing to guarantee stability
-                    and quality.
-                  </span>
-                </li>
-                <li className="flex gap-3 items-start">
-                  <Check className="w-5 h-5 text-[#E2001A] flex-shrink-0" />
-                  <span>
-                    Continuous monitoring and bug tracking for quick issue
-                    resolution.
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Image */}
-            <div className="overflow-hidden rounded-2xl shadow-md aspect-[3/2]">
-              <OptimizedImage
-                webpSrc={Img2WebP}
-                fallbackSrc={Img2Fallback}
-                alt="QA Testing"
-                className="object-cover w-full h-full"
-                width={1170}
-                height={780}
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          {/* Row 3 */}
-          <div className="grid items-center gap-10 md:grid-cols-2">
-            <div className="overflow-hidden rounded-2xl shadow-md aspect-[3/2]">
-              <OptimizedImage
-                webpSrc={Img3WebP}
-                fallbackSrc={Img3Fallback}
-                alt="Team collaboration"
-                className="object-cover w-full h-full"
-                width={1147}
-                height={763}
-                loading="lazy"
-              />
-            </div>
-
-            {/* Text */}
-            <div>
-              <h3 className="mb-4 text-2xl font-bold text-gray-900">
-                Collaborative Development
-              </h3>
-              <ul className="space-y-3 text-gray-700">
-                <li className="flex gap-3 items-start">
-                  <Check className="w-5 h-5 text-[#E2001A] flex-shrink-0" />
-                  <span>
-                    Frontend and backend developers work closely to ensure
-                    seamless integration.
-                  </span>
-                </li>
-                <li className="flex gap-3 items-start">
-                  <Check className="w-5 h-5 text-[#E2001A] flex-shrink-0" />
-                  <span>
-                    DevOps engineers maintain scalable deployment pipelines for
-                    continuous delivery.
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Three Pillars Section */}
-      <section className="px-4 py-20 bg-gray-50 sm:px-6 lg:px-20 font-outfit">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-16 text-center">
-            <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl">
-              The Three Pillars of Excellence
-            </h2>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            {pillars.map((pillar, idx) => (
-              <div
-                key={idx}
-                className="p-10 text-center bg-white shadow-lg rounded-2xl"
-              >
-                <div className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-gradient-to-br from-red-50 to-pink-50 rounded-full text-[#E2001A]">
-                  {pillar.icon}
-                </div>
-                <h3 className="mb-4 text-xl font-bold text-gray-900">
-                  {pillar.title}
-                </h3>
-                <p className="text-gray-600">{pillar.description}</p>
+            {/* Row 1 */}
+            <div className="grid items-center gap-10 md:grid-cols-2">
+              <div className="overflow-hidden rounded-2xl shadow-md aspect-[3/2]">
+                <OptimizedImage
+                  webpSrc={Img1WebP}
+                  fallbackSrc={Img1Fallback}
+                  alt="Developers at work"
+                  className="object-cover w-full h-full"
+                  width={1154}
+                  height={768}
+                  loading="eager"
+                  priority={true}
+                />
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* What We Can Help With Section */}
-      <section className="px-4 py-20 bg-white sm:px-6 lg:px-20 font-outfit">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-12 text-center">
-            <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl">
-              What we can help you with
-            </h2>
-          </div>
+              {/* Text */}
+              <div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  Collaborative Approach
+                </h3>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex gap-3 items-start">
+                    <Check
+                      className="w-5 h-5 text-[#E2001A]"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      Each member contributes specialized expertise while
+                      maintaining project unity.
+                    </span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check
+                      className="w-5 h-5 text-[#E2001A]"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      Transparent communication and agile methods ensure on-time
+                      project delivery.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {helpCategories.map((category, idx) => (
-              <HelpCategory key={idx} category={category} />
-            ))}
-          </div>
-        </div>
-      </section>
+            {/* Row 2 */}
+            <div className="grid items-center gap-10 md:grid-cols-2">
+              {/* Text */}
+              <div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  Dedicated QA and Testing
+                </h3>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex gap-3 items-start">
+                    <Check
+                      className="w-5 h-5 text-[#E2001A]"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      Rigorous manual and automated testing to guarantee
+                      stability and quality.
+                    </span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check
+                      className="w-5 h-5 text-[#E2001A]"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      Continuous monitoring and bug tracking for quick issue
+                      resolution.
+                    </span>
+                  </li>
+                </ul>
+              </div>
 
-      {/* Testimonials Section */}
-      <section className="px-4 py-20 bg-gradient-to-br from-[#4A000F] to-[#E2001A] sm:px-6 lg:px-20 font-outfit">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-16 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-white lg:text-5xl">
-              What our Clients say about us
-            </h2>
-            <p className="text-xl text-gray-300">
-              Don't just take our word for it. Here's what our clients have to
-              say about working with BrainHub.
-            </p>
-          </div>
+              {/* Image */}
+              <div className="overflow-hidden rounded-2xl shadow-md aspect-[3/2]">
+                <OptimizedImage
+                  webpSrc={Img2WebP}
+                  fallbackSrc={Img2Fallback}
+                  alt="QA Testing"
+                  className="object-cover w-full h-full"
+                  width={1170}
+                  height={780}
+                  loading="lazy"
+                />
+              </div>
+            </div>
 
-          <div className="grid gap-8 mb-16 md:grid-cols-3">
-            {testimonials.map((testimonial, idx) => (
-              <Testimonial key={idx} testimonial={testimonial} />
-            ))}
-          </div>
+            {/* Row 3 */}
+            <div className="grid items-center gap-10 md:grid-cols-2">
+              <div className="overflow-hidden rounded-2xl shadow-md aspect-[3/2]">
+                <OptimizedImage
+                  webpSrc={Img3WebP}
+                  fallbackSrc={Img3Fallback}
+                  alt="Team collaboration"
+                  className="object-cover w-full h-full"
+                  width={1147}
+                  height={763}
+                  loading="lazy"
+                />
+              </div>
 
-          <div className="p-10 text-center bg-white border border-gray-700 backdrop-blur-sm rounded-2xl">
-            <h3 className="mb-6 text-3xl font-bold text-black">
-              Join 200+ satisfied clients
-            </h3>
-            <p className="mb-8 text-lg text-black">
-              From startups to enterprise companies, we've helped businesses of
-              all sizes achieve their digital goals.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              {stats.map((stat, idx) => (
+              {/* Text */}
+              <div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  Collaborative Development
+                </h3>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex gap-3 items-start">
+                    <Check
+                      className="w-5 h-5 text-[#E2001A]"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      Frontend and backend developers work closely to ensure
+                      seamless integration.
+                    </span>
+                  </li>
+                  <li className="flex gap-3 items-start">
+                    <Check
+                      className="w-5 h-5 text-[#E2001A]"
+                      aria-hidden="true"
+                    />
+                    <span>
+                      DevOps engineers maintain scalable deployment pipelines
+                      for continuous delivery.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Three Pillars Section */}
+        <section
+          className="px-4 py-20 bg-gray-50 sm:px-6 lg:px-20 font-outfit"
+          aria-labelledby="Three Pillars-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-16 text-center">
+              <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl">
+                The Three Pillars of Excellence
+              </h2>
+            </div>
+
+            <div className="grid gap-8 md:grid-cols-3">
+              {pillars.map((pillar, idx) => (
                 <div
                   key={idx}
-                  className="px-6 py-3 bg-white border-2 border-gray-700 bg-gradient-to-br from-[#4A000F] to-[#E2001A] rounded-full"
+                  className="p-10 text-center bg-white shadow-lg rounded-2xl"
                 >
-                  <span className="font-semibold text-white">{stat.label}</span>
+                  <div className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-gradient-to-br from-red-50 to-pink-50 rounded-full text-[#E2001A]">
+                    {pillar.icon}
+                  </div>
+                  <h3 className="mb-4 text-xl font-bold text-gray-900">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-gray-600">{pillar.description}</p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Form Section */}
-      <section className="px-4 py-20 bg-gray-50 sm:px-6 lg:px-20 font-outfit">
-        <div className="max-w-3xl mx-auto">
-          <div className="p-10 bg-white shadow-xl rounded-2xl">
-            <h2 className="mb-4 text-3xl font-bold text-center text-gray-900 lg:text-4xl">
-              Looking to build a web app?
-            </h2>
-            <p className="mb-8 text-lg text-center text-gray-600">
-              Let's talk about your project and how we can help bring your
-              vision to life with our expert development team.
-            </p>
+        {/* What We Can Help With Section */}
+        <section className="px-4 py-20 bg-white sm:px-6 lg:px-20 font-outfit">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-12 text-center">
+              <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl">
+                What we can help you with
+              </h2>
+            </div>
 
-            <form className="space-y-4">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E2001A] focus:border-transparent"
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E2001A] focus:border-transparent"
-              />
-              <textarea
-                placeholder="Tell us about your project..."
-                rows="5"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-[#E2001A] focus:border-transparent"
-              ></textarea>
-              <button
-                type="submit"
-                className="w-full px-8 py-4 bg-[#E2001A] hover:bg-[#A0001E] text-white text-lg font-semibold rounded-lg transition-all hover:shadow-xl hover:-translate-y-1"
-              >
-                Get a Proposal →
-              </button>
-            </form>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {helpCategories.map((category, idx) => (
+                <HelpCategory key={category} category={category} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ Section */}
-      <section className="px-4 py-20 bg-white sm:px-6 lg:px-20 font-outfit">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-12 text-center">
-            <h2 className="text-4xl font-bold text-gray-900 lg:text-5xl">
+        {/* Testimonials Section */}
+        <section
+          className="px-4 py-20 bg-gradient-to-br from-[#4A000F] to-[#E2001A] sm:px-6 lg:px-20 font-outfit"
+          aria-labelledby="testimonials-heading"
+        >
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-16 text-center">
+              <h2 className="mb-4 text-4xl font-bold text-white lg:text-5xl">
+                What our Clients say about us
+              </h2>
+              <p className="text-xl text-gray-300">
+                Don't just take our word for it. Here's what our clients have to
+                say about working with Stravo.
+              </p>
+            </div>
+
+            <div className="grid gap-8 mb-16 md:grid-cols-3">
+              {testimonials.map((testimonial, idx) => (
+                <Testimonial
+                  key={testimonial.author}
+                  testimonial={testimonial}
+                />
+              ))}
+            </div>
+
+            <div className="p-10 text-center bg-white border border-gray-700 backdrop-blur-sm rounded-2xl">
+              <h3 className="mb-6 text-3xl font-bold text-black">
+                Join 200+ satisfied clients
+              </h3>
+              <p className="mb-8 text-lg text-black">
+                From startups to enterprise companies, we've helped businesses
+                of all sizes achieve their digital goals.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                {stats.map((stat, idx) => (
+                  <div
+                    key={idx}
+                    className="px-6 py-3 bg-white border-2 border-gray-700 bg-gradient-to-br from-[#4A000F] to-[#E2001A] rounded-full"
+                  >
+                    <span className="font-semibold text-white">
+                      {stat.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section
+          className="px-4 py-20 bg-white sm:px-6 lg:px-20"
+          aria-labelledby="faq-heading"
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="mb-12 text-4xl font-bold text-center text-gray-900 lg:text-5xl">
               Frequently Asked Questions
             </h2>
+            <div className="space-y-4">
+              {faqs.map((faq, idx) => (
+                <FAQItem
+                  key={faq.question}
+                  faq={faq}
+                  isOpen={openFaq === idx}
+                  onToggle={() => toggleFaq(idx)}
+                  index={idx}
+                />
+              ))}
+            </div>
           </div>
-
-          <div className="space-y-4">
-            {faqs.map((faq, idx) => (
-              <FAQItem
-                key={idx}
-                faq={faq}
-                isOpen={openFaq === idx}
-                onToggle={() => toggleFaq(idx)}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
     </div>

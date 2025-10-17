@@ -1,5 +1,12 @@
 import React, { memo, useCallback } from "react";
-import { Smartphone, Search, Users, ArrowRight } from "lucide-react";
+import {
+  Smartphone,
+  Search,
+  Users,
+  ArrowRight,
+  Home,
+  ChevronRight,
+} from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
@@ -89,9 +96,24 @@ const OptimizedImage = memo(
 );
 
 const ResponsiveDesign = memo(() => {
-  const myHandler = useCallback(() => {
-    console.log("Get Started clicked");
-  }, []);
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravo.tech/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Web Hosting",
+        item: "https://stravo.tech/webhosting",
+      },
+    ],
+  };
 
   return (
     <div className="min-h-screen bg-white font-outfit">
@@ -142,11 +164,38 @@ const ResponsiveDesign = memo(() => {
               }
             }
           `}</script>
+
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
-      <Navbar />
+      <header role="banner">
+        <Navbar />
+      </header>
+
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 text-sm text-gray-600 bg-gradient-to-tr from-[#FFF5F5] to-white mt-20"
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link
+              to="/"
+              className="flex items-center hover:text-[#A0001E] transition-colors"
+            >
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#A0001E] font-medium">Mobile Responsiveness</li>
+        </ol>
+      </nav>
 
       {/* Hero Section */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20">
+      <section className="relative px-6 pt-3 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20">
         <div className="grid items-center gap-10 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left - Text */}
           <div className="space-y-6">

@@ -3,16 +3,18 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
-import { ArrowRight } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { HashLink } from "react-router-hash-link";
 
+// ======== PRELOAD ========
+import ImagePreloader from "../components/Preloader/ImagePreload";
+
 // ======== IMAGE IMPORTS (Use .webp for optimization) ========
 import case1 from "../assets/photo_wd.webp";
-import case2 from "../assets/photo_wd.webp";
-import case3 from "../assets/photo_wd.webp";
-import case4 from "../assets/photo_wd.webp";
-import case5 from "../assets/photo_bp.webp";
+import case2 from "../assets/photo_bp.webp";
+import case3 from "../assets/photo_bp1.webp";
+import case4 from "../assets/photo_wd_1.webp";
+import case5 from "../assets/photo_wd_2.webp";
 
 // ======== FILTER DATA ========
 const filters = {
@@ -120,12 +122,18 @@ const moreStories = [
   },
 ];
 
+const allImagesToPreload = [
+  ...featured.map((story) => story.image),
+  ...moreStories.map((story) => story.image),
+];
+
 const CaseStudies = memo(() => {
   const navigate = useNavigate();
   const [selectedFilter, setSelectedFilter] = useState(null);
 
   return (
     <>
+      <ImagePreloader images={allImagesToPreload} priority="high" />
       {/* ================= SEO & META ================= */}
       <Helmet>
         <title>Case Studies | STRAVO</title>
@@ -192,12 +200,12 @@ const CaseStudies = memo(() => {
             <p className="max-w-3xl text-white/80 text-lg">
               Real-world success stories showcasing how STRAVO helps businesses
               innovate, scale, and build impactful digital products.
-            </p>
-            <Button variant="primary" size="top" className="cursor-pointer">
-              <HashLink to="#moreStories" smooth>
+            </p>{" "}
+            <HashLink to="#moreStories" smooth>
+              <Button variant="primary" size="top" className="cursor-pointer">
                 Explore Stories →
-              </HashLink>
-            </Button>
+              </Button>
+            </HashLink>
           </div>
         </section>
 

@@ -4,7 +4,14 @@ import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { Briefcase, Globe, TrendingUp, ArrowRight } from "lucide-react";
+import {
+  Briefcase,
+  Globe,
+  TrendingUp,
+  ArrowRight,
+  Home,
+  ChevronRight,
+} from "lucide-react";
 
 // Hero image imports
 import heroImageWebP from "../assets/photo_bp.webp";
@@ -78,6 +85,24 @@ const OptimizedImage = memo(
 
 // ================== MAIN COMPONENT ==================
 const BusinessPortfolio = memo(() => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Business Portfolio Website",
+        item: "https://stravoph.netlify.app/businessportfolio",
+      },
+    ],
+  };
   return (
     <>
       <Helmet>
@@ -131,13 +156,37 @@ const BusinessPortfolio = memo(() => {
           }
         }
         `}</script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-white font-outfit">
-        <Navbar />
-
+        <header role="banner">
+          <Navbar />
+        </header>
+        <nav
+          aria-label="Breadcrumb"
+          className="px-6 pt-4 text-sm text-gray-600 bg-gradient-to-tr from-[#FFF5F5] to-white mt-20"
+        >
+          <ol className="flex items-center space-x-2">
+            <li className="flex items-center">
+              <Link
+                to="/"
+                className="flex items-center hover:text-[#A0001E] transition-colors"
+              >
+                <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">
+              <ChevronRight className="w-4 h-4 text-gray-400" />
+            </li>
+            <li className="text-[#A0001E] font-medium">Business Portfolios</li>
+          </ol>
+        </nav>
         {/* HERO SECTION */}
-        <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20">
+        <section className="relative px-6 pt-3 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20">
           <div className="grid items-center gap-10 mx-auto max-w-7xl lg:grid-cols-2">
             <div className="space-y-6">
               <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
@@ -243,7 +292,7 @@ const BusinessPortfolio = memo(() => {
             >
               Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-          </Link> 
+          </Link>
         </section>
 
         <Footer />

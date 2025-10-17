@@ -4,6 +4,8 @@ import {
   Code2,
   Users,
   Zap,
+  Home,
+  ChevronRight,
   Target,
   Globe,
   Cpu,
@@ -102,6 +104,24 @@ const pillars = [
 ];
 
 const PHPDevelopment = memo(() => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Vue Development",
+        item: "https://stravoph.netlify.app/php",
+      },
+    ],
+  };
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Helmet>
@@ -141,11 +161,36 @@ const PHPDevelopment = memo(() => {
           name="twitter:image"
           content="https://stravoph.netlify.app/og/php.webp"
         />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
-      <Navbar />
+      <header role="banner">
+        <Navbar />
+      </header>
 
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 pb-4 text-sm text-white bg-gradient-to-r from-[#4A000F] to-[#A0001E] mt-20 "
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link
+              to="/"
+              className="flex items-center hover:text-[#E2001A] transition-colors"
+            >
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#E2001A] font-medium">Php Development</li>
+        </ol>
+      </nav>
       {/* HERO SECTION */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white sm:px-6 lg:px-20">
+      <section className="relative px-6 pt-4 pb-20 overflow-hidden bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white sm:px-6 lg:px-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 items-center gap-10">
           <div>
             <h1 className="text-5xl font-bold leading-tight mb-4">

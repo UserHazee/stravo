@@ -1,4 +1,4 @@
-// pages/webhosting.jsx
+// pages/WebHosting.jsx
 import React, { useState, useCallback, memo } from "react";
 import {
   Server,
@@ -7,6 +7,8 @@ import {
   Plus,
   Minus,
   UserCheck,
+  Home,
+  ChevronRight,
   Database,
   Cloud as CloudIcon,
   RefreshCw,
@@ -16,9 +18,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GreenHero from "./GreenHero";
 import WebHostingSection from "./NewSection";
+import { Link } from "react-router-dom";
 import vpsImage from "../assets/Vps.webp";
 
-// ========== STATIC DATA ==========
+// ===================== STATIC DATA =====================
 
 // Team roles
 const teamRoles = [
@@ -49,7 +52,7 @@ const teamRoles = [
   },
 ];
 
-// Pillars
+// Hosting pillars
 const pillars = [
   {
     icon: <Zap className="w-10 h-10" />,
@@ -95,7 +98,38 @@ const faqs = [
   },
 ];
 
-// ========== MEMOIZED COMPONENTS ==========
+// ===================== SCHEMA DATA =====================
+
+const getFaqSchema = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+});
+
+const faqSchema = getFaqSchema(faqs);
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Web Hosting & Maintenance",
+  provider: {
+    "@type": "Organization",
+    name: "Stravo",
+    url: "https://stravoph.netlify.app",
+  },
+  description:
+    "Professional web hosting and maintenance services by Stravo. We design, code, and deliver reliable hosting solutions.",
+  areaServed: "Worldwide",
+};
+
+// ===================== MEMOIZED COMPONENTS =====================
 
 const TeamRole = memo(({ role }) => (
   <div className="flex flex-col items-center">
@@ -130,9 +164,15 @@ const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
         {faq.question}
       </span>
       {isOpen ? (
-        <Minus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        <Minus
+          className="flex-shrink-0 w-5 h-5 text-gray-500"
+          aria-hidden="true"
+        />
       ) : (
-        <Plus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        <Plus
+          className="flex-shrink-0 w-5 h-5 text-gray-500"
+          aria-hidden="true"
+        />
       )}
     </button>
     {isOpen && (
@@ -143,22 +183,38 @@ const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
   </div>
 ));
 
-// ========== MAIN COMPONENT ==========
+// ===================== MAIN COMPONENT =====================
 
 const WebHosting = () => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Web Hosting",
+        item: "https://stravoph.netlify.app/webhosting",
+      },
+    ],
+  };
   const [openFaq, setOpenFaq] = useState(null);
+
   const toggleFaq = useCallback(
-    (index) => setOpenFaq(openFaq === index ? null : index),
-    [openFaq]
+    (index) => setOpenFaq((prev) => (prev === index ? null : index)),
+    []
   );
 
-  const handleGetStarted = useCallback(() => {
-    console.log("Get Started clicked");
-  }, []);
-
   return (
-    <div className="min-h-screen bg-white font-outfit">
+    <main className="min-h-screen bg-white font-outfit">
       <Helmet>
+        <html lang="en" />
         <title>Web Hosting & Maintenance | Stravo</title>
         <meta
           name="description"
@@ -168,7 +224,12 @@ const WebHosting = () => {
           name="keywords"
           content="web hosting, website maintenance, VPS, managed hosting, Stravo hosting, website uptime"
         />
-        <meta property="og:title" content="Web Hosting & Maintenance | Stravo" />
+
+        {/* Open Graph */}
+        <meta
+          property="og:title"
+          content="Web Hosting & Maintenance | Stravo"
+        />
         <meta
           property="og:description"
           content="Stravo provides reliable, secure, and high-performance hosting solutions with 24/7 monitoring and expert support."
@@ -182,11 +243,10 @@ const WebHosting = () => {
           property="og:image"
           content="https://stravoph.netlify.app/og/hosting-preview.webp"
         />
+
+        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="twitter:title"
-          content="Stravo Web Hosting & Maintenance"
-        />
+        <meta name="twitter:title" content="Stravo Web Hosting & Maintenance" />
         <meta
           name="twitter:description"
           content="Design, Code, and Deliver — Stravo keeps your website fast, secure, and online 24/7."
@@ -195,49 +255,64 @@ const WebHosting = () => {
           name="twitter:image"
           content="https://stravoph.netlify.app/og/hosting-preview.webp"
         />
+
         <link
           rel="canonical"
           href="https://stravoph.netlify.app/services/webhosting"
         />
+
+        {/* JSON-LD Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
         <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "Service",
-              "name": "Web Hosting & Maintenance",
-              "provider": {
-                "@type": "Organization",
-                "name": "Stravo",
-                "url": "https://stravoph.netlify.app"
-              },
-              "description": "Professional web hosting and maintenance services by Stravo. We design, code, and deliver reliable hosting solutions.",
-              "areaServed": "Worldwide"
-            }
-          `}
+          {JSON.stringify(breadcrumbSchema)}
         </script>
       </Helmet>
 
       <Navbar />
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 text-sm text-gray-600 bg-gradient-to-tr from-[#FFF5F5] to-white mt-20"
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link
+              to="/"
+              className="flex items-center hover:text-[#A0001E] transition-colors"
+            >
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#A0001E] font-medium">Web Hosting</li>
+        </ol>
+      </nav>
 
       {/* Hero Section */}
-      <section className="relative px-4 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20">
+      <section className="relative px-4 pt-3 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20">
         <div className="grid items-start gap-10 mx-auto max-w-7xl lg:grid-cols-2">
-          <div className="space-y-6">
+          <header className="space-y-6">
             <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
               Premium Hosting Solutions
             </span>
-
             <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 lg:text-6xl xl:text-7xl">
               Reliable Web{" "}
               <span className="text-[#E2001A]">Hosting & Maintenance</span>
             </h1>
-
             <p className="text-lg text-gray-600 lg:text-xl">
               Keep your website fast, secure, and always online with our
               comprehensive hosting and proactive maintenance solutions.
             </p>
-
-          </div>
+          </header>
 
           <picture className="w-full mx-auto md:min-w-lg">
             <img
@@ -255,7 +330,7 @@ const WebHosting = () => {
 
       <GreenHero />
 
-      {/* Team Structure */}
+      {/* Team Section */}
       <section className="px-4 py-20 bg-white sm:px-6 lg:px-20">
         <div className="mx-auto max-w-7xl text-center">
           <h2 className="mb-6 text-4xl font-bold text-gray-900 lg:text-5xl">
@@ -267,8 +342,8 @@ const WebHosting = () => {
           </p>
 
           <div className="grid grid-cols-2 gap-6 mb-16 md:grid-cols-5">
-            {teamRoles.map((role, idx) => (
-              <TeamRole key={idx} role={role} />
+            {teamRoles.map((role) => (
+              <TeamRole key={role.name} role={role} />
             ))}
           </div>
 
@@ -278,8 +353,8 @@ const WebHosting = () => {
             </h3>
             <p className="max-w-4xl mx-auto text-lg text-gray-600">
               Our team continuously monitors your infrastructure, performs
-              regular maintenance, and is available 24/7 to resolve issues before
-              they impact your business.
+              regular maintenance, and is available 24/7 to resolve issues
+              before they impact your business.
             </p>
           </div>
         </div>
@@ -294,14 +369,14 @@ const WebHosting = () => {
             Our Hosting Excellence Pillars
           </h2>
           <div className="grid gap-8 md:grid-cols-3">
-            {pillars.map((pillar, idx) => (
-              <Pillar key={idx} pillar={pillar} />
+            {pillars.map((pillar) => (
+              <Pillar key={pillar.title} pillar={pillar} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ Section */}
       <section className="px-4 py-20 bg-white sm:px-6 lg:px-20">
         <div className="max-w-4xl mx-auto">
           <h2 className="mb-12 text-4xl font-bold text-center text-gray-900 lg:text-5xl">
@@ -310,7 +385,7 @@ const WebHosting = () => {
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
               <FAQItem
-                key={idx}
+                key={faq.question}
                 faq={faq}
                 isOpen={openFaq === idx}
                 onToggle={() => toggleFaq(idx)}
@@ -322,7 +397,7 @@ const WebHosting = () => {
       </section>
 
       <Footer />
-    </div>
+    </main>
   );
 };
 

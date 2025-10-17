@@ -1,11 +1,11 @@
 import React, { memo, useCallback } from "react";
 import {
-  Globe,
   MousePointer,
   Zap,
+  Home,
+  ChevronRight,
   BarChart,
   ArrowRight,
-  Layers,
 } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
@@ -96,6 +96,24 @@ const OptimizedImage = memo(
 );
 
 const SinglePageWebsite = memo(() => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Single Page Website",
+        item: "https://stravoph.netlify.app/singlepagewebsite",
+      },
+    ],
+  };
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Helmet>
@@ -138,11 +156,36 @@ const SinglePageWebsite = memo(() => {
           name="twitter:image"
           content="https://stravoph.netlify.app/og/singlepage.webp"
         />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
-      <Navbar />
+      <header role="banner">
+        <Navbar />
+      </header>
 
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 text-sm text-gray-600 bg-gradient-to-tr from-[#FFF5F5] to-white mt-20"
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link
+              to="/"
+              className="flex items-center hover:text-[#A0001E] transition-colors"
+            >
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#A0001E] font-medium">Singe Page Websites</li>
+        </ol>
+      </nav>
       {/* Hero Section */}
-      <section className="relative px-6 pt-32 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 ">
+      <section className="relative px-6 pt-3 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 ">
         <div className="grid items-center gap-10 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left Text */}
           <div className="space-y-6">
