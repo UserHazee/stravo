@@ -1,8 +1,8 @@
 import React, { memo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import {Link, useParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import {ChevronRight,BookOpenCheck, ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "../components/ui/button";
 
 import { Helmet } from "react-helmet-async"; // ✅ For SEO metadata
@@ -73,6 +73,24 @@ const insights = [
 ];
 
 const InsightDetails = memo(() => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Case Studies Details",
+        item: "https://stravoph.netlify.app/big-four",
+      },
+    ],
+  };
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -90,6 +108,8 @@ const InsightDetails = memo(() => {
   return (
     <div className="min-h-screen bg-white text-gray-900 font-outfit">
       <Helmet>
+        <link rel="canonical" href={`https://www.stravo.dev/insights/${id}`} />
+        <meta http-equiv="Content-Language" content="en" />
         <title>{`${article.title} | STRAVO`}</title>
         <meta name="description" content={article.subtitle} />
         <meta name="author" content={article.author} />
@@ -103,20 +123,54 @@ const InsightDetails = memo(() => {
         <meta name="twitter:title" content={article.title} />
         <meta name="twitter:description" content={article.subtitle} />
         <meta name="twitter:image" content={article.image} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: article.title,
+            image: article.image,
+            author: { "@type": "Person", name: article.author },
+            publisher: {
+              "@type": "Organization",
+              name: "STRAVO",
+              logo: "https://www.stravo.dev/react.webp",
+            },
+            datePublished: article.date,
+            description: article.subtitle,
+            mainEntityOfPage: `https://www.stravo.dev/insights/${id}`,
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
-      <Navbar />
 
+      <header role="banner">
+        <Navbar />
+      </header>
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 pb-4 text-sm text-gray-500 bg-[#0C0C0C] mt-20"
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link
+              to="/insights"
+              className="flex items-center hover:text-[#A0001E] transition-colors"
+            >
+              <BookOpenCheck className="w-4 h-4 mr-1" aria-hidden="true" />
+              Insights
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#A0001E] font-medium">Insight Highlight</li>
+        </ol>
+      </nav>
       {/* HERO SECTION */}
-      <section className="bg-[#0C0C0C] text-white py-28 px-6 sm:px-10 lg:px-20 relative">
+      <section className="bg-[#0C0C0C] text-white pb-28 pt-4 *:px-6 sm:px-10 lg:px-20 relative">
         <div className="max-w-5xl mx-auto">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/insights")}
-            className="absolute top-6 left-6 text-white/70 hover:text-white"
-          >
-            <ArrowLeft className="mr-2 w-5 h-5" /> Back
-          </Button>
-
           <p className="text-[#E2001A] uppercase text-sm tracking-widest mb-4">
             {article.date}
           </p>
@@ -130,6 +184,9 @@ const InsightDetails = memo(() => {
         <img
           src={article.image}
           alt={article.title}
+          loading="lazy"
+          width="1200"
+          height="630"
           className="w-full max-h-[500px] object-cover mt-10 rounded-2xl shadow-xl"
         />
       </section>

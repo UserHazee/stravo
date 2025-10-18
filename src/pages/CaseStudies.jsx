@@ -1,8 +1,10 @@
 import React, { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
+import { ChevronRight, Home } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { HashLink } from "react-router-hash-link";
 
@@ -128,6 +130,24 @@ const allImagesToPreload = [
 ];
 
 const CaseStudies = memo(() => {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Case Studies ",
+        item: "https://stravoph.netlify.app/casestudies",
+      },
+    ],
+  };
   const navigate = useNavigate();
   const [selectedFilter, setSelectedFilter] = useState(null);
 
@@ -182,14 +202,39 @@ const CaseStudies = memo(() => {
           }
         }
         `}</script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
 
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 font-outfit pt-4 pb-4 text-sm text-gray-600 bg-[#0C0C0C] mt-20"
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link
+              to="/"
+              className="flex items-center hover:text-[#A0001E] transition-colors"
+            >
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#A0001E] font-medium">Case Studies</li>
+        </ol>
+      </nav>
       {/* ================= PAGE CONTENT ================= */}
       <div className="min-h-screen bg-white font-outfit">
-        <Navbar />
+        <header role="banner">
+          <Navbar />
+        </header>
 
         {/* HERO SECTION */}
-        <section className="bg-[#0C0C0C] text-white py-28 px-6 sm:px-10 lg:px-20">
+        <section className="bg-[#0C0C0C] text-white pt-4 pb-28 px-6 sm:px-10 lg:px-20">
           <div className="max-w-6xl mx-auto text-left space-y-6">
             <h4 className="text-[#E2001A] uppercase font-semibold text-sm tracking-widest">
               Client Stories
