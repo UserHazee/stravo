@@ -103,6 +103,12 @@ const CaseStudyDetails = memo(() => {
     <div className="bg-white text-gray-900 min-h-screen font-outfit">
       {/* ✅ SEO Meta Tags */}
       <Helmet>
+        <link
+          rel="canonical"
+          href={`https://stravoph.netlify.app/casestudies/${id}`}
+        />
+        <link rel="preload" as="image" href={caseData.image} />
+
         <title>{`${caseData.title} | STRAVO Case Study`}</title>
         <meta
           name="description"
@@ -134,7 +140,7 @@ const CaseStudyDetails = memo(() => {
       >
         <ol className="flex items-center space-x-2">
           <li className="flex items-center">
-            <Link 
+            <Link
               to="/casestudies"
               className="flex items-center hover:text-[#A0001E] transition-colors"
             >
@@ -160,13 +166,15 @@ const CaseStudyDetails = memo(() => {
           <p className="text-white/80 max-w-3xl">{caseData.overview}</p>
         </div>
 
-        <img
-          src={caseData.image}
-          alt={caseData.imageAlt}
-          loading="lazy"
-          decoding="async"
-          className="w-full max-h-[500px] object-cover mt-10 rounded-2xl shadow-xl"
-        />
+        <div className="relative w-full aspect-[16/9] mt-10">
+          <img
+            src={caseData.image}
+            alt={caseData.imageAlt}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover rounded-2xl shadow-xl"
+          />
+        </div>
       </section>
 
       {/* CHALLENGES + SOLUTIONS */}
