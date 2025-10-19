@@ -4,6 +4,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 import {
   FileText,
   Target,
@@ -221,6 +223,15 @@ const OnPageSEO = memo(() => {
           {JSON.stringify(breadcrumbSchema)}
         </script>
       </Helmet>
+      <ImagePreloader
+        images={[
+          heroImageWebP,
+          heroImageAVIF,
+        ]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
       <header role="banner">
         <Navbar />
       </header>

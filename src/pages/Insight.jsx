@@ -4,15 +4,18 @@ import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
-import { ArrowRight ,ChevronRight, Home } from "lucide-react";
-import { Helmet } from "react-helmet-async"; // ✅ SEO support
+import { ArrowRight, ChevronRight, Home } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 // ✅ Local assets
 import insight1 from "../assets/photo_wd.webp";
 import insight2 from "../assets/photo_bp.webp";
 import insight3 from "../assets/photo_wd.webp";
 
-// ✅ Data (can be replaced later with backend)
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
+
+// ✅ Data
 const insights = [
   {
     id: "ai-in-webdev",
@@ -47,6 +50,8 @@ const insights = [
 ];
 
 const Insights = memo(() => {
+  const navigate = useNavigate();
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -65,7 +70,6 @@ const Insights = memo(() => {
       },
     ],
   };
-  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-white font-outfit">
@@ -144,6 +148,8 @@ const Insights = memo(() => {
       <header role="banner">
         <Navbar />
       </header>
+
+      {/* Breadcrumb */}
       <nav
         aria-label="Breadcrumb"
         className="px-6 pt-4 pb-4 text-sm text-gray-600 bg-[#0C0C0C] mt-20"
@@ -188,6 +194,14 @@ const Insights = memo(() => {
         </div>
       </section>
 
+      {/* ✅ Image Preloader — delayed for better LCP */}
+      <ImagePreloader
+        images={[insight1, insight2, insight3]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
+
       {/* INSIGHT GRID */}
       <section className="py-20 px-6 sm:px-10 lg:px-20 bg-gray-50">
         <div className="max-w-6xl mx-auto">
@@ -218,12 +232,12 @@ const Insights = memo(() => {
                 </figure>
                 <div className="p-6">
                   <div className="flex justify-between items-center text-xs text-gray-500 mb-2">
-                    <span className="uppercase tracking-wide text-[#E2001A] font-semibold">
+                    <span className="uppercase tracking-wide text-[#E2001E] font-semibold">
                       {article.tag}
                     </span>
                     <span>{article.date}</span>
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#E2001A]">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-[#E2001E]">
                     {article.title}
                   </h3>
                   <p className="text-sm text-gray-600 mb-4">
@@ -231,7 +245,7 @@ const Insights = memo(() => {
                   </p>
                   <Button
                     variant="link"
-                    className="text-[#E2001A] p-0 text-sm font-semibold"
+                    className="text-[#E2001E] p-0 text-sm font-semibold"
                     onClick={(e) => {
                       e.stopPropagation();
                       navigate(`/insights/${article.id}`);
@@ -245,6 +259,7 @@ const Insights = memo(() => {
           </div>
         </div>
       </section>
+
       <Footer />
     </div>
   );

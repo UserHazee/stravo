@@ -12,6 +12,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
 // Hero image imports
 import heroImageWebP from "../assets/photo_sp.webp"; // You'll create this
@@ -160,6 +162,17 @@ const SinglePageWebsite = memo(() => {
           {JSON.stringify(breadcrumbSchema)}
         </script>
       </Helmet>
+      <ImagePreloader
+        images={[
+          heroImageWebP,
+          heroImageAVIF,
+          aboutImageAVIF,
+          aboutImageWebP,
+        ]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
       <header role="banner">
         <Navbar />
       </header>

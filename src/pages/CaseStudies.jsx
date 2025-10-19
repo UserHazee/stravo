@@ -1,17 +1,15 @@
-import React, { memo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import React, { memo, useState, useMemo } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { ChevronRight, Home } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { HashLink } from "react-router-hash-link";
 
-// ======== PRELOAD ========
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import ImagePreloader from "../components/Preloader/ImagePreload";
 
-// ======== IMAGE IMPORTS (Use .webp for optimization) ========
+// ======== IMAGE IMPORTS ========
 import case1 from "../assets/photo_wd.webp";
 import case2 from "../assets/photo_bp.webp";
 import case3 from "../assets/photo_bp1.webp";
@@ -20,74 +18,48 @@ import case5 from "../assets/photo_wd_2.webp";
 
 // ======== FILTER DATA ========
 const filters = {
-  Industry: [
-    "Fintech",
-    "eCommerce",
-    "Education",
-    "Healthtech",
-    "Gaming",
-    "Travel",
-  ],
-  Services: [
-    "Web Development",
-    "Product Strategy",
-    "Design",
-    "Team Augmentation",
-    "MVP Development",
-  ],
-  Technology: [
-    "React.js",
-    "Node.js",
-    "Vue.js",
-    "Angular",
-    "PHP",
-    "AWS",
-    "Docker",
-  ],
+  Industry: ["Fintech", "eCommerce", "Education", "Healthtech", "Gaming", "Travel"],
+  Services: ["Web Development", "Product Strategy", "Design", "Team Augmentation", "MVP Development"],
+  Technology: ["React.js", "Node.js", "Vue.js", "Angular", "PHP", "AWS", "Docker"],
 };
 
-// ======== FEATURED STORIES ========
+// ======== FEATURED STORIES (Above the fold) ========
 const featured = [
   {
     id: "big-four",
-    title:
-      "How we developed 3 dedicated digital products for one of the Big Four Companies",
+    title: "How we developed 3 dedicated digital products for one of the Big Four Companies",
     subtitle: "TACTICAL STRATEGY & FULL-STACK DEVELOPMENT",
     image: case1,
     tag: "Big Four",
   },
   {
     id: "stralo-performance",
-    title:
-      "How team augmentation and ambitious frontend drove the future of e-learning",
+    title: "How team augmentation and ambitious frontend drove the future of e-learning",
     subtitle: "PARTNER WITH A GLOBAL TECH LEADER",
     image: case2,
     tag: "E-Learning",
   },
   {
     id: "national-geographic",
-    title:
-      "How National Geographic improved their marketing time-to-market by 450%",
+    title: "How National Geographic improved their marketing time-to-market by 450%",
     subtitle: "STRATEGIC UX DESIGN IMPROVEMENT",
     image: case3,
     tag: "National Geographic",
   },
   {
     id: "hello-learning",
-    title:
-      "How our partnership with Hello helped redefine personalized learning experiences",
+    title: "How our partnership with Hello helped redefine personalized learning experiences",
     subtitle: "PARTNERSHIP STORY",
     image: case4,
     tag: "Hello",
   },
 ];
 
-// ======== MORE STORIES ========
+// ======== MORE STORIES (Below the fold or next navigation) ========
 const moreStories = [
   {
     id: "no-code-app",
-    title:
-      "How we turned a no-code networking app into a scalable custom solution",
+    title: "How we turned a no-code networking app into a scalable custom solution",
     tag: "No-Code",
     image: case5,
   },
@@ -111,8 +83,7 @@ const moreStories = [
   },
   {
     id: "natgeo-enterprise",
-    title:
-      "How National Geographic accelerated content delivery across continents",
+    title: "How National Geographic accelerated content delivery across continents",
     tag: "Enterprise",
     image: case4,
   },
@@ -124,36 +95,32 @@ const moreStories = [
   },
 ];
 
-const allImagesToPreload = [
-  ...featured.map((story) => story.image),
-  ...moreStories.map((story) => story.image),
-];
-
 const CaseStudies = memo(() => {
+  const navigate = useNavigate();
+  const [selectedFilter, setSelectedFilter] = useState(null);
+
+  // ✅ Memoized image arrays to avoid re-renders
+  const heroAndFeaturedImages = useMemo(() => featured.map(f => f.image), []);
+  const upcomingImages = useMemo(() => moreStories.map(s => s.image), []);
+
+  // ✅ SEO schema
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://stravoph.netlify.app",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Case Studies ",
-        item: "https://stravoph.netlify.app/casestudies",
-      },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://stravoph.netlify.app" },
+      { "@type": "ListItem", position: 2, name: "Case Studies", item: "https://stravoph.netlify.app/casestudies" },
     ],
   };
-  const navigate = useNavigate();
-  const [selectedFilter, setSelectedFilter] = useState(null);
 
   return (
     <>
-      <ImagePreloader images={allImagesToPreload} priority="high" />
+      {/* ✅ Preload above-the-fold images for faster LCP */}
+      <ImagePreloader images={heroAndFeaturedImages} priority="high" />
+
+      {/* ✅ Prefetch below-the-fold or next-page images (lower priority) */}
+      <ImagePreloader images={upcomingImages} priority="low" />
+
       {/* ================= SEO & META ================= */}
       <Helmet>
         <title>Case Studies | STRAVO</title>
@@ -168,10 +135,7 @@ const CaseStudies = memo(() => {
 
         {/* Open Graph */}
         <meta property="og:title" content="Case Studies | STRAVO" />
-        <meta
-          property="og:description"
-          content="Discover how STRAVO builds high-performing digital solutions for clients across industries."
-        />
+        <meta property="og:description" content="Discover how STRAVO builds high-performing digital solutions for clients across industries." />
         <meta property="og:image" content="/assets/og-casestudies.jpg" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="STRAVO" />
@@ -179,46 +143,22 @@ const CaseStudies = memo(() => {
         {/* Twitter Meta */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="STRAVO - Case Studies" />
-        <meta
-          name="twitter:description"
-          content="STRAVO showcases how design and technology create success. Read our client case studies."
-        />
+        <meta name="twitter:description" content="STRAVO showcases how design and technology create success. Read our client case studies." />
         <meta name="twitter:image" content="/assets/og-casestudies.jpg" />
 
         {/* Schema.org JSON-LD */}
-        <script type="application/ld+json">{`
-        {
-          "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          "name": "Case Studies | STRAVO",
-          "description": "Client stories highlighting STRAVO’s work in web development, UX, and digital innovation.",
-          "publisher": {
-            "@type": "Organization",
-            "name": "STRAVO",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "/assets/logo.png"
-            }
-          }
-        }
-        `}</script>
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
-      <nav
-        aria-label="Breadcrumb"
-        className="px-6 font-outfit pt-4 pb-4 text-sm text-gray-600 bg-[#0C0C0C] mt-20"
-      >
+      {/* ================= PAGE LAYOUT ================= */}
+      <Navbar />
+
+      {/* Breadcrumb */}
+      <nav aria-label="Breadcrumb" className="px-6 font-outfit pt-4 pb-4 text-sm text-gray-600 bg-[#0C0C0C] mt-20">
         <ol className="flex items-center space-x-2">
           <li className="flex items-center">
-            <Link
-              to="/"
-              className="flex items-center hover:text-[#A0001E] transition-colors"
-            >
-              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
-              Home
+            <Link to="/" className="flex items-center hover:text-[#A0001E] transition-colors">
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" /> Home
             </Link>
           </li>
           <li aria-hidden="true">
@@ -227,159 +167,145 @@ const CaseStudies = memo(() => {
           <li className="text-[#A0001E] font-medium">Case Studies</li>
         </ol>
       </nav>
-      {/* ================= PAGE CONTENT ================= */}
-      <div className="min-h-screen bg-white font-outfit">
-        <header role="banner">
-          <Navbar />
-        </header>
 
-        {/* HERO SECTION */}
-        <section className="bg-[#0C0C0C] text-white pt-4 pb-28 px-6 sm:px-10 lg:px-20">
-          <div className="max-w-6xl mx-auto text-left space-y-6">
-            <h4 className="text-[#E2001A] uppercase font-semibold text-sm tracking-widest">
-              Client Stories
-            </h4>
-            <h1 className="text-5xl font-bold leading-tight">
-              See how our clients are changing the future of tech
-            </h1>
-            <p className="max-w-3xl text-white/80 text-lg">
-              Real-world success stories showcasing how STRAVO helps businesses
-              innovate, scale, and build impactful digital products.
-            </p>{" "}
-            <HashLink to="#moreStories" smooth>
-              <Button variant="primary" size="top" className="cursor-pointer">
-                Explore Stories →
-              </Button>
-            </HashLink>
-          </div>
-        </section>
+      {/* HERO SECTION */}
+      <section className="bg-[#0C0C0C] text-white pt-4 pb-28 px-6 sm:px-10 lg:px-20">
+        <div className="max-w-6xl mx-auto text-left space-y-6">
+          <h4 className="text-[#E2001A] uppercase font-semibold text-sm tracking-widest">
+            Client Stories
+          </h4>
+          <h1 className="text-5xl font-bold leading-tight">
+            See how our clients are changing the future of tech
+          </h1>
+          <p className="max-w-3xl text-white/80 text-lg">
+            Real-world success stories showcasing how STRAVO helps businesses innovate, scale, and build impactful digital products.
+          </p>
+          <HashLink to="#moreStories" smooth>
+            <Button variant="primary" size="top" className="cursor-pointer">
+              Explore Stories →
+            </Button>
+          </HashLink>
+        </div>
+      </section>
 
-        {/* FEATURED CASE STUDIES */}
-        <section className="bg-[#0C0C0C] text-white py-20 px-6 sm:px-10 lg:px-20">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
-            {featured.map((item, idx) => (
-              <div
-                key={idx}
-                className="bg-[#1A1A1A] rounded-2xl overflow-hidden shadow-lg hover:scale-[1.02] transition-transform cursor-pointer"
-                onClick={() => navigate(`/casestudies/${item.id}`)}
-              >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-56 object-cover"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <div className="p-6">
-                  <p className="text-xs uppercase tracking-widest text-[#E2001A] mb-2">
-                    {item.subtitle}
-                  </p>
-                  <h3 className="text-lg font-semibold mb-4">{item.title}</h3>
-                  <Button
-                    variant="link"
-                    className="text-white text-sm hover:text-[#E2001A] cursor-pointer"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/casestudies/${item.id}`);
-                    }}
-                  >
-                    Read Case Study →
-                  </Button>
+      {/* FEATURED CASE STUDIES */}
+      <section className="bg-[#0C0C0C] text-white py-20 px-6 sm:px-10 lg:px-20">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+          {featured.map((item) => (
+            <div
+              key={item.id}
+              className="bg-[#1A1A1A] rounded-2xl overflow-hidden shadow-lg hover:scale-[1.02] transition-transform cursor-pointer"
+              onClick={() => navigate(`/casestudies/${item.id}`)}
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-56 object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="p-6">
+                <p className="text-xs uppercase tracking-widest text-[#E2001A] mb-2">
+                  {item.subtitle}
+                </p>
+                <h3 className="text-lg font-semibold mb-4">{item.title}</h3>
+                <Button
+                  variant="link"
+                  className="text-white text-sm hover:text-[#E2001A] cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/casestudies/${item.id}`);
+                  }}
+                >
+                  Read Case Study →
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* DISCOVER MORE SECTION */}
+      <section id="moreStories" className="bg-white py-20 px-6 sm:px-10 lg:px-20">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            Discover More Success Stories
+          </h2>
+          <p className="text-gray-600 mb-10">
+            Explore by industry, service, or technology:
+          </p>
+
+          {/* FILTER TAGS */}
+          <div className="flex flex-wrap gap-4 mb-12">
+            {Object.entries(filters).map(([category, tags]) => (
+              <div key={category}>
+                <h4 className="font-semibold text-gray-800 mb-2">{category}</h4>
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => setSelectedFilter(selectedFilter === tag ? null : tag)}
+                      className={`px-3 py-1 rounded-full text-sm border transition cursor-pointer ${
+                        selectedFilter === tag
+                          ? "bg-[#E2001A] text-white border-[#E2001A]"
+                          : "border-gray-300 text-gray-700 hover:border-[#E2001A]"
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
                 </div>
               </div>
             ))}
           </div>
-        </section>
 
-        {/* DISCOVER MORE SECTION */}
-        <section
-          id="moreStories"
-          className="bg-white py-20 px-6 sm:px-10 lg:px-20"
-        >
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Discover More Success Stories
-            </h2>
-            <p className="text-gray-600 mb-10">
-              Explore by industry, service, or technology:
-            </p>
-
-            {/* FILTER TAGS */}
-            <div className="flex flex-wrap gap-4 mb-12">
-              {Object.entries(filters).map(([category, tags]) => (
-                <div key={category}>
-                  <h4 className="font-semibold text-gray-800 mb-2">
-                    {category}
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {tags.map((tag) => (
-                      <button
-                        key={tag}
-                        onClick={() =>
-                          setSelectedFilter(selectedFilter === tag ? null : tag)
-                        }
-                        className={`px-3 py-1 rounded-full text-sm border transition cursor-pointer ${
-                          selectedFilter === tag
-                            ? "bg-[#E2001A] text-white border-[#E2001A]"
-                            : "border-gray-300 text-gray-700 hover:border-[#E2001A]"
-                        }`}
-                      >
-                        {tag}
-                      </button>
-                    ))}
+          {/* GRID OF CASES */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            {moreStories
+              .filter(
+                (story) =>
+                  !selectedFilter ||
+                  story.tag.includes(selectedFilter) ||
+                  story.title.includes(selectedFilter)
+              )
+              .map((story) => (
+                <div
+                  key={story.id}
+                  className="bg-white rounded-2xl shadow hover:shadow-md transition overflow-hidden cursor-pointer"
+                  onClick={() => navigate(`/casestudies/${story.id}`)}
+                >
+                  <img
+                    src={story.image}
+                    alt={story.title}
+                    className="w-full h-52 object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="p-5">
+                    <span className="text-xs uppercase text-[#E2001A] font-semibold mb-2 block">
+                      {story.tag}
+                    </span>
+                    <h4 className="font-semibold text-gray-900 text-md mb-2">
+                      {story.title}
+                    </h4>
+                    <Button
+                      variant="link"
+                      className="text-[#E2001A] p-0 cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/casestudies/${story.id}`);
+                      }}
+                    >
+                      Read More →
+                    </Button>
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* GRID OF CASES */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {moreStories
-                .filter(
-                  (story) =>
-                    !selectedFilter ||
-                    story.tag.includes(selectedFilter) ||
-                    story.title.includes(selectedFilter)
-                )
-                .map((story, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-white rounded-2xl shadow hover:shadow-md transition overflow-hidden cursor-pointer"
-                    onClick={() => navigate(`/casestudies/${story.id}`)}
-                  >
-                    <img
-                      src={story.image}
-                      alt={story.title}
-                      className="w-full h-52 object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="p-5">
-                      <span className="text-xs uppercase text-[#E2001A] font-semibold mb-2 block">
-                        {story.tag}
-                      </span>
-                      <h4 className="font-semibold text-gray-900 text-md mb-2">
-                        {story.title}
-                      </h4>
-                      <Button
-                        variant="link"
-                        className="text-[#E2001A] p-0 cursor-pointer"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/casestudies/${story.id}`);
-                        }}
-                      >
-                        Read More →
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <Footer />
-      </div>
+      <Footer />
     </>
   );
 });

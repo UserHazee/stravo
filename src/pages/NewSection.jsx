@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from "react";
-import { Button } from "../components/ui/button";
-import {ArrowRight} from "lucide-react";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
 // --- Images ---
 // Hosting images (no fallback needed)
@@ -71,6 +71,21 @@ const WebHostingSection = memo(() => {
 
   return (
     <section className="font-outfit mx-auto bg-gradient-to-br from-[#000000] to-[#090f24] text-white py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+      <ImagePreloader
+        images={[
+          hostingImg1,
+          hostingImg2,
+          teamMember1WebP,
+          teamMember2WebP,
+          teamMember3WebP,
+          teamMember1Fallback,
+          teamMember2Fallback,
+          teamMember3Fallback,
+        ]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
       {/* Why You Need Web Hosting Section */}
       <div className="grid items-center max-w-6xl grid-cols-1 gap-12 mx-auto mb-20 lg:grid-cols-2 lg:gap-16 md:mb-32">
         {/* Left: Hosting Images */}

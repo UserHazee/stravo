@@ -13,6 +13,8 @@ import {
   Cloud as CloudIcon,
   RefreshCw,
 } from "lucide-react";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -275,6 +277,12 @@ const WebHosting = () => {
         </script>
       </Helmet>
 
+      <ImagePreloader
+        images={vpsImage}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
       <Navbar />
       <nav
         aria-label="Breadcrumb"

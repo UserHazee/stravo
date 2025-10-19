@@ -1,7 +1,10 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { ChevronRight, Home } from "lucide-react";
+import { Link } from "react-router-dom";
+import ImagePreloader from "../components/Preloader/ImagePreload";
 
 import aboutImg from "../assets/photo_wd.webp";
 import team1 from "../assets/1000483218.webp";
@@ -21,10 +24,32 @@ const teamMembers = [
 ];
 
 const About = memo(() => {
+  
+const aboutRef = useRef(null);
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://stravoph.netlify.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "React Development",
+        item: "https://stravoph.netlify.app/about",
+      },
+    ],
+  };
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-outfit">
+    <div  ref={aboutRef} className="min-h-screen bg-white text-gray-900 font-outfit">
       <Helmet>
-        <title>About Us | STRAVO - We Build Your Machine Behind Your Vision</title>
+        <title>
+          About Us | STRAVO - We Build Your Machine Behind Your Vision
+        </title>
         <meta
           name="description"
           content="STRAVO is a full-stack technology company that builds scalable digital products through design, code, and innovation. Meet our passionate team driving impactful solutions."
@@ -41,19 +66,52 @@ const About = memo(() => {
         <meta property="og:image" content={aboutImg} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="STRAVO" />
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
       </Helmet>
+       <ImagePreloader
+        images={[aboutImg, team1, team2, team3, team4, team5, team6]}
+        mode="auto"          // switches preload → prefetch automatically
+        priority="high"      // first visit = LCP optimized
+        delay={250}          // small delay before preload starts
+        rootRef={aboutRef}   // 👁 triggers when section visible
+      />
+      <header role="banner">
+        <Navbar />
+      </header>
 
-      <Navbar />
+      <nav
+        aria-label="Breadcrumb"
+        className="px-6 pt-4 pb-4 text-sm text-white bg-gradient-to-r from-[#4A000F] to-[#A0001E] mt-20 "
+      >
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link
+              to="/"
+              className="flex items-center hover:text-[#E2001A] transition-colors"
+            >
+              <Home className="w-4 h-4 mr-1" aria-hidden="true" />
+              Home
+            </Link>
+          </li>
+          <li aria-hidden="true">
+            <ChevronRight className="w-4 h-4 text-gray-400" />
+          </li>
+          <li className="text-[#E2001A] font-medium">About</li>
+        </ol>
+      </nav>
 
       {/* HERO SECTION */}
-      <header className="bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white py-28 px-6 sm:px-10 lg:px-20">
+      <header className="bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white pt-4 pb-28 px-6 sm:px-10 lg:px-20">
         <div className="max-w-6xl mx-auto space-y-6">
           <h1 className="text-5xl font-bold leading-tight">
             A Company That Solves Complex <br /> Technical Problems
           </h1>
           <p className="max-w-3xl text-white/80 text-lg">
             Stravo is a passionate team of developers, designers, and innovators
-            helping businesses turn ambitious ideas into successful digital products.
+            helping businesses turn ambitious ideas into successful digital
+            products.
           </p>
         </div>
       </header>
@@ -62,7 +120,9 @@ const About = memo(() => {
       <section className="py-20 px-6 sm:px-10 lg:px-20 bg-white">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-bold text-[#E2001A] mb-4">Our Mission</h2>
+            <h2 className="text-3xl font-bold text-[#E2001A] mb-4">
+              Our Mission
+            </h2>
             <p className="text-gray-700 leading-relaxed mb-4">
               Our mission is to deliver reliable and scalable technology
               solutions that empower brands to succeed in a fast-changing
@@ -95,21 +155,27 @@ const About = memo(() => {
 
           <div className="grid md:grid-cols-3 gap-10">
             <article>
-              <h4 className="text-xl font-semibold mb-3">Technical Excellence</h4>
+              <h4 className="text-xl font-semibold mb-3">
+                Technical Excellence
+              </h4>
               <p className="text-gray-700">
                 We combine clean code, scalable architecture, and cutting-edge
                 frameworks to deliver fast, secure, and maintainable products.
               </p>
             </article>
             <article>
-              <h4 className="text-xl font-semibold mb-3">Partnership Culture</h4>
+              <h4 className="text-xl font-semibold mb-3">
+                Partnership Culture
+              </h4>
               <p className="text-gray-700">
                 We work hand-in-hand with clients, treating every project as a
                 shared journey to success.
               </p>
             </article>
             <article>
-              <h4 className="text-xl font-semibold mb-3">Transparent Process</h4>
+              <h4 className="text-xl font-semibold mb-3">
+                Transparent Process
+              </h4>
               <p className="text-gray-700">
                 From planning to delivery, our agile process keeps communication
                 clear and progress measurable.
@@ -127,17 +193,21 @@ const About = memo(() => {
           </h2>
           <ul className="space-y-6 text-gray-700">
             <li>
-              <strong className="text-[#E2001A]">✅ Collaboration:</strong> Every
-              idea is better when built together. We align design, development,
-              and strategy teams for unified results.
+              <strong className="text-[#E2001A]"> Collaboration:</strong>{" "}
+              Every idea is better when built together. We align design,
+              development, and strategy teams for unified results.
             </li>
             <li>
-              <strong className="text-[#E2001A]">⚙️ Quality Engineering:</strong>{" "}
+              <strong className="text-[#E2001A]">
+                 Quality Engineering:
+              </strong>{" "}
               Every line of code meets performance, security, and scalability
               standards.
             </li>
             <li>
-              <strong className="text-[#E2001A]">🚀 Continuous Innovation:</strong>{" "}
+              <strong className="text-[#E2001A]">
+                 Continuous Innovation:
+              </strong>{" "}
               We adopt emerging tools and techniques to help your product stay
               ahead of the curve.
             </li>
@@ -154,9 +224,9 @@ const About = memo(() => {
             </h2>
             <p className="text-gray-700 leading-relaxed">
               Our partnerships go beyond project delivery — we help our clients
-              grow strategically through innovation, data, and technology.  
-              Together, we aim to create products that not only work but make
-              an impact.
+              grow strategically through innovation, data, and technology.
+              Together, we aim to create products that not only work but make an
+              impact.
             </p>
           </div>
           <div className="flex justify-center">
@@ -190,7 +260,9 @@ const About = memo(() => {
                   loading="lazy"
                   className="w-full h-60 object-cover rounded-xl mb-4"
                 />
-                <h4 className="text-lg font-bold text-gray-900">{member.name}</h4>
+                <h4 className="text-lg font-bold text-gray-900">
+                  {member.name}
+                </h4>
                 <p className="text-sm text-gray-600">{member.role}</p>
               </div>
             ))}

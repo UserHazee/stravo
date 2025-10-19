@@ -1,6 +1,8 @@
 import React, { useState, useCallback, memo } from "react";
-import Logo from '../assets/StravoLogo.png'
+import Logo from "../assets/StravoLogo.png";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
 // Carousel images imports (WebP)
 import slide1WebP from "../assets/photo_mr2.webp"; // You'll create these
@@ -23,54 +25,61 @@ const slides = [
     category: "Overview",
     imageWebP: slide1WebP,
     imageAVIF: slide1AVIF,
-    description: "Responsive design ensures websites look and function properly across devices. It adapts layouts to different screen sizes for a consistent user experience.",
+    description:
+      "Responsive design ensures websites look and function properly across devices. It adapts layouts to different screen sizes for a consistent user experience.",
   },
   {
     title: "Improved User Experience",
     category: "Benefit #1",
     imageWebP: slide2WebP,
     imageAVIF: slide2AVIF,
-    description: "A responsive site enhances navigation and aesthetics on all devices. Better UX helps retain users and prevents them from leaving for competitors.",
+    description:
+      "A responsive site enhances navigation and aesthetics on all devices. Better UX helps retain users and prevents them from leaving for competitors.",
   },
   {
     title: "Efficiency and Maintenance",
     category: "Benefit #2",
     imageWebP: slide3WebP,
     imageAVIF: slide3AVIF,
-    description: "Responsive websites are easier to build, maintain, and update — saving time and effort since you only manage one site instead of multiple versions.",
+    description:
+      "Responsive websites are easier to build, maintain, and update — saving time and effort since you only manage one site instead of multiple versions.",
   },
   {
     title: "Better SEO and Indexing",
     category: "Benefit #3",
     imageWebP: slide4WebP,
     imageAVIF: slide4AVIF,
-    description: "Search engines like Google prioritize mobile-friendly, responsive sites. This boosts SEO rankings and ensures your site performs well on all devices.",
+    description:
+      "Search engines like Google prioritize mobile-friendly, responsive sites. This boosts SEO rankings and ensures your site performs well on all devices.",
   },
   {
     title: "Scalability and Cost-Effectiveness",
     category: "Benefit #4",
     imageWebP: slide5WebP,
     imageAVIF: slide5AVIF,
-    description: "Responsive design adapts easily as your business grows — saving long-term development costs and improving performance across all devices.",
+    description:
+      "Responsive design adapts easily as your business grows — saving long-term development costs and improving performance across all devices.",
   },
 ];
 
 // ========== MEMOIZED COMPONENTS ==========
-const OptimizedSlideImage = memo(({ webpSrc, avifSrc, alt, className = "" }) => (
-  <picture>
-    <source srcSet={webpSrc} type="image/webp" />
-    <source srcSet={avifSrc} type="image/avif" />
-    <img
-      src={avifSrc}
-      alt={alt}
-      className={`object-cover w-full rounded-lg shadow-md h-72 ${className}`}
-      loading="lazy"
-      width="400"
-      height="288"
-      decoding="async"
-    />
-  </picture>
-));
+const OptimizedSlideImage = memo(
+  ({ webpSrc, avifSrc, alt, className = "" }) => (
+    <picture>
+      <source srcSet={webpSrc} type="image/webp" />
+      <source srcSet={avifSrc} type="image/avif" />
+      <img
+        src={avifSrc}
+        alt={alt}
+        className={`object-cover w-full rounded-lg shadow-md h-72 ${className}`}
+        loading="lazy"
+        width="400"
+        height="288"
+        decoding="async"
+      />
+    </picture>
+  )
+);
 
 const SlideImage = memo(({ src, alt, className = "" }) => (
   <img
@@ -88,9 +97,7 @@ const SlideContent = memo(({ slide }) => (
     <p className="mb-2 text-xs tracking-widest text-gray-500 uppercase">
       {slide.category}
     </p>
-    <h3 className="mb-3 text-2xl font-bold text-gray-900">
-      {slide.title}
-    </h3>
+    <h3 className="mb-3 text-2xl font-bold text-gray-900">{slide.title}</h3>
     <p className="mb-4 text-sm leading-relaxed text-gray-600">
       {slide.description}
     </p>
@@ -129,6 +136,12 @@ const ResponsiveDesignCarousel = memo(() => {
 
   return (
     <section className="bg-[#f8f7f4] py-16 px-8 md:px-20 overflow-hidden">
+      <ImagePreloader
+        images={[slide1WebP, slide2WebP, slide3WebP, slide4WebP, slide5WebP, slide1AVIF, slide2AVIF, slide3AVIF, slide4AVIF, slide5AVIF]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
       <div className="mx-auto max-w-7xl">
         <div className="flex items-start justify-between mb-8">
           <div>
@@ -171,9 +184,9 @@ const ResponsiveDesignCarousel = memo(() => {
 
           {/* Logo Image */}
           <div className="hidden col-span-1 md:block">
-            <SlideImage 
-              src={Logo} 
-              alt="Side preview" 
+            <SlideImage
+              src={Logo}
+              alt="Side preview"
               className="object-contain w-full rounded-lg shadow-md h-72"
             />
           </div>
@@ -186,9 +199,9 @@ const ResponsiveDesignCarousel = memo(() => {
               key={slideIndex}
               onClick={() => setIndex(slideIndex)}
               className={`w-3 h-3 rounded-full transition-colors ${
-                slideIndex === index 
-                  ? 'bg-[#E2001A]' 
-                  : 'bg-gray-300 hover:bg-gray-400'
+                slideIndex === index
+                  ? "bg-[#E2001A]"
+                  : "bg-gray-300 hover:bg-gray-400"
               }`}
               aria-label={`Go to slide ${slideIndex + 1}`}
             />

@@ -2,6 +2,8 @@
 import React, { useState, useCallback, memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 import Img1WebP from "../assets/photo_wd.webp";
 import Img1Fallback from "../assets/photo_wd.avif"; // Keep original as fallback
 
@@ -561,7 +563,12 @@ const WebDev = () => {
           {JSON.stringify(breadcrumbSchema)}
         </script>
       </Helmet>
-
+      <ImagePreloader
+        images={[Img1WebP, Img2WebP, Img3WebP, Img1Fallback, Img2Fallback, Img3Fallback]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
       <header role="banner">
         <Navbar />
       </header>
@@ -571,7 +578,7 @@ const WebDev = () => {
       >
         <ol className="flex items-center space-x-2">
           <li className="flex items-center">
-            <Link 
+            <Link
               to="/"
               className="flex items-center hover:text-[#A0001E] transition-colors"
             >

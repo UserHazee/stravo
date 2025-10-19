@@ -18,6 +18,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -271,6 +273,13 @@ const ReactDevelopment = memo(() => {
           {JSON.stringify(breadcrumbSchema)}
         </script>
       </Helmet>
+
+      <ImagePreloader
+        images={[chartPlaceholder, logo1, logo2,logo3,logo4,logo5]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
       <header role="banner">
         <Navbar />
       </header>

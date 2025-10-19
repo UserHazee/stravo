@@ -13,6 +13,8 @@ import { Button } from "../components/ui/button";
 import ResponsiveDesignCarousel from "./Carousel";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
 // Hero image imports
 import heroImageWebP from "../assets/photo_mr.webp"; // You'll create this
@@ -169,6 +171,17 @@ const ResponsiveDesign = memo(() => {
           {JSON.stringify(breadcrumbSchema)}
         </script>
       </Helmet>
+      <ImagePreloader
+        images={[
+          heroImageWebP,
+          heroImageAVIF,
+          aboutImageWebP,
+          aboutImageAVIF,
+        ]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
       <header role="banner">
         <Navbar />
       </header>

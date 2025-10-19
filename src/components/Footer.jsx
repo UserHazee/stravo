@@ -85,13 +85,13 @@ export default function Footer() {
                 About Us
               </Link>
               <Link
-                to="/blog"
+                to="/casestudies"
                 className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
               >
                 Case Studies
               </Link>
               <Link
-                to="/contact"
+                to="/insights"
                 className="block text-[#B0B0B0] hover:text-[#E2001A] transition-colors"
               >
                 Insights

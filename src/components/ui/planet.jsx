@@ -11,7 +11,7 @@ export function PlanetHero() {
         >
             {/* Static Crimson Dome - no animation */}
             <div 
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-[150vh] small:h-[110vh] next:h-[160vh] max-w-[200%]"
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-[150vh] max-w-[200%]"
             >
                 {/* Main dome gradient */}
                 <div 
@@ -214,7 +214,7 @@ export function TestimonialSection() {
     }, []);
 
     return (
-        <section id="testimonials" className="relative z-20 pb-0">
+        <section id="testimonials" className="relative z-20 pb-0 ">
             <div className="container relative px-4 mx-auto">
                 <div
                     className="relative max-w-5xl mx-auto overflow-hidden group"
@@ -229,7 +229,7 @@ export function TestimonialSection() {
                         {TESTIMONIALS.map((t, i) => (
                             <div
                                 key={i}
-                                className="flex flex-col items-center flex-shrink-0 w-full p-4 text-center small:p-8 next:p-12 testimonial-item snap-start"
+                                className="flex flex-col items-center flex-shrink-0 w-full  text-center p-0 testimonial-item snap-start"
                             >
                                 <div 
                                     className="relative max-w-2xl mx-auto transition-transform duration-300 bg-gradient-to-br from-[#000000] to-[#090f24] p-8 small:p-10 next:p-12"

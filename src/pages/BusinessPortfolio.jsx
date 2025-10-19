@@ -4,6 +4,8 @@ import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 import {
   Briefcase,
   Globe,
@@ -160,6 +162,13 @@ const BusinessPortfolio = memo(() => {
           {JSON.stringify(breadcrumbSchema)}
         </script>
       </Helmet>
+
+      <ImagePreloader
+        images={[heroImageWebP, heroImageAVIF, aboutImageAVIF, aboutImageWebP]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
 
       <div className="min-h-screen bg-white font-outfit">
         <header role="banner">

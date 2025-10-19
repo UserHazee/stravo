@@ -16,6 +16,8 @@ import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+// ✅ Image preloader
+import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
 // --- Image placeholders (replace with your own images later) ---
 import chartPlaceholder from "../assets/photo_bp.webp";
@@ -170,7 +172,12 @@ const NodejsDevelopment = memo(() => {
       <header role="banner">
         <Navbar />
       </header>
-
+      <ImagePreloader
+        images={[chartPlaceholder, logo1, logo2, logo3, logo4, logo5]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
       <nav
         aria-label="Breadcrumb"
         className="px-6 pt-4 pb-4 text-sm text-white bg-gradient-to-r from-[#4A000F] to-[#A0001E] mt-20 "

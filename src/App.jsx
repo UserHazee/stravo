@@ -9,6 +9,8 @@ import { ProcessSection } from "./components/ui/next";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { HashLink } from "react-router-hash-link";
+// ✅ Image preloader
+import ImagePreloader from "./components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 import {
   Code2,
   Smartphone,
@@ -91,7 +93,10 @@ const App = memo(() => {
           name="keywords"
           content="Stravo, Web Development, Software Engineering, ReactJS, NodeJS, Startup Solutions, Philippines Tech Agency"
         />
-        <meta property="og:title" content="STRAVO | Design, Code, and Deliver" />
+        <meta
+          property="og:title"
+          content="STRAVO | Design, Code, and Deliver"
+        />
         <meta
           property="og:description"
           content="We build your machine behind your vision — design, code, and deliver."
@@ -100,6 +105,19 @@ const App = memo(() => {
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="STRAVO" />
       </Helmet>
+      <ImagePreloader
+        images={[
+          pic1,
+          pic2,
+          pic3,
+          pic4,
+          pic5,
+          aboutImg,
+        ]}
+        priority="high"
+        mode="preload"
+        delay={800} // Wait 0.8s after hero render
+      />
 
       {/* 🧭 Skip Link for keyboard/screen readers */}
       <a
@@ -145,14 +163,21 @@ const App = memo(() => {
                   asChild
                   className="w-full sm:w-auto border-2 border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white px-6 sm:px-8 py-6 text-sm sm:text-base rounded-lg transition-all hover:-translate-y-1"
                 >
-                  <HashLink to="#services" smooth aria-label="Jump to our services section">
+                  <HashLink
+                    to="#services"
+                    smooth
+                    aria-label="Jump to our services section"
+                  >
                     Our Services
                   </HashLink>
                 </Button>
               </div>
             </div>
 
-            <figure className="relative h-[400px] lg:h-[500px]" aria-label="STRAVO brand graphic background">
+            <figure
+              className="relative h-[400px] lg:h-[500px]"
+              aria-label="STRAVO brand graphic background"
+            >
               <div className="absolute top-10 right-0 w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-[#4A000F] to-[#E2001A] rounded-3xl" />
               <div className="absolute bottom-6 left-0 w-48 h-48 lg:w-56 lg:h-56 bg-gradient-to-br from-[#000000] to-[#090f24] rounded-3xl" />
             </figure>
@@ -174,7 +199,10 @@ const App = memo(() => {
             >
               Trusted by Leading Companies
             </h2>
-            <ul className="grid grid-cols-3 md:grid-cols-6 gap-8 justify-items-center" role="list">
+            <ul
+              className="grid grid-cols-3 md:grid-cols-6 gap-8 justify-items-center"
+              role="list"
+            >
               {clientLogos.map((logo, i) => (
                 <li
                   key={i}
@@ -196,7 +224,10 @@ const App = memo(() => {
         >
           <div className="max-w-7xl mx-auto">
             <header className="mb-16 text-center">
-              <h2 id="services-heading" className="text-3xl lg:text-5xl font-semibold mb-4">
+              <h2
+                id="services-heading"
+                className="text-3xl lg:text-5xl font-semibold mb-4"
+              >
                 Our Services
               </h2>
               <p className="text-lg text-[#6B6B6B] max-w-2xl mx-auto">
@@ -217,7 +248,10 @@ const App = memo(() => {
                     <div className="w-14 h-14 bg-gradient-to-br from-[#4A000F] to-[#E2001A] flex items-center justify-center text-white mb-6 rounded-full">
                       {service.icon}
                     </div>
-                    <h3 id={`service-${index}`} className="mb-3 text-xl font-medium text-white">
+                    <h3
+                      id={`service-${index}`}
+                      className="mb-3 text-xl font-medium text-white"
+                    >
                       {service.title}
                     </h3>
                     <p className="text-sm font-light leading-relaxed text-white">
@@ -238,7 +272,10 @@ const App = memo(() => {
         >
           <div className="max-w-7xl mx-auto text-center">
             <header className="mb-16">
-              <h2 id="team-heading" className="text-3xl lg:text-5xl font-semibold mb-4">
+              <h2
+                id="team-heading"
+                className="text-3xl lg:text-5xl font-semibold mb-4"
+              >
                 Meet Our Leadership
               </h2>
               <p className="text-lg text-[#6B6B6B]">
@@ -246,9 +283,15 @@ const App = memo(() => {
               </p>
             </header>
 
-            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8" role="list">
+            <ul
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8"
+              role="list"
+            >
               {team.map((member, index) => (
-                <li key={index} className="text-center transition-transform hover:-translate-y-2">
+                <li
+                  key={index}
+                  className="text-center transition-transform hover:-translate-y-2"
+                >
                   <figure>
                     <Avatar className="w-32 h-32 lg:w-40 lg:h-40 mx-auto mb-4 bg-gradient-to-br from-[#E5E5E5] to-[#F8F9FA] text-[#6B6B6B] text-2xl font-semibold">
                       <AvatarImage

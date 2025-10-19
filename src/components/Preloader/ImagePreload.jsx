@@ -1,70 +1,125 @@
-import React, { useEffect } from 'react';
+// components/ImagePreloader.jsx
+import React, { useEffect, memo } from "react";
 
-const ImagePreloader = ({ images = [], priority = 'high' }) => {
+/**
+ * ImagePreloader (Visibility-Aware Hybrid Prefetcher)
+ * ---------------------------------------------------
+ * ✅ First visit → Preload (improves LCP)
+ * ✅ Next visits → Prefetch (background fetch)
+ * ✅ Reuses cache between navigations
+ * ✅ Waits until section is visible before running
+ * ✅ Defers until browser idle for smoother experience
+ *
+ * @param {Array} images - Image imports or URLs.
+ * @param {string} targetSelector - CSS selector for section to observe (e.g. "#hero" or ".insights-grid")
+ * @param {string} priority - 'high' | 'low' | 'auto' (default: 'high')
+ * @param {string} mode - 'auto' | 'preload' | 'prefetch' (default: 'auto')
+ * @param {number} delay - Delay before preloading (default: 200)
+ */
+
+const preloadedImages = new Set();
+let hasPreloadedOnce = false;
+
+const ImagePreloader = ({
+  images = [],
+  targetSelector = null,
+  priority = "high",
+  mode = "auto",
+  delay = 200,
+}) => {
+  const getImageUrl = (src) => {
+    if (typeof src === "string") return src;
+    if (src?.src) return src.src;
+    if (src?.default) return src.default;
+    if (src?.image) return src.image;
+    console.warn("Skipping preloading: unrecognized image format:", src);
+    return null;
+  };
+
   useEffect(() => {
     if (!images || images.length === 0) return;
 
-    const links = [];
+    let observer;
+    let hasStarted = false;
 
-    images.forEach((src) => {
-      let imageUrl;
+    const startPreloading = () => {
+      if (hasStarted) return; // Avoid double runs
+      hasStarted = true;
 
-      // --- FIX: Safely extract the URL string ---
-      if (typeof src === 'string') {
-        // Case 1: Direct string URL
-        imageUrl = src;
-      } else if (src && typeof src.src === 'string') {
-        // Case 2: Vite/Webpack import object with a 'src' property
-        imageUrl = src.src;
-      } else if (src && typeof src.default === 'string') {
-        // Case 3: Common module format with a 'default' property
-        imageUrl = src.default;
-      } else if (src && typeof src.image === 'string') {
-        // Case 4: Custom object format with an 'image' property (to handle the specific warning data)
-        imageUrl = src.image;
-      } else {
-        // Fallback or skip if it's neither a string nor a known object format
-        console.warn('Skipping preloading: Image source is not a recognizable URL string or object:', src);
-        return;
-      }
-      
-      // If imageUrl is still undefined or empty after extraction, skip
-      if (!imageUrl) return;
-      // ------------------------------------------
+      const effectiveMode =
+        mode === "auto"
+          ? hasPreloadedOnce
+            ? "prefetch"
+            : "preload"
+          : mode;
 
-      // Check if link already exists
-      const existingLink = document.querySelector(`link[href="${imageUrl}"]`);
-      if (existingLink) return;
+      for (const src of images) {
+        const imageUrl = getImageUrl(src);
+        if (!imageUrl) continue;
 
-      // Create preload link
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = imageUrl;
-      link.fetchpriority = priority;
-      
-      // Now, .endsWith() is only called on a guaranteed string
-      if (imageUrl.endsWith('.webp')) {
-        link.type = 'image/webp';
-      } else if (imageUrl.endsWith('.avif')) {
-        link.type = 'image/avif';
+        if (preloadedImages.has(imageUrl)) continue;
+        if (document.querySelector(`link[data-preloader="${imageUrl}"]`))
+          continue;
+
+        preloadedImages.add(imageUrl);
+
+        const link = document.createElement("link");
+        link.rel = effectiveMode;
+        link.as = "image";
+        link.href = imageUrl;
+        link.dataset.preloader = imageUrl;
+        if (effectiveMode === "preload") link.fetchpriority = priority;
+
+        // Infer MIME type
+        if (imageUrl.endsWith(".webp")) link.type = "image/webp";
+        else if (imageUrl.endsWith(".avif")) link.type = "image/avif";
+        else if (imageUrl.endsWith(".jpg") || imageUrl.endsWith(".jpeg"))
+          link.type = "image/jpeg";
+        else if (imageUrl.endsWith(".png")) link.type = "image/png";
+
+        document.head.appendChild(link);
       }
 
-      document.head.appendChild(link);
-      links.push(link);
-    });
-
-    // Cleanup function to remove preload links when component unmounts
-    return () => {
-      links.forEach(link => {
-        if (link.parentNode) {
-          link.parentNode.removeChild(link);
-        }
-      });
+      hasPreloadedOnce = true;
     };
-  }, [images, priority]);
+
+    // Delay + visibility logic
+    const schedulePreload = () => {
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(startPreloading, { timeout: delay });
+      } else {
+        setTimeout(startPreloading, delay);
+      }
+    };
+
+    if (targetSelector) {
+      const target = document.querySelector(targetSelector);
+      if (target) {
+        observer = new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting) {
+              schedulePreload();
+              observer.disconnect();
+            }
+          },
+          { rootMargin: "100px" } // start a bit before visible
+        );
+        observer.observe(target);
+      } else {
+        // Fallback: if element not found, just preload after delay
+        schedulePreload();
+      }
+    } else {
+      // No target specified → preload normally
+      schedulePreload();
+    }
+
+    return () => {
+      if (observer) observer.disconnect();
+    };
+  }, [images, targetSelector, priority, mode, delay]);
 
   return null;
 };
 
-export default ImagePreloader;
+export default memo(ImagePreloader);
