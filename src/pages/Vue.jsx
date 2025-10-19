@@ -26,14 +26,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import logo4 from "../assets/photo_wd.webp";
 // import logo5 from "../assets/photo_wd.webp";
 
-
-
-const chartPlaceholder = new URL("../assets/photo_bp.webp", import.meta.url).href;
-const logo1 = new URL("../assets/photo_wd.webp", import.meta.url).href;
-const logo2 = new URL("../assets/photo_wd.webp", import.meta.url).href;
-const logo3 = new URL("../assets/photo_bp.webp", import.meta.url).href;
-const logo4 = new URL("../assets/photo_bp.webp", import.meta.url).href;
-const logo5 = new URL("../assets/photo_bp.webp", import.meta.url).href;
+const chartPlaceholder = new URL("../assets/photo_bp.webp", import.meta.url)
+  .href;
+const logo1 = new URL("../assets/pearls.svg", import.meta.url).href;
+const logo2 = new URL("../assets/empat.svg", import.meta.url).href;
+const logo3 = new URL("../assets/senla.svg", import.meta.url).href;
+const logo4 = new URL("../assets/capital.svg", import.meta.url).href;
+const logo5 = new URL("../assets/baires.svg", import.meta.url).href;
 
 // HERO ICON
 const heroIcon = (
@@ -87,27 +86,30 @@ const features = [
 // --- Pillars Data ---
 const pillars = [
   {
-    title: "Continuous Project Delivery",
+    title: "Intuitive Component Composition",
     items: [
-      "Automated deployment and testing pipelines for smooth delivery.",
-      "Monitoring issues early to maintain stability.",
-      "Flexible modular architecture enabling rapid scalability.",
+      "Leveraging the Composition API for cleaner, reusable, and type-safe component logic.",
+      "Effective use of Single-File Components (.vue files) for co-locating template, script, and styles.",
+      "Defining clear component boundaries using Props for input and Emits for events (Unidirectional Data Flow).",
+      "Utilizing Slots for flexible content distribution and component customization.",
     ],
   },
   {
-    title: "Business-oriented Implementation",
+    title: "Scalable State & Routing",
     items: [
-      "Technical decisions always aligned with your business goals.",
-      "Regular discovery sessions ensure project accuracy.",
-      "Compliance with best coding and data protection standards.",
+      "Centralized state management using **Pinia** (the modern default) for simplified, modular stores.",
+      "Implementing Vue Router for clean, dynamic, and performant client-side navigation.",
+      "Applying Lazy Loading to routes and components for optimal initial load performance.",
+      "Structuring the application using a clear separation of Components, Views, and Stores.",
     ],
   },
   {
-    title: "Disciplined Project Governance",
+    title: "Performance & Developer Experience (DX)",
     items: [
-      "Clear timelines and transparent progress tracking.",
-      "Continuous risk assessment and quality assurance.",
-      "Strong client communication at every milestone.",
+      "Optimizing rendering efficiency through Vue's reactivity system and fine-grained change tracking.",
+      "Enforcing code quality and consistency with ESLint, Prettier, and TypeScript.",
+      "Using the dedicated Vue Devtools browser extension for deep state and component inspection.",
+      "Utilizing tools like Vite for lightning-fast development, hot module replacement (HMR), and optimized builds.",
     ],
   },
 ];
@@ -174,12 +176,17 @@ const Vue = memo(() => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
-          <link rel="prefetch" href={chartPlaceholder} as="image" type="image/webp" />
-          <link rel="prefetch" href={logo1} as="image" type="image/webp" />
-          <link rel="prefetch" href={logo2} as="image" type="image/webp" />
-          <link rel="prefetch" href={logo3} as="image" type="image/webp" />
-          <link rel="prefetch" href={logo4} as="image" type="image/webp" />
-          <link rel="prefetch" href={logo5} as="image" type="image/webp" />
+        <link
+          rel="prefetch"
+          href={chartPlaceholder}
+          as="image"
+          type="image/webp"
+        />
+        <link rel="prefetch" href={logo1} as="image" type="image/svg" />
+        <link rel="prefetch" href={logo2} as="image" type="image/svg" />
+        <link rel="prefetch" href={logo3} as="image" type="image/svg" />
+        <link rel="prefetch" href={logo4} as="image" type="image/svg" />
+        <link rel="prefetch" href={logo5} as="image" type="image/svg" />
       </Helmet>
       <header role="banner">
         <Navbar />
@@ -199,7 +206,10 @@ const Vue = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
+            <ChevronRight
+              className="w-4 h-4 text-gray-400"
+              aria-hidden="true"
+            />
           </li>
           <li className="text-[#E2001A] font-medium">Vue Development</li>
         </ol>
@@ -207,7 +217,7 @@ const Vue = memo(() => {
       {/* HERO SECTION */}
       <section className="relative px-6 pt-4 pb-20 overflow-hidden bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white sm:px-6 lg:px-20">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 items-center gap-10">
-          <div>
+          <div className="mt-5">
             <h1 className="text-5xl font-bold leading-tight mb-4">
               Vue.js Development Services
             </h1>
@@ -215,26 +225,30 @@ const Vue = memo(() => {
               Scalable. Efficient. Modern. Build seamless, dynamic interfaces
               and single-page applications powered by Vue.js.
             </p>
+            {/* TRUSTED BY */}
+            <section className="">
+              <div className="max-w-6xl mx-auto ">
+                <h3 className="text-white text-sm font-light mb-6 ">
+                  Companies that use Angular:
+                </h3>
+                <div className="flex flex-wrap gap-6 items-center opacity-100">
+                  {[logo1, logo2, logo3, logo4, logo5].map((logo, i) => (
+                    <img
+                      key={i}
+                      src={logo}
+                      alt={`client-logo-${i}`}
+                      className="h-5 object-contain "
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
           </div>
           <div className="flex justify-center">
             <div className="bg-white/10 rounded-full w-[300px] h-[300px] flex items-center justify-center">
               {heroIcon}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* TRUSTED BY */}
-      <section className="py-10 bg-gray-50">
-        <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-10 items-center opacity-70">
-          {[logo1, logo2, logo3, logo4, logo5].map((logo, i) => (
-            <img
-              key={i}
-              src={logo}
-              alt={`client-logo-${i}`}
-              className="h-10 object-contain grayscale hover:grayscale-0 transition"
-            />
-          ))}
         </div>
       </section>
 
@@ -331,28 +345,39 @@ const Vue = memo(() => {
         </div>
       </section>
 
-      {/* THREE PILLARS */}
+       {/* THREE PILLARS */}
       <section className="px-6 py-20 bg-[#111111] text-white sm:px-10 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <h3 className="text-sm uppercase text-[#E2001A] mb-3 tracking-wider">
             Software Delivery Excellence Framework
           </h3>
           <h2 className="text-3xl font-bold mb-10">
-            The Three Pillars of Excellence
+            The Three Pillars of Vue Excellence
           </h2>
 
           <div className="grid md:grid-cols-3 gap-10">
             {pillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className="bg-white/5 p-6 rounded-2xl backdrop-blur"
+                className="relative bg-gradient-to-br from-white/10 to-white/5 p-8 rounded-3xl backdrop-blur border border-[#E2001A]/20 hover:border-[#E2001A]/50 transition-all shadow-xl hover:shadow-2xl hover:shadow-[#E2001A]/10"
               >
-                <h4 className="text-lg font-semibold mb-4 text-[#E2001A]">
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#E2001A]/20 to-transparent rounded-bl-full" />
+
+                {/* Number indicator */}
+                <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-[#E2001A] to-[#A0001E] rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
+                  {idx + 1}
+                </div>
+
+                <h4 className="text-xl font-bold mb-6 text-[#E2001A] mt-4">
                   {pillar.title}
                 </h4>
-                <ul className="space-y-3 text-sm text-gray-300 list-disc list-inside">
+                <ul className="space-y-4 text-sm text-gray-300">
                   {pillar.items.map((item, i) => (
-                    <li key={i}>{item}</li>
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="inline-block w-1.5 h-1.5 bg-[#E2001A] rounded-full mt-2 flex-shrink-0" />
+                      <span className="leading-relaxed">{item}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -378,7 +403,8 @@ const Vue = memo(() => {
             size="top"
             aria-label="Contact us to discuss your React project"
           >
-            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true"  />
+            Book Tech Call{" "}
+            <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />
           </Button>
         </Link>
       </section>

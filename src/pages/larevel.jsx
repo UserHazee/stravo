@@ -25,15 +25,13 @@ import { Link } from "react-router-dom";
 // import logo4 from "../assets/photo_wd.webp";
 // import logo5 from "../assets/photo_wd.webp";
 
-
-
-
-const chartPlaceholder = new URL("../assets/photo_bp.webp", import.meta.url).href;
-const logo1 = new URL("../assets/photo_wd.webp", import.meta.url).href;
-const logo2 = new URL("../assets/photo_wd.webp", import.meta.url).href;
-const logo3 = new URL("../assets/photo_bp.webp", import.meta.url).href;
-const logo4 = new URL("../assets/photo_bp.webp", import.meta.url).href;
-const logo5 = new URL("../assets/photo_bp.webp", import.meta.url).href;
+const chartPlaceholder = new URL("../assets/photo_bp.webp", import.meta.url)
+  .href;
+const logo1 = new URL("../assets/rebderry.svg", import.meta.url).href;
+const logo2 = new URL("../assets/mallow.webp", import.meta.url).href;
+const logo3 = new URL("../assets/fingnet.webp", import.meta.url).href;
+const logo4 = new URL("../assets/bluelight.webp", import.meta.url).href;
+const logo5 = new URL("../assets/99xlogo.svg", import.meta.url).href;
 // --- HERO ICON (Laravel) ---
 const heroIcon = (
   <FontAwesomeIcon
@@ -174,13 +172,18 @@ const LaravelDevelopment = memo(() => {
         />
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
-        </script>    
-        <link rel="prefetch" href={chartPlaceholder} as="image" type="image/webp" />
-        <link rel="prefetch" href={logo1} as="image" type="image/webp" />
+        </script>
+        <link
+          rel="prefetch"
+          href={chartPlaceholder}
+          as="image"
+          type="image/webp"
+        />
+        <link rel="prefetch" href={logo1} as="image" type="image/svg" />
         <link rel="prefetch" href={logo2} as="image" type="image/webp" />
         <link rel="prefetch" href={logo3} as="image" type="image/webp" />
         <link rel="prefetch" href={logo4} as="image" type="image/webp" />
-        <link rel="prefetch" href={logo5} as="image" type="image/webp" />
+        <link rel="prefetch" href={logo5} as="image" type="image/svg" />
       </Helmet>
       <header role="banner">
         <Navbar />
@@ -200,7 +203,10 @@ const LaravelDevelopment = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true"/>
+            <ChevronRight
+              className="w-4 h-4 text-gray-400"
+              aria-hidden="true"
+            />
           </li>
           <li className="text-[#E2001A] font-medium">Laravel Development</li>
         </ol>
@@ -216,6 +222,24 @@ const LaravelDevelopment = memo(() => {
               Build high-performance, secure, and scalable web applications with
               Laravel — the framework built for modern development.
             </p>
+            {/* TRUSTED BY */}
+            <section className="">
+              <div className="max-w-6xl mx-auto ">
+                <h3 className="text-white text-sm font-light mb-6 ">
+                  Companies that use Angular:
+                </h3>
+                <div className="flex flex-wrap gap-6 items-center opacity-100">
+                  {[logo1, logo2, logo3, logo4, logo5].map((logo, i) => (
+                    <img
+                      key={i}
+                      src={logo}
+                      alt={`client-logo-${i}`}
+                      className="h-5 object-contain "
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
           </div>
           <div className="flex justify-center">
             <div className="bg-white/10 rounded-full w-[300px] h-[300px] flex items-center justify-center">
@@ -224,21 +248,6 @@ const LaravelDevelopment = memo(() => {
           </div>
         </div>
       </section>
-
-      {/* TRUSTED BY */}
-      <section className="py-10 bg-gray-50">
-        <div className="max-w-6xl mx-auto flex flex-wrap justify-center gap-10 items-center opacity-70">
-          {[logo1, logo2, logo3, logo4, logo5].map((logo, i) => (
-            <img
-              key={i}
-              src={logo}
-              alt={`client-logo-${i}`}
-              className="h-10 object-contain grayscale hover:grayscale-0 transition"
-            />
-          ))}
-        </div>
-      </section>
-
       {/* WHY WE USE LARAVEL */}
       <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
@@ -337,7 +346,7 @@ const LaravelDevelopment = memo(() => {
       <section className="px-6 py-20 bg-[#111111] text-white sm:px-10 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <h3 className="text-sm uppercase text-[#E2001A] mb-3 tracking-wider">
-            Backend Development Framework
+            Software Delivery Excellence Framework
           </h3>
           <h2 className="text-3xl font-bold mb-10">
             The Three Pillars of Laravel Excellence
@@ -347,14 +356,25 @@ const LaravelDevelopment = memo(() => {
             {pillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className="bg-white/5 p-6 rounded-2xl backdrop-blur"
+                className="relative bg-gradient-to-br from-white/10 to-white/5 p-8 rounded-3xl backdrop-blur border border-[#E2001A]/20 hover:border-[#E2001A]/50 transition-all shadow-xl hover:shadow-2xl hover:shadow-[#E2001A]/10"
               >
-                <h4 className="text-lg font-semibold mb-4 text-[#E2001A]">
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-[#E2001A]/20 to-transparent rounded-bl-full" />
+
+                {/* Number indicator */}
+                <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-[#E2001A] to-[#A0001E] rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
+                  {idx + 1}
+                </div>
+
+                <h4 className="text-xl font-bold mb-6 text-[#E2001A] mt-4">
                   {pillar.title}
                 </h4>
-                <ul className="space-y-3 text-sm text-gray-300 list-disc list-inside">
+                <ul className="space-y-4 text-sm text-gray-300">
                   {pillar.items.map((item, i) => (
-                    <li key={i}>{item}</li>
+                    <li key={i} className="flex items-start gap-3">
+                      <span className="inline-block w-1.5 h-1.5 bg-[#E2001A] rounded-full mt-2 flex-shrink-0" />
+                      <span className="leading-relaxed">{item}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -379,7 +399,8 @@ const LaravelDevelopment = memo(() => {
             size="top"
             aria-label="Contact us to discuss your React project"
           >
-            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />
+            Book Tech Call{" "}
+            <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />
           </Button>
         </Link>
       </section>
