@@ -1,8 +1,6 @@
 import React, { useState, useCallback, memo } from "react";
 import Logo from "../assets/StravoLogo.png";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-// ✅ Image preloader
-import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
 // Carousel images imports (WebP)
 import slide1WebP from "../assets/photo_mr2.webp"; // You'll create these
@@ -136,12 +134,6 @@ const ResponsiveDesignCarousel = memo(() => {
 
   return (
     <section className="bg-[#f8f7f4] py-16 px-8 md:px-20 overflow-hidden">
-      <ImagePreloader
-        images={[slide1WebP, slide2WebP, slide3WebP, slide4WebP, slide5WebP, slide1AVIF, slide2AVIF, slide3AVIF, slide4AVIF, slide5AVIF]}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
       <div className="mx-auto max-w-7xl">
         <div className="flex items-start justify-between mb-8">
           <div>

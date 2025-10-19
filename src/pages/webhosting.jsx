@@ -13,15 +13,33 @@ import {
   Cloud as CloudIcon,
   RefreshCw,
 } from "lucide-react";
-// ✅ Image preloader
-import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import GreenHero from "./GreenHero";
 import WebHostingSection from "./NewSection";
 import { Link } from "react-router-dom";
-import vpsImage from "../assets/Vps.webp";
+// import vpsImage from "../assets/Vps.webp";
+const vpsImage = new URL("../assets/Vps.webp", import.meta.url).href;
+
+// import hostingImg1 from "../assets/HOsitng.webp";
+// import hostingImg2 from "../assets/H&M.webp";
+// import teamMember1WebP from "../assets/1000483230 (1).webp";
+// import teamMember2WebP from "../assets/1000483218.webp";
+// import teamMember3WebP from "../assets/Gemini_Mullet.webp";
+// import teamMember1Fallback from "../assets/1000483230 (1).jpg";
+// import teamMember2Fallback from "../assets/1000483218.jpg";
+// import teamMember3Fallback from "../assets/Gemini_Mullet.jpg";
+
+
+const hostingImg1 = new URL("../assets/HOsitng.webp", import.meta.url).href;
+const hostingImg2 = new URL("../assets/H&M.webp", import.meta.url).href;
+const teamMember1WebP = new URL("../assets/1000483230 (1).webp", import.meta.url).href;
+const teamMember2WebP = new URL("../assets/1000483218.webp", import.meta.url).href;
+const teamMember3WebP = new URL("../assets/Gemini_Mullet.webp", import.meta.url).href;
+const teamMember1Fallback = new URL("../assets/1000483230 (1).jpg", import.meta.url).href;
+const teamMember2Fallback = new URL("../assets/1000483218.jpg", import.meta.url).href;
+const teamMember3Fallback = new URL("../assets/Gemini_Mullet.jpg", import.meta.url).href;
 
 // ===================== STATIC DATA =====================
 
@@ -275,14 +293,18 @@ const WebHosting = () => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+              <link rel="prefetch" href={vpsImage} as="image" type="image/webp" />
+              <link rel="prefetch" href={hostingImg1} as="image" type="image/webp" />
+              <link rel="prefetch" href={hostingImg2} as="image" type="image/webp" />
+              <link rel="prefetch" href={teamMember1WebP} as="image" type="image/webp" />
+              <link rel="prefetch" href={teamMember2WebP} as="image" type="image/webp" />
+              <link rel="prefetch" href={teamMember3WebP} as="image" type="image/webp" />
+              <link rel="prefetch" href={teamMember1Fallback} as="image" type="image/jpeg" />
+              <link rel="prefetch" href={teamMember2Fallback} as="image" type="image/jpeg" />
+              <link rel="prefetch" href={teamMember3Fallback} as="image" type="image/jpeg" />
+      
       </Helmet>
 
-      <ImagePreloader
-        images={vpsImage}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
       <Navbar />
       <nav
         aria-label="Breadcrumb"
@@ -299,7 +321,7 @@ const WebHosting = () => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true"/>
           </li>
           <li className="text-[#A0001E] font-medium">Web Hosting</li>
         </ol>

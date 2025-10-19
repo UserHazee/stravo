@@ -13,16 +13,50 @@ import { Button } from "../components/ui/button";
 import ResponsiveDesignCarousel from "./Carousel";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-// ✅ Image preloader
-import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
-// Hero image imports
-import heroImageWebP from "../assets/photo_mr.webp"; // You'll create this
-import heroImageAVIF from "../assets/photo_mr.avif"; // Your downloaded file
+// // Hero image imports
+// import heroImageWebP from "../assets/photo_mr.webp"; 
+// import heroImageAVIF from "../assets/photo_mr.avif"; 
 
-// About section image imports
-import aboutImageWebP from "../assets/photo_mr1.webp"; // You'll create this
-import aboutImageAVIF from "../assets/photo_mr1.avif"; // Your downloaded file
+// // About section image imports
+// import aboutImageWebP from "../assets/photo_mr1.webp"; 
+// import aboutImageAVIF from "../assets/photo_mr1.avif"; 
+
+
+const heroImageWebP = new URL("../assets/photo_mr.webp", import.meta.url).href;
+const aboutImageWebP = new URL("../assets/photo_mr1.webp", import.meta.url).href;
+
+const heroImageAVIF = new URL("../assets/photo_mr.avif", import.meta.url).href;
+const aboutImageAVIF = new URL("../assets/photo_mr1.avif", import.meta.url).href;
+
+// // Carousel images imports (WebP)
+// import slide1WebP from "../assets/photo_mr2.webp"; 
+// import slide2WebP from "../assets/photo_mr3.webp";
+// import slide3WebP from "../assets/photo_mr4.webp";
+// import slide4WebP from "../assets/photo_mr5.webp";
+// import slide5WebP from "../assets/photo_mr6.webp";
+
+// // Carousel images imports (AVIF fallback)
+// import slide1AVIF from "../assets/photo_mr2.avif"; 
+// import slide2AVIF from "../assets/photo_mr3.avif";
+// import slide3AVIF from "../assets/photo_mr4.avif";
+// import slide4AVIF from "../assets/photo_mr5.avif";
+// import slide5AVIF from "../assets/photo_mr6.avif";
+
+
+
+const slide1WebP = new URL("../assets/photo_mr2.webp", import.meta.url).href;
+const slide2WebP = new URL("../assets/photo_mr3.webp", import.meta.url).href;
+const slide3WebP = new URL("../assets/photo_mr4.webp", import.meta.url).href;
+const slide4WebP = new URL("../assets/photo_mr5.webp", import.meta.url).href;
+const slide5WebP = new URL("../assets/photo_mr6.webp", import.meta.url).href;
+
+
+const slide1AVIF = new URL("../assets/photo_mr2.avif", import.meta.url).href;
+const slide2AVIF = new URL("../assets/photo_mr3.avif", import.meta.url).href;
+const slide3AVIF = new URL("../assets/photo_mr4.avif", import.meta.url).href;
+const slide4AVIF = new URL("../assets/photo_mr5.avif", import.meta.url).href;
+const slide5AVIF = new URL("../assets/photo_mr6.avif", import.meta.url).href;
 
 // ========== STATIC DATA MOVED OUTSIDE COMPONENT ==========
 const stats = [
@@ -170,18 +204,23 @@ const ResponsiveDesign = memo(() => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+        <link rel="prefetch" href={heroImageWebP} as="image" type="image/webp" />
+        <link rel="prefetch" href={heroImageAVIF} as="image" type="image/avif" />
+        <link rel="prefetch" href={aboutImageWebP} as="image" type="image/webp" />
+        <link rel="prefetch" href={aboutImageAVIF} as="image" type="image/avif" />
+
+        <link rel="prefetch" href={slide1WebP} as="image" type="image/webp" />
+        <link rel="prefetch" href={slide2WebP} as="image" type="image/webp" />
+        <link rel="prefetch" href={slide3WebP} as="image" type="image/webp" />
+        <link rel="prefetch" href={slide4WebP} as="image" type="image/webp" />
+        <link rel="prefetch" href={slide5WebP} as="image" type="image/webp" />
+        
+        <link rel="prefetch" href={slide1AVIF} as="image" type="image/avif" />
+        <link rel="prefetch" href={slide2AVIF} as="image" type="image/avif" />
+        <link rel="prefetch" href={slide3AVIF} as="image" type="image/avif" />
+        <link rel="prefetch" href={slide4AVIF} as="image" type="image/avif" />
+        <link rel="prefetch" href={slide5AVIF} as="image" type="image/avif" />
       </Helmet>
-      <ImagePreloader
-        images={[
-          heroImageWebP,
-          heroImageAVIF,
-          aboutImageWebP,
-          aboutImageAVIF,
-        ]}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
       <header role="banner">
         <Navbar />
       </header>
@@ -201,7 +240,7 @@ const ResponsiveDesign = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
           </li>
           <li className="text-[#A0001E] font-medium">Mobile Responsiveness</li>
         </ol>
@@ -321,7 +360,7 @@ const ResponsiveDesign = memo(() => {
             size="top"
             aria-label="Contact us to discuss your React project"
           >
-            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true"  />
           </Button>
         </Link>
       </section>

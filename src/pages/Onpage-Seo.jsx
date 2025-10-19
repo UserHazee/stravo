@@ -4,8 +4,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
-// ✅ Image preloader
-import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 import {
   FileText,
   Target,
@@ -22,9 +20,13 @@ import {
   Eye,
 } from "lucide-react";
 
-// Optimized hero images
-import heroImageWebP from "../assets/photo_op.webp";
-import heroImageAVIF from "../assets/photo_op.avif";
+// // Optimized hero images
+// import heroImageWebP from "../assets/photo_op.webp";
+// import heroImageAVIF from "../assets/photo_op.avif";
+
+
+const heroImageWebP = new URL("../assets/photo_op.webp", import.meta.url).href;
+const heroImageAVIF = new URL("../assets/photo_op.avif", import.meta.url).href;
 
 // ========== STATIC DATA ==========
 const onPageItems = [
@@ -222,16 +224,10 @@ const OnPageSEO = memo(() => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+
+        <link rel="prefetch" href={heroImageWebP} as="image" type="image/webp" />
+        <link rel="prefetch" href={heroImageAVIF} as="image" type="image/avif" />
       </Helmet>
-      <ImagePreloader
-        images={[
-          heroImageWebP,
-          heroImageAVIF,
-        ]}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
       <header role="banner">
         <Navbar />
       </header>
@@ -251,7 +247,7 @@ const OnPageSEO = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
           </li>
           <li className="text-[#A0001E] font-medium">SEO Optimization</li>
         </ol>
@@ -265,9 +261,9 @@ const OnPageSEO = memo(() => {
             </span>
 
             <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 xl:text-7xl lg:text-6xl">
-              On-Page SEO:{" "}
+              On-Page SEO:<br />
               <span className="text-[#E2001A]">
-                Rank Higher, Convert Better
+                Rank Higher, Dominate,<br /> Convert Better 
               </span>
             </h1>
 
@@ -375,7 +371,7 @@ const OnPageSEO = memo(() => {
                 size="top"
                 aria-label="Contact us to discuss your React project"
               >
-                Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+                Book Tech Call <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />
               </Button>
             </Link>
             <Link to="/casestudies">

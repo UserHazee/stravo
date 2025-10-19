@@ -50,7 +50,7 @@ const HeroCard = memo(() => (
 const GreenHero = memo(() => {
   return (
     <>
-      <section className="py-10 text-center bg-white sm:py-20 font-outfit">
+      <section className=" text-center bg-white font-outfit">
         {/* Heading */}
         <div className="mb-12">
           <h2 className="mb-3 text-4xl font-extrabold text-gray-900">

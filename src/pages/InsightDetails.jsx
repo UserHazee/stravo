@@ -7,9 +7,15 @@ import { Button } from "../components/ui/button";
 
 import { Helmet } from "react-helmet-async"; // ✅ For SEO metadata
 
-import insight1 from "../assets/photo_wd.webp";
-import insight2 from "../assets/photo_bp.webp";
-import insight3 from "../assets/photo_wd.webp";
+// import insight1 from "../assets/photo_wd.webp";
+// import insight2 from "../assets/photo_bp.webp";
+// import insight3 from "../assets/photo_wd.webp";
+
+
+
+const insight1 = new URL("../assets/photo_wd.webp", import.meta.url).href;
+const insight2 = new URL("../assets/photo_bp.webp", import.meta.url).href;
+const insight3 = new URL("../assets/photo_wd.webp", import.meta.url).href;
 
 // === MOCK INSIGHT DATA (replace later with backend/API) ===
 const insights = [
@@ -163,7 +169,7 @@ const InsightDetails = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
           </li>
           <li className="text-[#A0001E] font-medium">Insight Highlight</li>
         </ol>

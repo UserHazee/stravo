@@ -107,7 +107,7 @@ const CaseStudyDetails = memo(() => {
           rel="canonical"
           href={`https://stravoph.netlify.app/casestudies/${id}`}
         />
-        <link rel="preload" as="image" href={caseData.image} />
+        <link rel="prefetch" as="image" href={caseData.image} />
 
         <title>{`${caseData.title} | STRAVO Case Study`}</title>
         <meta
@@ -149,7 +149,7 @@ const CaseStudyDetails = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
           </li>
           <li className="text-[#A0001E] font-medium">Case Study Highlight</li>
         </ol>

@@ -4,8 +4,6 @@ import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-// ✅ Image preloader
-import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 import {
   Briefcase,
   Globe,
@@ -15,13 +13,20 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-// Hero image imports
-import heroImageWebP from "../assets/photo_bp.webp";
-import heroImageAVIF from "../assets/photo_bp.avif";
+// // Hero image imports
+// import heroImageWebP from "../assets/photo_bp.webp";
+// import heroImageAVIF from "../assets/photo_bp.avif";
 
-// About section image imports
-import aboutImageWebP from "../assets/photo_bp1.webp";
-import aboutImageAVIF from "../assets/photo_bp1.avif";
+// // About section image imports
+// import aboutImageWebP from "../assets/photo_bp1.webp";
+// import aboutImageAVIF from "../assets/photo_bp1.avif";
+
+
+
+const heroImageWebP = new URL("../assets/photo_bp.webp", import.meta.url).href;
+const heroImageAVIF = new URL("../assets/photo_bp.avif", import.meta.url).href;
+const aboutImageWebP = new URL("../assets/photo_bp1.webp", import.meta.url).href;
+const aboutImageAVIF = new URL("../assets/photo_bp1.avif", import.meta.url).href;
 
 // ================== STATIC DATA ==================
 const stats = [
@@ -161,14 +166,11 @@ const BusinessPortfolio = memo(() => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+          <link rel="prefetch" href={heroImageWebP} as="image" type="image/webp" />
+          <link rel="prefetch" href={heroImageAVIF} as="image" type="image/avif" />
+          <link rel="prefetch" href={aboutImageWebP} as="image" type="image/webp" />
+          <link rel="prefetch" href={aboutImageAVIF} as="image" type="image/avif" />
       </Helmet>
-
-      <ImagePreloader
-        images={[heroImageWebP, heroImageAVIF, aboutImageAVIF, aboutImageWebP]}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
 
       <div className="min-h-screen bg-white font-outfit">
         <header role="banner">
@@ -189,7 +191,7 @@ const BusinessPortfolio = memo(() => {
               </Link>
             </li>
             <li aria-hidden="true">
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
             </li>
             <li className="text-[#A0001E] font-medium">Business Portfolios</li>
           </ol>
@@ -299,7 +301,7 @@ const BusinessPortfolio = memo(() => {
               size="top"
               aria-label="Contact us to discuss your React project"
             >
-              Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+              Book Tech Call <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true"  />
             </Button>
           </Link>
         </section>

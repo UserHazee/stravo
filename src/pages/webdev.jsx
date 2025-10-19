@@ -2,16 +2,21 @@
 import React, { useState, useCallback, memo } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// ✅ Image preloader
-import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
-import Img1WebP from "../assets/photo_wd.webp";
-import Img1Fallback from "../assets/photo_wd.avif"; // Keep original as fallback
+// import Img1WebP from "../assets/photo_wd.webp";
+// import Img1Fallback from "../assets/photo_wd.avif";
 
-import Img2WebP from "../assets/photo_wd_1.webp";
-import Img2Fallback from "../assets/photo_wd_1.avif"; // Keep original as fallback
+// import Img2WebP from "../assets/photo_wd_1.webp";
+// import Img2Fallback from "../assets/photo_wd_1.avif";
 
-import Img3WebP from "../assets/photo_wd_2.webp";
-import Img3Fallback from "../assets/photo_wd_2.avif"; // Keep original as fallback
+// import Img3WebP from "../assets/photo_wd_2.webp";
+// import Img3Fallback from "../assets/photo_wd_2.avif"; 
+const Img1Fallback = new URL("../assets/photo_wd.avif", import.meta.url).href;
+const Img2Fallback = new URL("../assets/photo_wd_1.avif", import.meta.url).href;
+const Img3Fallback = new URL("../assets/photo_wd_2.avif", import.meta.url).href;
+
+const Img1WebP = new URL("../assets/photo_wd.webp", import.meta.url).href;
+const Img2WebP = new URL("../assets/photo_wd_1.webp", import.meta.url).href;
+const Img3WebP = new URL("../assets/photo_wd_2.webp", import.meta.url).href;
 import {
   Code2,
   Check,
@@ -29,7 +34,6 @@ import {
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Button } from "../components/ui/button";
 import { Helmet } from "react-helmet-async";
 
 // ========== ALL MEMOIZED COMPONENTS MUST BE OUTSIDE ==========
@@ -562,13 +566,13 @@ const WebDev = () => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+        <link rel="prefetch" href={Img1WebP} as="image" type="image/webp" />
+        <link rel="prefetch" href={Img1Fallback} as="image" type="image/avif" />
+        <link rel="prefetch" href={Img2Fallback} as="image" type="image/avif" />
+        <link rel="prefetch" href={Img3Fallback} as="image" type="image/avif" />
+        <link rel="prefetch" href={Img2WebP} as="image" type="image/webp" />
+        <link rel="prefetch" href={Img3WebP} as="image" type="image/webp" />
       </Helmet>
-      <ImagePreloader
-        images={[Img1WebP, Img2WebP, Img3WebP, Img1Fallback, Img2Fallback, Img3Fallback]}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
       <header role="banner">
         <Navbar />
       </header>
@@ -587,7 +591,7 @@ const WebDev = () => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
           </li>
           <li className="text-[#A0001E] font-medium">Web Development</li>
         </ol>

@@ -15,18 +15,25 @@ import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-// ✅ Image preloader
-import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// --- Image placeholders (replace with your own later) ---
-import chartPlaceholder from "../assets/photo_wd.webp"; // your Vue chart image
-import logo1 from "../assets/photo_wd.webp";
-import logo2 from "../assets/photo_wd.webp";
-import logo3 from "../assets/photo_wd.webp";
-import logo4 from "../assets/photo_wd.webp";
-import logo5 from "../assets/photo_wd.webp";
+// // --- Image placeholders (replace with your own later) ---
+// import chartPlaceholder from "../assets/photo_wd.webp"; // your Vue chart image
+// import logo1 from "../assets/photo_wd.webp";
+// import logo2 from "../assets/photo_wd.webp";
+// import logo3 from "../assets/photo_wd.webp";
+// import logo4 from "../assets/photo_wd.webp";
+// import logo5 from "../assets/photo_wd.webp";
+
+
+
+const chartPlaceholder = new URL("../assets/photo_bp.webp", import.meta.url).href;
+const logo1 = new URL("../assets/photo_wd.webp", import.meta.url).href;
+const logo2 = new URL("../assets/photo_wd.webp", import.meta.url).href;
+const logo3 = new URL("../assets/photo_bp.webp", import.meta.url).href;
+const logo4 = new URL("../assets/photo_bp.webp", import.meta.url).href;
+const logo5 = new URL("../assets/photo_bp.webp", import.meta.url).href;
 
 // HERO ICON
 const heroIcon = (
@@ -167,16 +174,16 @@ const Vue = memo(() => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+          <link rel="prefetch" href={chartPlaceholder} as="image" type="image/webp" />
+          <link rel="prefetch" href={logo1} as="image" type="image/webp" />
+          <link rel="prefetch" href={logo2} as="image" type="image/webp" />
+          <link rel="prefetch" href={logo3} as="image" type="image/webp" />
+          <link rel="prefetch" href={logo4} as="image" type="image/webp" />
+          <link rel="prefetch" href={logo5} as="image" type="image/webp" />
       </Helmet>
       <header role="banner">
         <Navbar />
       </header>
-      <ImagePreloader
-        images={[chartPlaceholder, logo1, logo2, logo3, logo4, logo5]}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
       <nav
         aria-label="Breadcrumb"
         className="px-6 pt-4 pb-4 text-sm text-white bg-gradient-to-r from-[#4A000F] to-[#A0001E] mt-20 "
@@ -192,7 +199,7 @@ const Vue = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
           </li>
           <li className="text-[#E2001A] font-medium">Vue Development</li>
         </ol>
@@ -371,7 +378,7 @@ const Vue = memo(() => {
             size="top"
             aria-label="Contact us to discuss your React project"
           >
-            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
+            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true"  />
           </Button>
         </Link>
       </section>

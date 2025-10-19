@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { ChevronRight, Home } from "lucide-react";
 import { Link } from "react-router-dom";
-import ImagePreloader from "../components/Preloader/ImagePreload";
 
 import aboutImg from "../assets/photo_wd.webp";
 import team1 from "../assets/1000483218.webp";
@@ -24,8 +23,7 @@ const teamMembers = [
 ];
 
 const About = memo(() => {
-  
-const aboutRef = useRef(null);
+  const aboutRef = useRef(null);
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -45,7 +43,10 @@ const aboutRef = useRef(null);
     ],
   };
   return (
-    <div  ref={aboutRef} className="min-h-screen bg-white text-gray-900 font-outfit">
+    <div
+      ref={aboutRef}
+      className="min-h-screen bg-white text-gray-900 font-outfit"
+    >
       <Helmet>
         <title>
           About Us | STRAVO - We Build Your Machine Behind Your Vision
@@ -69,14 +70,15 @@ const aboutRef = useRef(null);
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+
+        <link rel="prefetch" href={aboutImg} as="image" type="image/webp" />
+        <link rel="prefetch" href={team1} as="image" type="image/webp" />
+        <link rel="prefetch" href={team2} as="image" type="image/webp" />
+        <link rel="prefetch" href={team3} as="image" type="image/webp" />
+        <link rel="prefetch" href={team4} as="image" type="image/webp" />
+        <link rel="prefetch" href={team5} as="image" type="image/webp" />
+        <link rel="prefetch" href={team6} as="image" type="image/webp" />
       </Helmet>
-       <ImagePreloader
-        images={[aboutImg, team1, team2, team3, team4, team5, team6]}
-        mode="auto"          // switches preload → prefetch automatically
-        priority="high"      // first visit = LCP optimized
-        delay={250}          // small delay before preload starts
-        rootRef={aboutRef}   // 👁 triggers when section visible
-      />
       <header role="banner">
         <Navbar />
       </header>
@@ -96,7 +98,7 @@ const aboutRef = useRef(null);
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
           </li>
           <li className="text-[#E2001A] font-medium">About</li>
         </ol>
@@ -193,21 +195,17 @@ const aboutRef = useRef(null);
           </h2>
           <ul className="space-y-6 text-gray-700">
             <li>
-              <strong className="text-[#E2001A]"> Collaboration:</strong>{" "}
-              Every idea is better when built together. We align design,
-              development, and strategy teams for unified results.
+              <strong className="text-[#E2001A]"> Collaboration:</strong> Every
+              idea is better when built together. We align design, development,
+              and strategy teams for unified results.
             </li>
             <li>
-              <strong className="text-[#E2001A]">
-                 Quality Engineering:
-              </strong>{" "}
+              <strong className="text-[#E2001A]">Quality Engineering:</strong>{" "}
               Every line of code meets performance, security, and scalability
               standards.
             </li>
             <li>
-              <strong className="text-[#E2001A]">
-                 Continuous Innovation:
-              </strong>{" "}
+              <strong className="text-[#E2001A]">Continuous Innovation:</strong>{" "}
               We adopt emerging tools and techniques to help your product stay
               ahead of the curve.
             </li>

@@ -9,8 +9,6 @@ import { ProcessSection } from "./components/ui/next";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { HashLink } from "react-router-hash-link";
-// ✅ Image preloader
-import ImagePreloader from "./components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 import {
   Code2,
   Smartphone,
@@ -83,6 +81,11 @@ const App = memo(() => {
     <div className="min-h-screen overflow-x-hidden bg-white font-outfit text-[#1A1A1A]">
       {/* SEO */}
       <Helmet>
+        <link rel="prefetch" href={pic1} as="image" />
+        <link rel="prefetch" href={pic2} as="image" />
+        <link rel="prefetch" href={pic3} as="image" />
+        <link rel="prefetch" href={pic4} as="image" />
+        <link rel="prefetch" href={pic5} as="image" />
         <html lang="en-PH" /> {/* Accessibility: language context */}
         <title>STRAVO | We Build Your Machine Behind Your Vision</title>
         <meta
@@ -105,19 +108,6 @@ const App = memo(() => {
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="STRAVO" />
       </Helmet>
-      <ImagePreloader
-        images={[
-          pic1,
-          pic2,
-          pic3,
-          pic4,
-          pic5,
-          aboutImg,
-        ]}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
 
       {/* 🧭 Skip Link for keyboard/screen readers */}
       <a

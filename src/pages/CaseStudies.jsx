@@ -7,7 +7,6 @@ import { HashLink } from "react-router-hash-link";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ImagePreloader from "../components/Preloader/ImagePreload";
 
 // ======== IMAGE IMPORTS ========
 import case1 from "../assets/photo_wd.webp";
@@ -99,10 +98,6 @@ const CaseStudies = memo(() => {
   const navigate = useNavigate();
   const [selectedFilter, setSelectedFilter] = useState(null);
 
-  // ✅ Memoized image arrays to avoid re-renders
-  const heroAndFeaturedImages = useMemo(() => featured.map(f => f.image), []);
-  const upcomingImages = useMemo(() => moreStories.map(s => s.image), []);
-
   // ✅ SEO schema
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -115,11 +110,6 @@ const CaseStudies = memo(() => {
 
   return (
     <>
-      {/* ✅ Preload above-the-fold images for faster LCP */}
-      <ImagePreloader images={heroAndFeaturedImages} priority="high" />
-
-      {/* ✅ Prefetch below-the-fold or next-page images (lower priority) */}
-      <ImagePreloader images={upcomingImages} priority="low" />
 
       {/* ================= SEO & META ================= */}
       <Helmet>
@@ -148,6 +138,12 @@ const CaseStudies = memo(() => {
 
         {/* Schema.org JSON-LD */}
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+
+        <link rel="prefetch" href={case1} as="image" type="image/webp" />
+        <link rel="prefetch" href={case2} as="image" type="image/webp" />
+        <link rel="prefetch" href={case3} as="image" type="image/webp" />
+        <link rel="prefetch" href={case4} as="image" type="image/webp" />
+        <link rel="prefetch" href={case5} as="image" type="image/webp" />
       </Helmet>
 
       {/* ================= PAGE LAYOUT ================= */}
@@ -162,7 +158,7 @@ const CaseStudies = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
           </li>
           <li className="text-[#A0001E] font-medium">Case Studies</li>
         </ol>

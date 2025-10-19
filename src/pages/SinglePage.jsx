@@ -12,16 +12,21 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
-// ✅ Image preloader
-import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
 
-// Hero image imports
-import heroImageWebP from "../assets/photo_sp.webp"; // You'll create this
-import heroImageAVIF from "../assets/photo_sp.avif"; // Your downloaded file
+// // Hero image imports
+// import heroImageWebP from "../assets/photo_sp.webp";
+// import heroImageAVIF from "../assets/photo_sp.avif";
 
-// About section image imports
-import aboutImageWebP from "../assets/photo_sp1.webp"; // You'll create this
-import aboutImageAVIF from "../assets/photo_sp1.avif"; // Your downloaded file
+// // About section image imports
+// import aboutImageWebP from "../assets/photo_sp1.webp";
+// import aboutImageAVIF from "../assets/photo_sp1.avif";
+
+const heroImageWebP = new URL("../assets/photo_sp.webp", import.meta.url).href;
+const heroImageAVIF = new URL("../assets/photo_sp.avif", import.meta.url).href;
+const aboutImageWebP = new URL("../assets/photo_sp1.webp", import.meta.url)
+  .href;
+const aboutImageAVIF = new URL("../assets/photo_sp1.avif", import.meta.url)
+  .href;
 
 // ========== STATIC DATA MOVED OUTSIDE COMPONENT ==========
 const stats = [
@@ -161,22 +166,35 @@ const SinglePageWebsite = memo(() => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+
+        <link
+          rel="prefetch"
+          href={heroImageWebP}
+          as="image"
+          type="image/webp"
+        />
+        <link
+          rel="prefetch"
+          href={heroImageAVIF}
+          as="image"
+          type="image/avif"
+        />
+        <link
+          rel="prefetch"
+          href={aboutImageWebP}
+          as="image"
+          type="image/webp"
+        />
+        <link
+          rel="prefetch"
+          href={aboutImageAVIF}
+          as="image"
+          type="image/avif"
+        />
       </Helmet>
-      <ImagePreloader
-        images={[
-          heroImageWebP,
-          heroImageAVIF,
-          aboutImageAVIF,
-          aboutImageWebP,
-        ]}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
       <header role="banner">
         <Navbar />
       </header>
-
       <nav
         aria-label="Breadcrumb"
         className="px-6 pt-4 text-sm text-gray-600 bg-gradient-to-tr from-[#FFF5F5] to-white mt-20"
@@ -192,126 +210,124 @@ const SinglePageWebsite = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true"/>
           </li>
           <li className="text-[#A0001E] font-medium">Singe Page Websites</li>
         </ol>
       </nav>
       {/* Hero Section */}
-      <section className="relative px-6 pt-3 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 ">
-        <div className="grid items-center gap-10 mx-auto max-w-7xl lg:grid-cols-2">
-          {/* Left Text */}
-          <div className="space-y-6">
-            <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
-              Landing Page Websites
-            </span>
+      <main id="main-content" role="main">
+        <section className="relative px-6 pt-3 pb-20 overflow-hidden bg-gradient-to-br from-[#FFF5F5] to-white sm:px-6 lg:px-20 ">
+          <div className="grid items-center gap-10 mx-auto max-w-7xl lg:grid-cols-2">
+            {/* Left Text */}
+            <div className="space-y-6">
+              <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider text-white uppercase bg-[#E2001A] rounded-full">
+                Landing Page Websites
+              </span>
 
-            <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 xl:text-7xl lg:text-6xl">
-              Single Page Website: <br />
-              <span className="text-[#E2001A]">Smooth. Fast. Focused.</span>
-            </h1>
+              <h1 className="text-5xl font-medium leading-tight tracking-tight text-gray-900 xl:text-7xl lg:text-6xl">
+                Single Page Website: <br />
+                <span className="text-[#E2001A]">Smooth. Fast. Focused.</span>
+              </h1>
 
-            <p className="max-w-xl text-lg text-gray-600">
-              Capture attention and keep users engaged with a single,
-              streamlined web page — fast loading, easy to navigate, and perfect
-              for showcasing your brand or product.
-            </p>
+              <p className="max-w-xl text-lg text-gray-600">
+                Capture attention and keep users engaged with a single,
+                streamlined web page — fast loading, easy to navigate, and
+                perfect for showcasing your brand or product.
+              </p>
+            </div>
+
+            {/* Right Image */}
+            <div>
+              <OptimizedImage
+                webpSrc={heroImageWebP}
+                avifSrc={heroImageAVIF}
+                alt="Single page website design"
+                priority={true}
+              />
+            </div>
           </div>
 
-          {/* Right Image */}
-          <div>
-            <OptimizedImage
-              webpSrc={heroImageWebP}
-              avifSrc={heroImageAVIF}
-              alt="Single page website design"
-              priority={true}
-            />
+          {/* Subtle gradient background effect */}
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-bl from-[#E2001A]/10 to-transparent rounded-full blur-3xl" />
+        </section>
+        {/* About Section */}
+        <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
+          <div className="grid items-center gap-12 mx-auto max-w-7xl lg:grid-cols-2">
+            {/* Left Image */}
+            <div className="order-1 md:order-0">
+              <OptimizedImage
+                webpSrc={aboutImageWebP}
+                avifSrc={aboutImageAVIF}
+                alt="Single page design layout"
+              />
+            </div>
+
+            {/* Right Text */}
+            <div>
+              <span className="inline-block mb-3 px-3 py-1 text-sm font-semibold uppercase tracking-wider bg-gray-100 text-[#E2001A] rounded-full">
+                About Single Page Websites
+              </span>
+
+              <h2 className="mb-4 text-4xl font-bold text-gray-900">
+                One Page. One Goal.{" "}
+                <span className="text-[#E2001A]">Endless Impact.</span>
+              </h2>
+
+              <p className="mb-6 text-gray-600">
+                A single-page website consolidates your content into one
+                scrolling page — no page loading, no distractions. Ideal for
+                small businesses, portfolios, events, or product showcases.
+              </p>
+
+              <div className="space-y-4">
+                {features.map((feature, index) => (
+                  <FeatureItem key={index} feature={feature} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Subtle gradient background effect */}
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-bl from-[#E2001A]/10 to-transparent rounded-full blur-3xl" />
-      </section>
-
-      {/* About Section */}
-      <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
-        <div className="grid items-center gap-12 mx-auto max-w-7xl lg:grid-cols-2">
-          {/* Left Image */}
-          <div className="order-1 md:order-0">
-            <OptimizedImage
-              webpSrc={aboutImageWebP}
-              avifSrc={aboutImageAVIF}
-              alt="Single page design layout"
-            />
-          </div>
-
-          {/* Right Text */}
-          <div>
-            <span className="inline-block mb-3 px-3 py-1 text-sm font-semibold uppercase tracking-wider bg-gray-100 text-[#E2001A] rounded-full">
-              About Single Page Websites
-            </span>
-
-            <h2 className="mb-4 text-4xl font-bold text-gray-900">
-              One Page. One Goal.{" "}
-              <span className="text-[#E2001A]">Endless Impact.</span>
+        </section>
+        {/* Statistics Section */}
+        <section className="px-6 py-20 bg-gray-50 sm:px-10 lg:px-20">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="mb-6 text-4xl font-bold text-gray-900">
+              Why brands choose single page websites
             </h2>
-
-            <p className="mb-6 text-gray-600">
-              A single-page website consolidates your content into one scrolling
-              page — no page loading, no distractions. Ideal for small
-              businesses, portfolios, events, or product showcases.
+            <p className="max-w-3xl mx-auto mb-12 text-gray-600">
+              Minimalism, clarity, and speed — three pillars that make
+              single-page sites more effective than ever.
             </p>
 
-            <div className="space-y-4">
-              {features.map((feature, index) => (
-                <FeatureItem key={index} feature={feature} />
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+              {stats.map((stat, idx) => (
+                <StatCard key={idx} stat={stat} />
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Statistics Section */}
-      <section className="px-6 py-20 bg-gray-50 sm:px-10 lg:px-20">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="mb-6 text-4xl font-bold text-gray-900">
-            Why brands choose single page websites
+        </section>
+        {/* CTA Section */}
+        <section className="px-6 py-20 bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white text-center">
+          <h2 className="mb-6 text-4xl font-bold">
+            Ready to build your single page website?
           </h2>
-          <p className="max-w-3xl mx-auto mb-12 text-gray-600">
-            Minimalism, clarity, and speed — three pillars that make single-page
-            sites more effective than ever.
+          <p className="max-w-2xl mx-auto mb-8 text-lg text-white/90">
+            Let's craft a sleek, modern single-page site that tells your story
+            in seconds — not clicks.
           </p>
-
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {stats.map((stat, idx) => (
-              <StatCard key={idx} stat={stat} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="px-6 py-20 bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white text-center">
-        <h2 className="mb-6 text-4xl font-bold">
-          Ready to build your single page website?
-        </h2>
-        <p className="max-w-2xl mx-auto mb-8 text-lg text-white/90">
-          Let's craft a sleek, modern single-page site that tells your story in
-          seconds — not clicks.
-        </p>
-        <Link to="/contact">
-          <Button
-            className="cursor-pointer"
-            variant="primary"
-            size="top"
-            aria-label="Contact us to discuss your React project"
-          >
-            Book Tech Call <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
-        </Link>
-      </section>
-
-      <Footer />
+          <Link to="/contact">
+            <Button
+              className="cursor-pointer"
+              variant="primary"
+              size="top"
+              aria-label="Contact us to discuss your React project"
+            >
+              Book Tech Call <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true"  />
+            </Button>
+          </Link>
+        </section>
+        <Footer />
+      </main>
     </div>
   );
 });

@@ -7,13 +7,16 @@ import { Button } from "../components/ui/button";
 import { ArrowRight, ChevronRight, Home } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
-// ✅ Local assets
-import insight1 from "../assets/photo_wd.webp";
-import insight2 from "../assets/photo_bp.webp";
-import insight3 from "../assets/photo_wd.webp";
+// // ✅ Local assets
+// import insight1 from "../assets/photo_wd.webp";
+// import insight2 from "../assets/photo_bp.webp";
+// import insight3 from "../assets/photo_wd.webp";
 
-// ✅ Image preloader
-import ImagePreloader from "../components/Preloader/ImagePreload"; // <-- make sure path matches your folder
+
+const insight1 = new URL("../assets/photo_wd.webp", import.meta.url).href;
+const insight2 = new URL("../assets/photo_bp.webp", import.meta.url).href;
+const insight3 = new URL("../assets/photo_wd.webp", import.meta.url).href;
+
 
 // ✅ Data
 const insights = [
@@ -143,6 +146,10 @@ const Insights = memo(() => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+        
+        <link rel="prefetch" href={insight1} as="image" type="image/webp" />
+        <link rel="prefetch" href={insight2} as="image" type="image/webp" />
+        <link rel="prefetch" href={insight3} as="image" type="image/webp" />
       </Helmet>
 
       <header role="banner">
@@ -165,7 +172,7 @@ const Insights = memo(() => {
             </Link>
           </li>
           <li aria-hidden="true">
-            <ChevronRight className="w-4 h-4 text-gray-400" />
+            <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true"/>
           </li>
           <li className="text-[#A0001E] font-medium">Insights</li>
         </ol>
@@ -195,12 +202,6 @@ const Insights = memo(() => {
       </section>
 
       {/* ✅ Image Preloader — delayed for better LCP */}
-      <ImagePreloader
-        images={[insight1, insight2, insight3]}
-        priority="high"
-        mode="preload"
-        delay={800} // Wait 0.8s after hero render
-      />
 
       {/* INSIGHT GRID */}
       <section className="py-20 px-6 sm:px-10 lg:px-20 bg-gray-50">
