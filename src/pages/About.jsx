@@ -23,12 +23,12 @@ import team5 from "../assets/1000483218.webp";
 import team6 from "../assets/1000483218.webp";
 
 const teamMembers = [
-  { name: "Angel Rivera", role: "Founder & Lead Developer", img: team1 },
-  { name: "Mae Orbigoso", role: "UI/UX Designer", img: team2 },
-  { name: "John Cruz", role: "Frontend Engineer", img: team3 },
-  { name: "Alexa Vance", role: "Project Manager", img: team4 },
-  { name: "Jacob Rivera", role: "Backend Engineer", img: team5 },
-  { name: "Leah Torres", role: "Marketing Specialist", img: team6 },
+  { name: "Zeek Rivera", role: "Founder & Lead Developer", img: team1 },
+  { name: "Zeek Rivera", role: "UI/UX Designer", img: team2 },
+  { name: "Zeek Rivera", role: "Frontend Engineer", img: team3 },
+  { name: "Zeek Rivera", role: "Project Manager", img: team4 },
+  { name: "Zeek Rivera", role: "Backend Engineer", img: team5 },
+  { name: "Zeek Rivera", role: "Marketing Specialist", img: team6 },
 ];
 
 const About = memo(() => {

@@ -114,7 +114,7 @@ const InsightDetails = memo(() => {
   return (
     <div className="min-h-screen bg-white text-gray-900 font-outfit">
       <Helmet>
-        <link rel="canonical" href={`https://www.stravo.dev/insights/${id}`} />
+        <link rel="canonical" href={`https://www.stravoph.netlify.app/insights/${id}`} />
         <meta http-equiv="Content-Language" content="en" />
         <title>{`${article.title} | STRAVO`}</title>
         <meta name="description" content={article.subtitle} />
@@ -139,11 +139,11 @@ const InsightDetails = memo(() => {
             publisher: {
               "@type": "Organization",
               name: "STRAVO",
-              logo: "https://www.stravo.dev/react.webp",
+              logo: "https://www.stravoph.netlify.app/react.webp",
             },
             datePublished: article.date,
             description: article.subtitle,
-            mainEntityOfPage: `https://www.stravo.dev/insights/${id}`,
+            mainEntityOfPage: `https://www.stravoph.netlify.app/insights/${id}`,
           })}
         </script>
         <script type="application/ld+json">

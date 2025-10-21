@@ -24,8 +24,7 @@ const reviews = [
 ];
 
 const ContactSection = () => {
-  
-const navigate = useNavigate();
+  const navigate = useNavigate();
   // --- Form states ---
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,51 +54,17 @@ const navigate = useNavigate();
   // --- Handle form submit with Web3Forms ---
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setMessage("");
-    setMessageType("");
 
-    const data = {
-      ...formData,
-      access_key: ACCESS_KEY,
-      _subject: "🚀 New Project Inquiry from Stravo Website",
-      _template: "table",
-      from_name: `${formData.first_name} ${formData.last_name}`,
-      replyto: formData.company_email,
-      redirect: window.location.origin + "/thankyou",
-    };
+    const res = await fetch("/.netlify/functions/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-    try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        setMessage("Thank you! Your message has been sent successfully.");
-        setMessageType("success");
-        setFormData({});
-        setTimeout(() => {
-          navigate("/thankyou");
-        }, );
-      } else {
-        console.error("Web3Forms Error:", result.message);
-        setMessage(
-          "There was an error sending your message. Please try again."
-        );
-        setMessageType("error");
-      }
-    } catch (error) {
-      console.error("Submission Error:", error);
-      setMessage("An unexpected error occurred. Please try again later.");
-      setMessageType("error");
-    } finally {
-      setIsSubmitting(false);
+    if (res.ok) {
+      navigate("/thankyou");
+    } else {
+      alert("Error sending message.");
     }
   };
 
@@ -319,7 +284,14 @@ const navigate = useNavigate();
               .
             </p>
             {/* Hidden Anti-Spam Fields */}
-            <input type="hidden" name="_honey" />
+            <input
+              type="text"
+              name="_honey"
+              style={{ display: "none" }}
+              tabIndex="-1"
+              autoComplete="off"
+            />
+
             <input
               type="hidden"
               name="g-recaptcha-response"
@@ -334,7 +306,11 @@ const navigate = useNavigate();
             >
               {isSubmitting ? "Sending..." : "Submit"}
             </button>
-            <input type="hidden" name="email_template" value="https://stravotest100.netlify.app/stravo-template.html" />
+            <input
+              type="hidden"
+              name="template"
+              value="https://stravoph.netlify.app/stravo-template.html"
+            />
           </form>
         </div>
 

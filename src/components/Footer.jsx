@@ -142,7 +142,7 @@ export default function Footer() {
                 Laravel
               </Link>
               <Link
-                to="/angular"
+                to="/angular-js"
                 className="whitespace-nowrap text-[#CCCCCC] hover:text-[#E2001A] transition-colors focus:outline-none focus:ring-2 focus:ring-[#E2001A] focus:ring-offset-2 focus:ring-offset-[#1A1A1A] rounded px-1"
               >
                 Angular

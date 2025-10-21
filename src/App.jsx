@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PlanetHero } from "@/components/ui/planet";
+import { ServicesSection } from "@/components/ui/Services";
 import { ProcessSection } from "./components/ui/next";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -207,52 +208,7 @@ const App = memo(() => {
         </section>
 
         {/* SERVICES */}
-        <section
-          id="services"
-          className="py-16 lg:py-24 px-4 sm:px-6 lg:px-20 bg-[#F8F9FA]"
-          aria-labelledby="services-heading"
-        >
-          <div className="max-w-7xl mx-auto">
-            <header className="mb-16 text-center">
-              <h2
-                id="services-heading"
-                className="text-3xl lg:text-5xl font-semibold mb-4"
-              >
-                Our Services
-              </h2>
-              <p className="text-lg text-[#6B6B6B] max-w-2xl mx-auto">
-                Comprehensive technology solutions tailored to your business
-                needs.
-              </p>
-            </header>
-
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {services.map((service, index) => (
-                <Card
-                  key={index}
-                  role="article"
-                  aria-labelledby={`service-${index}`}
-                  className="h-full hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 bg-gradient-to-br from-[#000000] to-[#090f24]"
-                >
-                  <CardContent className="p-8">
-                    <div className="w-14 h-14 bg-gradient-to-br from-[#4A000F] to-[#E2001A] flex items-center justify-center text-white mb-6 rounded-full">
-                      {service.icon}
-                    </div>
-                    <h3
-                      id={`service-${index}`}
-                      className="mb-3 text-xl font-medium text-white"
-                    >
-                      {service.title}
-                    </h3>
-                    <p className="text-sm font-light leading-relaxed text-white">
-                      {service.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ServicesSection />
 
         {/* TEAM */}
         <section

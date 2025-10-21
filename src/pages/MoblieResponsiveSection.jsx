@@ -140,13 +140,13 @@ const ResponsiveDesign = memo(() => {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://stravo.tech/",
+        item: "https://stravoph.netlify.app/",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Web Hosting",
-        item: "https://stravo.tech/webhosting",
+        item: "https://stravoph.netlify.app/webhosting",
       },
     ],
   };
