@@ -1,5 +1,6 @@
 // components/ContactSection.jsx
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from "../assets/logo";
@@ -23,14 +24,15 @@ const reviews = [
 ];
 
 const ContactSection = () => {
+  
+const navigate = useNavigate();
   // --- Form states ---
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // 'success' | 'error'
-  
-const ACCESS_KEY = import.meta.env.VITE_WEB3FORM_ACCESS_KEY;
 
+  const ACCESS_KEY = import.meta.env.VITE_WEB3FORM_ACCESS_KEY;
 
   // --- Handle input and checkbox changes ---
   const handleChange = (e) => {
@@ -57,7 +59,15 @@ const ACCESS_KEY = import.meta.env.VITE_WEB3FORM_ACCESS_KEY;
     setMessage("");
     setMessageType("");
 
-    const data = { ...formData, access_key: ACCESS_KEY };
+    const data = {
+      ...formData,
+      access_key: ACCESS_KEY,
+      _subject: "🚀 New Project Inquiry from Stravo Website",
+      _template: "table",
+      from_name: `${formData.first_name} ${formData.last_name}`,
+      replyto: formData.company_email,
+      redirect: window.location.origin + "/thankyou",
+    };
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -70,14 +80,18 @@ const ACCESS_KEY = import.meta.env.VITE_WEB3FORM_ACCESS_KEY;
       });
 
       const result = await response.json();
-
       if (result.success) {
         setMessage("Thank you! Your message has been sent successfully.");
         setMessageType("success");
         setFormData({});
+        setTimeout(() => {
+          navigate("/thankyou");
+        }, );
       } else {
         console.error("Web3Forms Error:", result.message);
-        setMessage("There was an error sending your message. Please try again.");
+        setMessage(
+          "There was an error sending your message. Please try again."
+        );
         setMessageType("error");
       }
     } catch (error) {
@@ -122,7 +136,7 @@ const ACCESS_KEY = import.meta.env.VITE_WEB3FORM_ACCESS_KEY;
         {/* LEFT — FORM */}
         <div>
           <h2 className="text-3xl md:text-5xl font-semibold mb-6 leading-tight">
-            Tell us about your project  we’ll make it real.
+            Tell us about your project we’ll make it real.
           </h2>
 
           {/* Message feedback */}
@@ -244,7 +258,10 @@ const ACCESS_KEY = import.meta.env.VITE_WEB3FORM_ACCESS_KEY;
                   "Integrate a new feature into existing application",
                   "Other",
                 ].map((service, i) => (
-                  <label key={i} className="flex items-center space-x-3 text-sm">
+                  <label
+                    key={i}
+                    className="flex items-center space-x-3 text-sm"
+                  >
                     <input
                       type="checkbox"
                       name="services"
@@ -301,6 +318,13 @@ const ACCESS_KEY = import.meta.env.VITE_WEB3FORM_ACCESS_KEY;
               </a>
               .
             </p>
+            {/* Hidden Anti-Spam Fields */}
+            <input type="hidden" name="_honey" />
+            <input
+              type="hidden"
+              name="g-recaptcha-response"
+              id="g-recaptcha-response"
+            />
 
             {/* SUBMIT BUTTON */}
             <button
@@ -310,6 +334,7 @@ const ACCESS_KEY = import.meta.env.VITE_WEB3FORM_ACCESS_KEY;
             >
               {isSubmitting ? "Sending..." : "Submit"}
             </button>
+            <input type="hidden" name="email_template" value="https://stravotest100.netlify.app/stravo-template.html" />
           </form>
         </div>
 

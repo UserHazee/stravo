@@ -1,9 +1,11 @@
-import React, { memo } from "react";
+import React, { useState, useCallback, memo } from "react";
 import {
   ArrowRight,
   Code2,
   Users,
   Zap,
+  Minus,
+  Plus,
   Home,
   ChevronRight,
   Target,
@@ -43,6 +45,78 @@ const heroIcon = (
   />
 );
 
+// --- Angular FAQ Data ---
+const angularFaqs = [
+  {
+    question: "What's the difference between Angular and AngularJS?",
+    answer: "Angular (2+) is a complete rewrite of AngularJS with significant improvements. Angular uses TypeScript, component-based architecture, better performance, mobile support, and more advanced features. AngularJS is the older version that uses JavaScript and has different architecture patterns."
+  },
+  {
+    question: "Why choose Angular over other frameworks like React or Vue?",
+    answer: "Angular is ideal for large-scale enterprise applications because it provides a complete framework with built-in solutions for routing, state management, form handling, and testing. It offers strong typing with TypeScript, better tooling, and a more structured approach that ensures maintainability for complex, long-term projects."
+  },
+  {
+    question: "How long does it typically take to build an Angular application?",
+    answer: "Development time varies based on complexity. A simple SPA might take 4-8 weeks, while enterprise applications can take 3-6 months or more. We follow agile methodology and provide detailed project timelines after understanding your specific requirements and feature set."
+  },
+  {
+    question: "Do you provide ongoing maintenance and support?",
+    answer: "Yes, we offer comprehensive maintenance packages including Angular version updates, security patches, performance optimization, bug fixes, and feature enhancements. We ensure your application stays current with the latest Angular releases and best practices."
+  },
+  {
+    question: "Can you migrate our existing AngularJS application to modern Angular?",
+    answer: "Absolutely! We specialize in AngularJS to Angular migration projects. We use proven strategies including incremental migration, component-by-component rewriting, or complete rebuilds based on your business needs, ensuring minimal disruption and maintaining data integrity throughout the process."
+  },
+  {
+    question: "What about mobile compatibility with Angular?",
+    answer: "Angular applications are inherently responsive and work well on mobile devices. For native-like mobile experiences, we can integrate Angular with Ionic Framework or use Angular with Progressive Web App (PWA) capabilities to create installable mobile applications that work across all devices."
+  }
+];
+
+// FAQ Item Component
+const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
+  <div className="overflow-hidden border border-gray-200 rounded-xl">
+    <div>
+      <button
+        aria-expanded={isOpen}
+        aria-controls={`faq-${index}`}
+        onClick={onToggle}
+        className="flex items-center justify-between w-full p-6 text-left transition-colors hover:bg-gray-50"
+      >
+        <span className="text-lg font-semibold text-gray-900">
+          {faq.question}
+        </span>
+        {isOpen ? (
+          <Minus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        ) : (
+          <Plus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        )}
+      </button>
+      {isOpen && (
+        <div id={`faq-${index}`} className="px-6 pb-6 text-gray-600">
+          <p>{faq.answer}</p>
+        </div>
+      )}
+    </div>
+  </div>
+));
+
+// FAQ Schema for SEO
+const getFaqSchema = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+});
+
+const faqSchema = getFaqSchema(angularFaqs);
+
 // --- FEATURES ---
 const features = [
   {
@@ -67,7 +141,7 @@ const features = [
     icon: <Globe className="w-6 h-6 text-[#E2001A]" />,
     title: "Cross-Platform",
     description:
-      "Build for web, mobile, and desktop seamlessly using Angular’s unified framework.",
+      "Build for web, mobile, and desktop seamlessly using Angular's unified framework.",
   },
   {
     icon: <Target className="w-6 h-6 text-[#E2001A]" />,
@@ -113,7 +187,14 @@ const pillars = [
     ],
   },
 ];
+
 const AngularDevelopment = memo(() => {
+  const [openIndex, setOpenIndex] = useState(null);
+  
+  const handleToggle = useCallback((index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  }, []);
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -127,18 +208,19 @@ const AngularDevelopment = memo(() => {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Vue Development",
+        name: "Angular Development",
         item: "https://stravoph.netlify.app/angular-js",
       },
     ],
   };
+
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Helmet>
         <title>Angular Development Experts | Stravo</title>
         <meta
           name="description"
-          content="Develop enterprise-grade, dynamic web applications using Angular. Stravo’s team delivers scalable and secure solutions for businesses worldwide."
+          content="Develop enterprise-grade, dynamic web applications using Angular. Stravo's team delivers scalable and secure solutions for businesses worldwide."
         />
         <meta
           name="keywords"
@@ -176,6 +258,9 @@ const AngularDevelopment = memo(() => {
         />
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
         </script>
         <link
           rel="prefetch"
@@ -304,44 +389,25 @@ const AngularDevelopment = memo(() => {
         </div>
       </section>
 
-      {/* KNOW ANGULAR */}
+      {/* KNOW ANGULAR - Enhanced with FAQ Structure */}
       <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Things you need to know about Angular
+            Everything You Need to Know About Angular Development
           </h2>
           <p className="text-gray-600 mb-10">
-            Here’s a quick overview of why Angular remains a top choice for
-            modern web development:
+            Before you choose your Angular development partner, here's a quick guide to the enterprise-grade framework that powers large-scale web applications.
           </p>
-          <div className="space-y-4 border-t border-gray-200">
-            {[
-              "What is Angular",
-              "Angular advantages",
-              "Angular use cases",
-              "Popular Angular apps",
-            ].map((item, idx) => (
-              <details
-                key={idx}
-                className="border-b border-gray-200 py-4 group cursor-pointer"
-                onToggle={(e) =>
-                  e.currentTarget.setAttribute(
-                    "aria-expanded",
-                    e.currentTarget.open
-                  )
-                }
-              >
-                <summary className="flex justify-between items-center text-gray-800 font-medium">
-                  {item}
-                  <span className="group-open:rotate-180 transition-transform">
-                    +
-                  </span>
-                </summary>
-                <p className="text-sm text-gray-600 mt-2">
-                  Placeholder content — you can expand on this section later to
-                  explain each topic for your users.
-                </p>
-              </details>
+
+          <div className="space-y-4">
+            {angularFaqs.map((faq, index) => (
+              <FAQItem
+                key={faq.question}
+                faq={faq}
+                index={index}
+                isOpen={openIndex === index}
+                onToggle={() => handleToggle(index)}
+              />
             ))}
           </div>
         </div>
@@ -391,7 +457,7 @@ const AngularDevelopment = memo(() => {
       {/* FINAL CTA */}
       <section className="px-6 py-20 text-center bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white">
         <h2 className="text-3xl font-bold mb-4">
-          With 40+ Angular projects completed, we’re ready to power your next
+          With 40+ Angular projects completed, we're ready to power your next
           web solution.
         </h2>
         <p className="max-w-2xl mx-auto mb-8 text-white/90">
@@ -403,7 +469,7 @@ const AngularDevelopment = memo(() => {
             className="cursor-pointer"
             variant="primary"
             size="top"
-            aria-label="Contact us to discuss your React project"
+            aria-label="Contact us to discuss your Angular project"
           >
             Book Tech Call{" "}
             <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />

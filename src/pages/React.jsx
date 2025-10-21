@@ -418,7 +418,7 @@ const ReactDevelopment = memo(() => {
             Everything You Need to Know About React Development
           </h2>
           <p className="text-gray-600 mb-10">
-            Before you choose your **React development** partner, here’s a quick
+            Before you choose your React development partner, here’s a quick
             guide to the technology that powers the modern web.
           </p>
 

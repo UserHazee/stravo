@@ -11,7 +11,7 @@ export function PlanetHero() {
         >
             {/* Static Crimson Dome - no animation */}
             <div 
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-[150vh] max-w-[200%]"
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-[100vw] h-[115vh] max-w-[200%]"
             >
                 {/* Main dome gradient */}
                 <div 
@@ -116,22 +116,19 @@ export function PlanetHero() {
             </div>
 
             {/* Content - simple fade in on load */}
-            <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, ease: "easeOut" }}
-                className="relative z-20 text-center text-white px-4 py-10 min-h-[55vh] small:min-h-[60vh] next:min-h-[65vh] flex flex-col justify-center"
+            <div 
+                className="relative z-20 text-center text-white px-4  h-[30vh] flex flex-col"
             >
-                <p className="mb-6 text-sm font-medium tracking-widest uppercase text-red-300/80">
+                <p className=" text-sm font-medium tracking-widest uppercase text-red-300/80">
                     [ Why Work With Us ]
                 </p>
-                <h1 className="mb-8 text-4xl font-light leading-tight tracking-tighter small:text-5xl next:text-6xl lg:text-7xl font-outfit">
+                <h1 className="mb-2 text-4xl font-light leading-tight tracking-tighter small:text-5xl next:text-6xl lg:text-7xl font-outfit">
                     "Smart cost-efficient scaling"
                 </h1>
-                <p className="max-w-2xl mx-auto mb-16 text-lg font-light leading-relaxed font-outfit text-gray-200/90">
+                <p className="max-w-2xl mx-auto mb-16 sm:text-sm text-xs font-light leading-relaxed font-outfit text-gray-200/90">
                     We help businesses scale their development with ease and deliver faster, more affordable, and reliable software solutions.
                 </p>
-            </motion.div>
+            </div>
 
             {/* Testimonials */}
             <TestimonialSection />
@@ -217,7 +214,7 @@ export function TestimonialSection() {
         <section id="testimonials" className="relative z-20 pb-0 ">
             <div className="container relative px-4 mx-auto">
                 <div
-                    className="relative max-w-5xl mx-auto overflow-hidden group"
+                    className="relative max-w-4xl mx-auto overflow-hidden group"
                     onMouseEnter={stopAutoPlay}
                     onMouseLeave={startAutoPlay}
                 >
@@ -232,11 +229,11 @@ export function TestimonialSection() {
                                 className="flex flex-col items-center flex-shrink-0 w-full  text-center p-0 testimonial-item snap-start"
                             >
                                 <div 
-                                    className="relative max-w-2xl mx-auto transition-transform duration-300 bg-gradient-to-br from-[#000000] to-[#090f24] p-8 small:p-10 next:p-12"
+                                    className="relative max-w-2xl mx-auto transition-transform duration-300 bg-gradient-to-br from-[#000000] to-[#090f24] p-4 small:p-5 next:p-6"
                                 >
                                     {/* Quote icon */}
                                     <div className="mb-2 small:mb-6">
-                                        <span className="text-4xl small:text-5xl material-symbols-outlined text-red-400/60">
+                                        <span className="text-3xl small:text-4xl material-symbols-outlined text-red-400/60">
                                             format_quote
                                         </span>
                                     </div>

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useState, useCallback, memo } from "react";
 import {
   ArrowRight,
   Code2,
@@ -9,6 +9,8 @@ import {
   Target,
   Globe,
   Cpu,
+  Minus,
+  Plus,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -43,19 +45,91 @@ const heroIcon = (
   />
 );
 
+// --- Vue FAQ Data ---
+const vueFaqs = [
+  {
+    question: "What is Vue.js and what makes it different from other frameworks?",
+    answer: "Vue.js is a progressive JavaScript framework for building user interfaces. Unlike other frameworks, Vue is designed to be incrementally adoptable - you can use it to enhance existing pages or build complex Single-Page Applications. Its gentle learning curve, excellent documentation, and flexible architecture make it stand out."
+  },
+  {
+    question: "Why choose Vue.js over React or Angular for my project?",
+    answer: "Vue strikes a perfect balance between React's flexibility and Angular's structure. It's easier to learn than Angular but provides more built-in solutions than React. Vue's single-file components, excellent performance, and gentle learning curve make it ideal for startups, small-to-medium businesses, and projects where developer productivity is crucial."
+  },
+  {
+    question: "Is Vue.js suitable for large-scale enterprise applications?",
+    answer: "Absolutely! Vue.js is production-ready for enterprise applications. With features like Vuex/Pinia for state management, Vue Router for navigation, TypeScript support, and excellent devtools, Vue scales beautifully. Companies like GitLab, Nintendo, and BMW trust Vue for their critical applications."
+  },
+  {
+    question: "How does Vue.js handle performance and optimization?",
+    answer: "Vue uses a virtual DOM like React, but with a more optimized reactivity system. Features like computed properties, watchers, and conditional rendering ensure optimal performance. Vue 3's Composition API and tree-shaking capabilities further reduce bundle sizes and improve runtime performance."
+  },
+  {
+    question: "What's the difference between Vue 2 and Vue 3?",
+    answer: "Vue 3 introduced the Composition API for better logic reuse, improved TypeScript support, better performance through a new reactivity system, and smaller bundle sizes. While Vue 2 is still supported, we recommend Vue 3 for all new projects due to its significant improvements and long-term support."
+  },
+  {
+    question: "Do you provide Vue.js migration and upgrade services?",
+    answer: "Yes! We specialize in Vue.js version upgrades and migrations. Whether you're moving from Vue 2 to Vue 3, migrating from other frameworks to Vue, or need to modernize an existing Vue application, we have proven strategies to ensure smooth transitions with minimal disruption."
+  }
+];
+
+// FAQ Item Component
+const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
+  <div className="overflow-hidden border border-gray-200 rounded-xl">
+    <div>
+      <button
+        aria-expanded={isOpen}
+        aria-controls={`faq-${index}`}
+        onClick={onToggle}
+        className="flex items-center justify-between w-full p-6 text-left transition-colors hover:bg-gray-50"
+      >
+        <span className="text-lg font-semibold text-gray-900">
+          {faq.question}
+        </span>
+        {isOpen ? (
+          <Minus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        ) : (
+          <Plus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        )}
+      </button>
+      {isOpen && (
+        <div id={`faq-${index}`} className="px-6 pb-6 text-gray-600">
+          <p>{faq.answer}</p>
+        </div>
+      )}
+    </div>
+  </div>
+));
+
+// FAQ Schema for SEO
+const getFaqSchema = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+});
+
+const faqSchema = getFaqSchema(vueFaqs);
+
 // --- Features data ---
 const features = [
   {
     icon: <Code2 className="w-6 h-6 text-[#E2001A]" />,
     title: "Reactive Components",
     description:
-      "Vue’s reactivity system ensures your app updates instantly when data changes — without unnecessary rendering.",
+      "Vue's reactivity system ensures your app updates instantly when data changes — without unnecessary rendering.",
   },
   {
     icon: <Zap className="w-6 h-6 text-[#E2001A]" />,
     title: "Lightweight & Fast",
     description:
-      "Vue’s small footprint and virtual DOM make it one of the fastest frameworks for modern web apps.",
+      "Vue's small footprint and virtual DOM make it one of the fastest frameworks for modern web apps.",
   },
   {
     icon: <Users className="w-6 h-6 text-[#E2001A]" />,
@@ -79,7 +153,7 @@ const features = [
     icon: <Cpu className="w-6 h-6 text-[#E2001A]" />,
     title: "Developer-Friendly",
     description:
-      "Vue’s simple syntax and dev tools reduce complexity, improving productivity and project scalability.",
+      "Vue's simple syntax and dev tools reduce complexity, improving productivity and project scalability.",
   },
 ];
 
@@ -116,6 +190,12 @@ const pillars = [
 
 // --- Component ---
 const Vue = memo(() => {
+  const [openIndex, setOpenIndex] = useState(null);
+  
+  const handleToggle = useCallback((index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  }, []);
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -134,6 +214,7 @@ const Vue = memo(() => {
       },
     ],
   };
+
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Helmet>
@@ -175,6 +256,9 @@ const Vue = memo(() => {
         />
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
         </script>
         <link
           rel="prefetch"
@@ -229,7 +313,7 @@ const Vue = memo(() => {
             <section className="">
               <div className="max-w-6xl mx-auto ">
                 <h3 className="text-white text-sm font-light mb-6 ">
-                  Companies that use Angular:
+                  Companies that use Vue:
                 </h3>
                 <div className="flex flex-wrap gap-6 items-center opacity-100">
                   {[logo1, logo2, logo3, logo4, logo5].map((logo, i) => (
@@ -301,45 +385,25 @@ const Vue = memo(() => {
         </div>
       </section>
 
-      {/* KNOW VUE */}
+      {/* KNOW VUE - Enhanced with FAQ Structure */}
       <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Things you need to know about Vue.js
+            Everything You Need to Know About Vue.js Development
           </h2>
           <p className="text-gray-600 mb-10">
-            Before you choose Vue for your next project, here are some key
-            aspects to consider:
+            Before you choose your Vue.js development partner, here's a comprehensive guide to the progressive framework that balances power with simplicity.
           </p>
 
-          <div className="space-y-4 border-t border-gray-200">
-            {[
-              "What is Vue.js",
-              "Vue.js benefits",
-              "Vue.js use cases",
-              "Vue.js app examples",
-            ].map((item, idx) => (
-              <details
-                key={idx}
-                className="border-b border-gray-200 py-4 group cursor-pointer"
-                onToggle={(e) =>
-                  e.currentTarget.setAttribute(
-                    "aria-expanded",
-                    e.currentTarget.open
-                  )
-                }
-              >
-                <summary className="flex justify-between items-center text-gray-800 font-medium">
-                  {item}
-                  <span className="group-open:rotate-180 transition-transform">
-                    +
-                  </span>
-                </summary>
-                <p className="text-sm text-gray-600 mt-2">
-                  Placeholder content — expand this section to describe your
-                  Vue.js expertise and case studies.
-                </p>
-              </details>
+          <div className="space-y-4">
+            {vueFaqs.map((faq, index) => (
+              <FAQItem
+                key={faq.question}
+                faq={faq}
+                index={index}
+                isOpen={openIndex === index}
+                onToggle={() => handleToggle(index)}
+              />
             ))}
           </div>
         </div>
@@ -393,7 +457,7 @@ const Vue = memo(() => {
           life.
         </h2>
         <p className="max-w-2xl mx-auto mb-8 text-white/90">
-          Let’s collaborate to build intuitive and high-performing Vue
+          Let's collaborate to build intuitive and high-performing Vue
           applications.
         </p>
         <Link to="/contact">
@@ -401,7 +465,7 @@ const Vue = memo(() => {
             className="cursor-pointer"
             variant="primary"
             size="top"
-            aria-label="Contact us to discuss your React project"
+            aria-label="Contact us to discuss your Vue project"
           >
             Book Tech Call{" "}
             <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />

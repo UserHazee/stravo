@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useState, useCallback, memo } from "react";
 import {
   ArrowRight,
   Code2,
@@ -9,6 +9,8 @@ import {
   ChevronRight,
   Globe,
   Cpu,
+  Minus,
+  Plus,
 } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
@@ -32,6 +34,7 @@ const logo2 = new URL("../assets/techmagic.svg", import.meta.url).href;
 const logo3 = new URL("../assets/espark.svg", import.meta.url).href;
 const logo4 = new URL("../assets/ae.webp", import.meta.url).href;
 const logo5 = new URL("../assets/accedia.svg", import.meta.url).href;
+
 // --- HERO ICON (Node.js) ---
 const heroIcon = (
   <FontAwesomeIcon
@@ -40,6 +43,78 @@ const heroIcon = (
     className="text-[#ffffff]"
   />
 );
+
+// --- Node.js FAQ Data ---
+const nodeFaqs = [
+  {
+    question: "What is Node.js and why is it used for backend development?",
+    answer: "Node.js is a JavaScript runtime built on Chrome's V8 engine that enables developers to use JavaScript for server-side programming. It's used for backend development because of its non-blocking, event-driven architecture which makes it ideal for building fast, scalable network applications and real-time web apps."
+  },
+  {
+    question: "Why choose Node.js over traditional backend technologies like Java or Python?",
+    answer: "Node.js offers several advantages: faster execution through the V8 engine, unified JavaScript stack (frontend + backend), excellent performance for I/O-heavy applications, and a massive ecosystem via npm. It's particularly strong for real-time applications, APIs, and microservices where high concurrency is required."
+  },
+  {
+    question: "What types of applications are best suited for Node.js?",
+    answer: "Node.js excels at real-time applications (chat apps, gaming), data-intensive applications (streaming platforms), API servers, microservices architectures, single-page applications (SPAs), and IoT applications. Companies like Netflix, Uber, and LinkedIn use Node.js for its scalability and performance."
+  },
+  {
+    question: "How does Node.js handle scalability and performance?",
+    answer: "Node.js uses a single-threaded event loop model with non-blocking I/O operations, allowing it to handle thousands of concurrent connections efficiently. It scales horizontally well and can be clustered across multiple CPU cores. Its asynchronous nature prevents thread blocking, making it highly performant for I/O-bound tasks."
+  },
+  {
+    question: "What's the difference between Node.js and Express.js?",
+    answer: "Node.js is the runtime environment that executes JavaScript on the server, while Express.js is a web application framework that runs on top of Node.js. Express provides a robust set of features for building web applications and APIs, including routing, middleware, and template engine integration, making development faster and more structured."
+  },
+  {
+    question: "Do you provide Node.js maintenance and optimization services?",
+    answer: "Yes, we offer comprehensive Node.js maintenance including performance optimization, security updates, dependency management, code refactoring, and scaling solutions. We ensure your Node.js applications remain fast, secure, and up-to-date with the latest best practices and versions."
+  }
+];
+
+// FAQ Item Component
+const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
+  <div className="overflow-hidden border border-gray-200 rounded-xl">
+    <div>
+      <button
+        aria-expanded={isOpen}
+        aria-controls={`faq-${index}`}
+        onClick={onToggle}
+        className="flex items-center justify-between w-full p-6 text-left transition-colors hover:bg-gray-50"
+      >
+        <span className="text-lg font-semibold text-gray-900">
+          {faq.question}
+        </span>
+        {isOpen ? (
+          <Minus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        ) : (
+          <Plus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        )}
+      </button>
+      {isOpen && (
+        <div id={`faq-${index}`} className="px-6 pb-6 text-gray-600">
+          <p>{faq.answer}</p>
+        </div>
+      )}
+    </div>
+  </div>
+));
+
+// FAQ Schema for SEO
+const getFaqSchema = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+});
+
+const faqSchema = getFaqSchema(nodeFaqs);
 
 // --- FEATURES DATA ---
 const features = [
@@ -110,6 +185,12 @@ const pillars = [
 ];
 
 const NodejsDevelopment = memo(() => {
+  const [openIndex, setOpenIndex] = useState(null);
+  
+  const handleToggle = useCallback((index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  }, []);
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -123,18 +204,19 @@ const NodejsDevelopment = memo(() => {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Vue Development",
+        name: "Node.js Development",
         item: "https://stravoph.netlify.app/node-js",
       },
     ],
   };
+
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Helmet>
         <title>Node.js Backend Development | Stravo</title>
         <meta
           name="description"
-          content="Build scalable, real-time backend systems with Stravo’s expert Node.js developers. Fast, reliable, and designed for modern web applications."
+          content="Build scalable, real-time backend systems with Stravo's expert Node.js developers. Fast, reliable, and designed for modern web applications."
         />
         <meta
           name="keywords"
@@ -172,6 +254,9 @@ const NodejsDevelopment = memo(() => {
         />
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
         </script>
         <link
           rel="prefetch"
@@ -226,7 +311,7 @@ const NodejsDevelopment = memo(() => {
             <section className="">
               <div className="max-w-6xl mx-auto ">
                 <h3 className="text-white text-sm font-light mb-6 ">
-                  Companies that use Angular:
+                  Companies that use Node.js:
                 </h3>
                 <div className="flex flex-wrap gap-6 items-center opacity-100">
                   {[logo1, logo2, logo3, logo4, logo5].map((logo, i) => (
@@ -296,44 +381,25 @@ const NodejsDevelopment = memo(() => {
         </div>
       </section>
 
-      {/* KNOW NODE.JS */}
+      {/* KNOW NODE.JS - Enhanced with FAQ Structure */}
       <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Things you need to know about Node.js
+            Everything You Need to Know About Node.js Development
           </h2>
           <p className="text-gray-600 mb-10">
-            Before choosing your backend technology, here’s why Node.js remains
-            a top pick for modern developers:
+            Before you choose your backend technology partner, here's a comprehensive guide to Node.js and why it powers modern web applications.
           </p>
-          <div className="space-y-4 border-t border-gray-200">
-            {[
-              "What is Node.js",
-              "Why use Node.js for backend",
-              "Node.js scalability benefits",
-              "Popular Node.js apps",
-            ].map((item, idx) => (
-              <details
-                key={idx}
-                className="border-b border-gray-200 py-4 group cursor-pointer"
-                onToggle={(e) =>
-                  e.currentTarget.setAttribute(
-                    "aria-expanded",
-                    e.currentTarget.open
-                  )
-                }
-              >
-                <summary className="flex justify-between items-center text-gray-800 font-medium">
-                  {item}
-                  <span className="group-open:rotate-180 transition-transform">
-                    +
-                  </span>
-                </summary>
-                <p className="text-sm text-gray-600 mt-2">
-                  Placeholder — you can expand this later with in-depth details
-                  for SEO and client education.
-                </p>
-              </details>
+
+          <div className="space-y-4">
+            {nodeFaqs.map((faq, index) => (
+              <FAQItem
+                key={faq.question}
+                faq={faq}
+                index={index}
+                isOpen={openIndex === index}
+                onToggle={() => handleToggle(index)}
+              />
             ))}
           </div>
         </div>
@@ -386,14 +452,14 @@ const NodejsDevelopment = memo(() => {
           With 60+ Node.js backends delivered, we know what performance means.
         </h2>
         <p className="max-w-2xl mx-auto mb-8 text-white/90">
-          Let’s build your next scalable, event-driven application together.
+          Let's build your next scalable, event-driven application together.
         </p>
         <Link to="/contact">
           <Button
             className="cursor-pointer"
             variant="primary"
             size="top"
-            aria-label="Contact us to discuss your React project"
+            aria-label="Contact us to discuss your Node.js project"
           >
             Book Tech Call{" "}
             <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />

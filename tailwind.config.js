@@ -8,14 +8,22 @@ export default {
   ],
   theme: {
     extend: {
-        screens: {
-        'navbutil': '996px',
+      animation: {
+        fadeIn: "fadeIn 0.8s ease-in-out",
       },
-      colors :{
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0, transform: "translateY(10px)" },
+          "100%": { opacity: 1, transform: "translateY(0)" },
+        },
+      },
+      screens: {
+        navbutil: "996px",
+      },
+      colors: {
         primary: "#E2001A",
         dark: "#4A000F",
-      }
-
+      },
     }, // no tokens here — we define them in @theme instead
   },
   plugins: [
@@ -24,4 +32,4 @@ export default {
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/line-clamp"),
   ],
-}
+};

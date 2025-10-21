@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useState, useCallback, memo } from "react";
 import {
   ArrowRight,
   Code2,
@@ -9,6 +9,8 @@ import {
   Target,
   Globe,
   Cpu,
+  Minus,
+  Plus,
 } from "lucide-react";
 
 import { Helmet } from "react-helmet-async";
@@ -33,6 +35,7 @@ const logo2 = new URL("../assets/hireplicity.webp", import.meta.url).href;
 const logo3 = new URL("../assets/global.svg", import.meta.url).href;
 const logo4 = new URL("../assets/chromemedia.webp", import.meta.url).href;
 const logo5 = new URL("../assets/codedev.svg", import.meta.url).href;
+
 // --- HERO ICON (PHP) ---
 const heroIcon = (
   <FontAwesomeIcon
@@ -41,6 +44,78 @@ const heroIcon = (
     className="text-[#ffffff]"
   />
 );
+
+// --- PHP FAQ Data ---
+const phpFaqs = [
+  {
+    question: "What is PHP and why is it still relevant in modern web development?",
+    answer: "PHP is a server-side scripting language specifically designed for web development. It's still highly relevant because it powers over 75% of all websites, including major platforms like WordPress, Facebook, and Wikipedia. PHP continues to evolve with modern features, frameworks, and performance improvements, making it a reliable choice for web applications of all sizes."
+  },
+  {
+    question: "Why choose PHP over newer languages like Node.js or Python?",
+    answer: "PHP offers several advantages: massive ecosystem with mature frameworks like Laravel and Symfony, excellent documentation, wide hosting support, and lower hosting costs. It's specifically designed for the web, with built-in features for sessions, cookies, and form handling. PHP's long history means extensive community support and proven stability for production applications."
+  },
+  {
+    question: "What types of projects are best suited for PHP development?",
+    answer: "PHP excels at content management systems (WordPress, Drupal, Joomla), e-commerce platforms (Magento, WooCommerce), custom web applications, API development, and enterprise systems. It's particularly strong for database-driven websites, membership sites, and applications requiring complex server-side logic with reliable performance."
+  },
+  {
+    question: "How does modern PHP compare to older versions in terms of performance and security?",
+    answer: "Modern PHP (versions 7.x and 8.x) has seen massive performance improvements - up to 3x faster than PHP 5.x. Security has been significantly enhanced with better password hashing, type declarations, and improved error handling. The introduction of Just-In-Time compilation in PHP 8 provides additional performance boosts for certain applications."
+  },
+  {
+    question: "What PHP frameworks do you work with and when should I use them?",
+    answer: "We work with Laravel (for complex applications), Symfony (for enterprise projects), CodeIgniter (for lightweight applications), and WordPress (for content-focused sites). Laravel is our go-to for most projects due to its elegant syntax and comprehensive features. The framework choice depends on project complexity, team expertise, and specific requirements."
+  },
+  {
+    question: "Do you provide PHP maintenance and migration services?",
+    answer: "Yes, we offer complete PHP maintenance including version upgrades, security patches, performance optimization, and code refactoring. We specialize in migrating legacy PHP applications to modern frameworks, improving security, performance, and maintainability while preserving existing functionality."
+  }
+];
+
+// FAQ Item Component
+const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
+  <div className="overflow-hidden border border-gray-200 rounded-xl">
+    <div>
+      <button
+        aria-expanded={isOpen}
+        aria-controls={`faq-${index}`}
+        onClick={onToggle}
+        className="flex items-center justify-between w-full p-6 text-left transition-colors hover:bg-gray-50"
+      >
+        <span className="text-lg font-semibold text-gray-900">
+          {faq.question}
+        </span>
+        {isOpen ? (
+          <Minus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        ) : (
+          <Plus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        )}
+      </button>
+      {isOpen && (
+        <div id={`faq-${index}`} className="px-6 pb-6 text-gray-600">
+          <p>{faq.answer}</p>
+        </div>
+      )}
+    </div>
+  </div>
+));
+
+// FAQ Schema for SEO
+const getFaqSchema = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+});
+
+const faqSchema = getFaqSchema(phpFaqs);
 
 // --- FEATURES DATA ---
 const features = [
@@ -111,6 +186,12 @@ const pillars = [
 ];
 
 const PHPDevelopment = memo(() => {
+  const [openIndex, setOpenIndex] = useState(null);
+  
+  const handleToggle = useCallback((index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  }, []);
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -124,11 +205,12 @@ const PHPDevelopment = memo(() => {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Vue Development",
+        name: "PHP Development",
         item: "https://stravoph.netlify.app/php",
       },
     ],
   };
+
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Helmet>
@@ -171,6 +253,9 @@ const PHPDevelopment = memo(() => {
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
+        </script>
         <link
           rel="prefetch"
           href={chartPlaceholder}
@@ -206,7 +291,7 @@ const PHPDevelopment = memo(() => {
               aria-hidden="true"
             />
           </li>
-          <li className="text-[#E2001A] font-medium">Php Development</li>
+          <li className="text-[#E2001A] font-medium">PHP Development</li>
         </ol>
       </nav>
       {/* HERO SECTION */}
@@ -224,7 +309,7 @@ const PHPDevelopment = memo(() => {
             <section className="">
               <div className="max-w-6xl mx-auto ">
                 <h3 className="text-white text-sm font-light mb-6 ">
-                  Companies that use Angular:
+                  Companies that use PHP:
                 </h3>
                 <div className="flex flex-wrap gap-6 items-center opacity-100">
                   {[logo1, logo2, logo3, logo4, logo5].map((logo, i) => (
@@ -255,7 +340,7 @@ const PHPDevelopment = memo(() => {
             </h2>
             <p className="text-gray-600 mb-6">
               PHP powers over 75% of websites worldwide — from WordPress to
-              Facebook. At Stravo, we leverage PHP’s flexibility and power to
+              Facebook. At Stravo, we leverage PHP's flexibility and power to
               deliver high-performing web solutions tailored to your business
               goals.
             </p>
@@ -294,46 +379,25 @@ const PHPDevelopment = memo(() => {
         </div>
       </section>
 
-      {/* KNOW PHP */}
+      {/* KNOW PHP - Enhanced with FAQ Structure */}
       <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Things you need to know about PHP
+            Everything You Need to Know About PHP Development
           </h2>
           <p className="text-gray-600 mb-10">
-            PHP is a server-side scripting language that enables dynamic web
-            pages, database interaction, and API integration — forming the
-            backbone of many powerful websites.
+            Before you choose your web development technology, here's a comprehensive guide to PHP and why it remains the backbone of the modern web.
           </p>
 
-          <div className="space-y-4 border-t border-gray-200">
-            {[
-              "What is PHP",
-              "PHP’s Key Benefits",
-              "PHP Use Cases",
-              "Popular Websites Built with PHP",
-            ].map((item, idx) => (
-              <details
-                key={idx}
-                className="border-b border-gray-200 py-4 group cursor-pointer"
-                onToggle={(e) =>
-                  e.currentTarget.setAttribute(
-                    "aria-expanded",
-                    e.currentTarget.open
-                  )
-                }
-              >
-                <summary className="flex justify-between items-center text-gray-800 font-medium">
-                  {item}
-                  <span className="group-open:rotate-180 transition-transform">
-                    +
-                  </span>
-                </summary>
-                <p className="text-sm text-gray-600 mt-2">
-                  Placeholder — expand this content with examples and case
-                  studies later.
-                </p>
-              </details>
+          <div className="space-y-4">
+            {phpFaqs.map((faq, index) => (
+              <FAQItem
+                key={faq.question}
+                faq={faq}
+                index={index}
+                isOpen={openIndex === index}
+                onToggle={() => handleToggle(index)}
+              />
             ))}
           </div>
         </div>
@@ -346,7 +410,7 @@ const PHPDevelopment = memo(() => {
             Software Delivery Excellence Framework
           </h3>
           <h2 className="text-3xl font-bold mb-10">
-            The Three Pillars of Php Excellence
+            The Three Pillars of PHP Excellence
           </h2>
 
           <div className="grid md:grid-cols-3 gap-10">
@@ -383,7 +447,7 @@ const PHPDevelopment = memo(() => {
       {/* FINAL CTA */}
       <section className="px-6 py-20 text-center bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white">
         <h2 className="text-3xl font-bold mb-4">
-          Let’s build your next-generation web app with PHP.
+          Let's build your next-generation web app with PHP.
         </h2>
         <p className="max-w-2xl mx-auto mb-8 text-white/90">
           From small business websites to enterprise-grade platforms, Stravo
@@ -394,7 +458,7 @@ const PHPDevelopment = memo(() => {
             className="cursor-pointer"
             variant="primary"
             size="top"
-            aria-label="Contact us to discuss your React project"
+            aria-label="Contact us to discuss your PHP project"
           >
             Book Tech Call{" "}
             <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />

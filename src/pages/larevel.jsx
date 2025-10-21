@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useState, useCallback, memo } from "react";
 import {
   ArrowRight,
   Code2,
@@ -9,6 +9,8 @@ import {
   Target,
   Globe,
   Cpu,
+  Minus,
+  Plus,
 } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import Navbar from "../components/Navbar";
@@ -32,6 +34,7 @@ const logo2 = new URL("../assets/mallow.webp", import.meta.url).href;
 const logo3 = new URL("../assets/fingnet.webp", import.meta.url).href;
 const logo4 = new URL("../assets/bluelight.webp", import.meta.url).href;
 const logo5 = new URL("../assets/99xlogo.svg", import.meta.url).href;
+
 // --- HERO ICON (Laravel) ---
 const heroIcon = (
   <FontAwesomeIcon
@@ -41,13 +44,85 @@ const heroIcon = (
   />
 );
 
+// --- Laravel FAQ Data ---
+const laravelFaqs = [
+  {
+    question: "What is Laravel and why is it the most popular PHP framework?",
+    answer: "Laravel is an open-source PHP web framework designed for building modern, maintainable web applications. It's the most popular PHP framework because of its elegant syntax, comprehensive feature set, strong security practices, and vibrant ecosystem. Laravel makes common tasks like routing, authentication, caching, and sessions effortless."
+  },
+  {
+    question: "Why choose Laravel over other PHP frameworks like Symfony or CodeIgniter?",
+    answer: "Laravel offers a perfect balance of power and developer experience. Compared to Symfony, it has a gentler learning curve and more built-in features. Versus CodeIgniter, Laravel provides better security, more modern tooling, and a more active ecosystem. Laravel's Eloquent ORM, Blade templating, and Artisan CLI make development faster and more enjoyable."
+  },
+  {
+    question: "Is Laravel suitable for large-scale enterprise applications?",
+    answer: "Absolutely! Laravel is enterprise-ready and powers applications for companies like BBC, Pfizer, and TourRadar. With features like queue management, event broadcasting, robust testing tools, and microservices support, Laravel scales beautifully for high-traffic applications. Its modular structure and package ecosystem make it ideal for complex business requirements."
+  },
+  {
+    question: "How does Laravel handle security and performance?",
+    answer: "Laravel includes built-in security features like CSRF protection, SQL injection prevention, encrypted storage, and secure authentication. For performance, it offers route caching, view caching, database optimization with Eloquent, and queue workers for background processing. Laravel's architecture is designed for both security and speed from the ground up."
+  },
+  {
+    question: "What's the difference between Laravel and Laravel Livewire?",
+    answer: "Laravel is the core PHP framework for backend development, while Laravel Livewire is a full-stack framework that allows you to build dynamic UI components without writing JavaScript. Livewire runs on the server but provides a reactive frontend experience. It's perfect for developers who want interactive interfaces without the complexity of JavaScript frameworks."
+  },
+  {
+    question: "Do you provide Laravel maintenance and upgrade services?",
+    answer: "Yes, we offer comprehensive Laravel maintenance including version upgrades, security patches, performance optimization, bug fixes, and feature enhancements. We ensure your Laravel application stays current with the latest releases, follows best practices, and maintains optimal performance and security standards."
+  }
+];
+
+// FAQ Item Component
+const FAQItem = memo(({ faq, isOpen, onToggle, index }) => (
+  <div className="overflow-hidden border border-gray-200 rounded-xl">
+    <div>
+      <button
+        aria-expanded={isOpen}
+        aria-controls={`faq-${index}`}
+        onClick={onToggle}
+        className="flex items-center justify-between w-full p-6 text-left transition-colors hover:bg-gray-50"
+      >
+        <span className="text-lg font-semibold text-gray-900">
+          {faq.question}
+        </span>
+        {isOpen ? (
+          <Minus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        ) : (
+          <Plus className="flex-shrink-0 w-5 h-5 text-gray-500" />
+        )}
+      </button>
+      {isOpen && (
+        <div id={`faq-${index}`} className="px-6 pb-6 text-gray-600">
+          <p>{faq.answer}</p>
+        </div>
+      )}
+    </div>
+  </div>
+));
+
+// FAQ Schema for SEO
+const getFaqSchema = (faqs) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+});
+
+const faqSchema = getFaqSchema(laravelFaqs);
+
 // --- FEATURES DATA ---
 const features = [
   {
     icon: <Code2 className="w-6 h-6 text-[#E2001A]" />,
     title: "Elegant Syntax",
     description:
-      "Laravel’s clean and expressive syntax accelerates development while keeping your code organized and readable.",
+      "Laravel's clean and expressive syntax accelerates development while keeping your code organized and readable.",
   },
   {
     icon: <Zap className="w-6 h-6 text-[#E2001A]" />,
@@ -65,7 +140,7 @@ const features = [
     icon: <Globe className="w-6 h-6 text-[#E2001A]" />,
     title: "Powerful Routing & Middleware",
     description:
-      "Effortlessly control your app’s flow and secure endpoints with Laravel’s robust routing and middleware system.",
+      "Effortlessly control your app's flow and secure endpoints with Laravel's robust routing and middleware system.",
   },
   {
     icon: <Target className="w-6 h-6 text-[#E2001A]" />,
@@ -110,6 +185,12 @@ const pillars = [
 ];
 
 const LaravelDevelopment = memo(() => {
+  const [openIndex, setOpenIndex] = useState(null);
+  
+  const handleToggle = useCallback((index) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  }, []);
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -123,11 +204,12 @@ const LaravelDevelopment = memo(() => {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Vue Development",
+        name: "Laravel Development",
         item: "https://stravoph.netlify.app/laravel",
       },
     ],
   };
+
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Helmet>
@@ -172,6 +254,9 @@ const LaravelDevelopment = memo(() => {
         />
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
         </script>
         <link
           rel="prefetch"
@@ -226,7 +311,7 @@ const LaravelDevelopment = memo(() => {
             <section className="">
               <div className="max-w-6xl mx-auto ">
                 <h3 className="text-white text-sm font-light mb-6 ">
-                  Companies that use Angular:
+                  Companies that use Laravel:
                 </h3>
                 <div className="flex flex-wrap gap-6 items-center opacity-100">
                   {[logo1, logo2, logo3, logo4, logo5].map((logo, i) => (
@@ -297,46 +382,25 @@ const LaravelDevelopment = memo(() => {
         </div>
       </section>
 
-      {/* KNOW LARAVEL */}
+      {/* KNOW LARAVEL - Enhanced with FAQ Structure */}
       <section className="px-6 py-20 bg-white sm:px-10 lg:px-20">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Things you need to know about Laravel
+            Everything You Need to Know About Laravel Development
           </h2>
           <p className="text-gray-600 mb-10">
-            Laravel simplifies the most common tasks in web development —
-            routing, authentication, caching, and more — making it the go-to
-            framework for PHP developers.
+            Before you choose your PHP framework partner, here's a comprehensive guide to Laravel and why it's the top choice for modern web applications.
           </p>
 
-          <div className="space-y-4 border-t border-gray-200">
-            {[
-              "What is Laravel",
-              "Laravel’s Key Benefits",
-              "Laravel Use Cases",
-              "Popular Laravel Applications",
-            ].map((item, idx) => (
-              <details
-                key={idx}
-                className="border-b border-gray-200 py-4 group cursor-pointer"
-                onToggle={(e) =>
-                  e.currentTarget.setAttribute(
-                    "aria-expanded",
-                    e.currentTarget.open
-                  )
-                }
-              >
-                <summary className="flex justify-between items-center text-gray-800 font-medium">
-                  {item}
-                  <span className="group-open:rotate-180 transition-transform">
-                    +
-                  </span>
-                </summary>
-                <p className="text-sm text-gray-600 mt-2">
-                  Placeholder — expand this content with insights and examples
-                  for your visitors.
-                </p>
-              </details>
+          <div className="space-y-4">
+            {laravelFaqs.map((faq, index) => (
+              <FAQItem
+                key={faq.question}
+                faq={faq}
+                index={index}
+                isOpen={openIndex === index}
+                onToggle={() => handleToggle(index)}
+              />
             ))}
           </div>
         </div>
@@ -386,7 +450,7 @@ const LaravelDevelopment = memo(() => {
       {/* FINAL CTA */}
       <section className="px-6 py-20 text-center bg-gradient-to-br from-[#4A000F] to-[#E2001A] text-white">
         <h2 className="text-3xl font-bold mb-4">
-          Let’s bring your web app ideas to life with Laravel.
+          Let's bring your web app ideas to life with Laravel.
         </h2>
         <p className="max-w-2xl mx-auto mb-8 text-white/90">
           From startups to enterprises, Stravo builds robust and secure Laravel
@@ -397,7 +461,7 @@ const LaravelDevelopment = memo(() => {
             className="cursor-pointer"
             variant="primary"
             size="top"
-            aria-label="Contact us to discuss your React project"
+            aria-label="Contact us to discuss your Laravel project"
           >
             Book Tech Call{" "}
             <ArrowRight className="w-5 h-5 ml-2" aria-hidden="true" />

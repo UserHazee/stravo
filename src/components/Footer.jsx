@@ -22,7 +22,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-3">
               <a
-                href="https://twitter.com/yourusername"
+                href="https://x.com/_zeekrivera25"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on Twitter"
@@ -31,7 +31,7 @@ export default function Footer() {
                 <Twitter className="w-5 h-5" />
               </a>
               <a
-                href="https://linkedin.com/company/yourcompany"
+                href="https://www.linkedin.com/in/zeek-rivera-bb7027378/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on LinkedIn"
@@ -40,7 +40,7 @@ export default function Footer() {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
-                href="https://facebook.com/yourpage"
+                href="https://www.facebook.com/profile.php?id=61581050133835"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on Facebook"
@@ -49,7 +49,7 @@ export default function Footer() {
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="https://instagram.com/yourusername"
+                href="https://www.instagram.com/begreatfor/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on Instagram"

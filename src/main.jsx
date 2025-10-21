@@ -24,6 +24,7 @@ import Insights from './pages/Insight.jsx'
 import InsightDetails from "./pages/InsightDetails.jsx"
 import About from "./pages/About.jsx"
 import ContactSection from './pages/Contact.jsx';
+import Thankyou from './pages/Thankyou.jsx'
 
 import { lazy, Suspense } from "react";
 
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
   {
     path: "/contact",
     element: <ContactSection />,
+  },
+  {
+    path: "/thankyou",
+    element: <Thankyou />,
   },
    ],
   },

@@ -65,10 +65,6 @@ export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileAccordion, setMobileAccordion] = useState(null);
 
-  const myHandler = () => {
-    console.log("Get Started clicked");
-  };
-
   return (
     <>
       <motion.header className="fixed top-0 left-0 right-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-md">

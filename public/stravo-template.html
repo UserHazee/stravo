@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Project Inquiry – STRAVO</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f5f6f8;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+      color: #222;
+    }
+
+    .email-wrapper {
+      max-width: 640px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Header */
+    .email-header {
+      background: linear-gradient(135deg, #E2001A, #B00018);
+      color: #fff;
+      text-align: center;
+      padding: 25px 20px 30px;
+    }
+
+    .logo {
+      width: 180px;
+      margin: 0 auto 10px;
+      display: block;
+    }
+
+    .email-header h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .email-header p {
+      margin: 6px 0 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* Body */
+    .email-body {
+      padding: 25px 30px 30px;
+    }
+
+    .email-body h2 {
+      font-size: 18px;
+      margin-top: 0;
+      color: #E2001A;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 10px 8px;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      width: 35%;
+      color: #B00018;
+      font-weight: 600;
+    }
+
+    td {
+      color: #333;
+    }
+
+    /* Footer */
+    .email-footer {
+      text-align: center;
+      background: #fafafa;
+      font-size: 12px;
+      color: #777;
+      padding: 15px 10px;
+    }
+
+    .email-footer a {
+      color: #E2001A;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .email-wrapper { margin: 10px; }
+      .logo { width: 140px; }
+      .email-header h1 { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <!-- HEADER -->
+    <div class="email-header">
+      <!-- Inline SVG Logo -->
+      <svg
+        class="logo"
+        viewBox="50 80 650 230"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <defs>
+          <linearGradient id="stravo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4A000F" />
+            <stop offset="100%" stop-color="#E2001A" />
+          </linearGradient>
+        </defs>
+
+        <g id="wordmark">
+          <path d="M 100 180 Q 100 150 130 140 L 170 140 Q 190 140 190 160 Q 190 175 175 180 L 130 185 Q 100 190 100 220 Q 100 245 130 250 L 175 250 Q 200 250 200 230"
+            fill="none" stroke="url(#stravo-gradient)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M 220 145 L 290 145 M 255 145 L 255 250"
+            fill="none" stroke="url(#stravo-gradient)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M 310 250 L 310 145 L 360 145 Q 385 145 385 170 Q 385 190 365 195 L 390 250"
+            fill="none" stroke="url(#stravo-gradient)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M 410 250 L 445 145 L 480 250 M 425 210 L 465 210"
+            fill="none" stroke="url(#stravo-gradient)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M 500 145 L 540 250 L 580 145"
+            fill="none" stroke="url(#stravo-gradient)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="630" cy="197.5" r="52.5"
+            fill="none" stroke="url(#stravo-gradient)" stroke-width="12" />
+        </g>
+
+        <text
+          x="100" y="290"
+          font-family="'Outfit', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+          font-size="28"
+          fill="url(#stravo-gradient)"
+          letter-spacing="3"
+          font-weight="500"
+        >
+          STRATEGY × VELOCITY
+        </text>
+      </svg>
+
+      <h1>🚀 New Project Inquiry</h1>
+      <p>From STRAVO Website Contact Form</p>
+    </div>
+
+    <!-- BODY -->
+    <div class="email-body">
+      <h2>Client Information</h2>
+      <table>
+        <tr><th>First Name</th><td>{{first_name}}</td></tr>
+        <tr><th>Last Name</th><td>{{last_name}}</td></tr>
+        <tr><th>Company Name</th><td>{{company_name}}</td></tr>
+        <tr><th>Company Email</th><td>{{company_email}}</td></tr>
+        <tr><th>Phone</th><td>{{phone}}</td></tr>
+        <tr><th>Budget</th><td>{{budget}}</td></tr>
+        <tr><th>Services</th><td>{{services}}</td></tr>
+        <tr><th>NDA Consent</th><td>{{nda_consent}}</td></tr>
+      </table>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="email-footer">
+      This message was sent automatically from the
+      <a href="https://stravotest100.netlify.app/" target="_blank">STRAVO Website</a>.<br />
+      &copy; 2025 STRAVO. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>
